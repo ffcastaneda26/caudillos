@@ -1,46 +1,77 @@
 <div class="container">
+    <x-validation-errors></x-validation-errors>
+    {{ $error_message }}
 
-    <div class="card">
-        <div class="card-title">
-                <h1>  {{ $game->visit_team->name }} Vs  {{ $game->local_team->name }}   {{ $game->game_day->format('j-F-y')}} {{$game->game_time->format('h:i A') }} </h1>
-            </div>
-    </div>
-    <div class="row align-items-start">
-        @if($error_message)
-            <div class="badge rounded-pill bg-danger">
-                {{ $error_message }}
-            </div>
-        @endif
-
-        <div class="row">
-            <x-validation-errors></x-validation-errors>
+    <div class="row align-items-start mt-2">
+        <div class="col-md-3 flex flex-col">
+            <label class="input-group-text mb-2">{{__("Jornada")}}</label>
+            <label class="input-group-text mb-2">{{__("Fecha")}}</label>
+            <label class="input-group-text mb-2">{{__("Hora")}}</label>
+            <label class="input-group-text mb-2">{{__("Visita")}}</label>
+            <label class="input-group-text mb-2">{{__("Local")}}</label>
+            <label class="input-group-text mb-2">{{__("Pts Visita")}}</label>
+            <label class="input-group-text mb-2">{{__("Pts Local")}}</label>
         </div>
 
-        <div class="col flex flex-col mt-2">
-            {{-- Puntos Visita --}}
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Puntos Visita</span>
-                <input type="number"
-                        wire:model="main_record.visit_points"
-                        required
-                        class="form-control  mb-2 @error('main_record.visit_points') is-invalid @enderror"
-                        min="0" max="999"
-                        >
+        {{-- Controles para los datos --}}
+        <div class="col flex flex-col">
+            {{-- Jornada --}}
+            <select wire:model="main_record.round_id"
+                      class="form-select rounded w-auto mb-2">
+                    <option value="">Local</option>
+                    @foreach($rounds as $round)
+                            <option value="{{ $round->id }}">
+                                {{ $round->id .' Del ' .$round->start_date->format('j-M-y') .' al ' . $round->end_date->format('j-M-y') }}
+                            </option>
+                    @endforeach
+            </select>
 
-            </div>
-            @error('main_record.visit_points')<div class="badge rounded-pill bg-danger">{{ $message }}</div>@enderror
+            {{-- Fecha --}}
+            <input wire:model="main_record.game_day"
+                        type="date"
+                        class="p-2  border rounded-md w-30"
+                        required
+                >
+
+            {{-- Hora --}}
+            <input type="time"
+                    wire:model="main_record.game_time"
+                    class="form-control  mb-2"
+            >
+
+            {{-- Local --}}
+            <select wire:model="main_record.local_team_id"
+                    class="form-select rounded w-auto mb-2">
+                    <option value="">Local</option>
+                    @foreach($teams as $local_team)
+                            <option value="{{ $local_team->id }}">
+                                {{ $local_team->alias }}
+                            </option>
+                    @endforeach
+            </select>
+
             {{-- Puntos Local --}}
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Puntos Local</span>
-                <input type="number"
-                        wire:model="main_record.local_points"
-                        required
-                        class="form-control  mb-2 @error('main_record.local_points') is-invalid @enderror"
-                        min="0" max="999"
-                        >
+            <input type="number"
+                    wire:model="main_record.local_points"
+                    class="form-control mb-2 @error('main_record.local_points') is-invalid @enderror"
+            >
 
-            </div>
-            @error('main_record.local_points')<div class="badge rounded-pill bg-danger">{{ $message }}</div>@enderror
+            {{-- Visita --}}
+            <select wire:model="main_record.visit_team_id"
+                    class="form-select rounded w-auto mb-2">
+                    <option value="">Visita</option>
+                    @foreach($teams as $visit_team)
+                            <option value="{{ $visit_team->id }}">
+                                {{ $visit_team->alias }}
+                            </option>
+                    @endforeach
+            </select>
+
+            {{-- Puntos Visita --}}
+            <input type="number"
+                    wire:model="main_record.visit_points"
+                    class="form-control mb-2 @error('main_record.visit_points') is-invalid @enderror"
+            >
         </div>
     </div>
 </div>

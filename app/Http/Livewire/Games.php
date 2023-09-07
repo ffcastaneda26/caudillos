@@ -6,7 +6,6 @@ use App\Models\Game;
 use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\WithFileUploads;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -15,24 +14,31 @@ class Games extends Component
 {
     use AuthorizesRequests;
     use WithPagination;
-    use WithFileUploads;
     use CrudTrait;
     use FuncionesGenerales;
 
     protected $listeners = ['receive_round'];
 
-
     protected $rules = [
-        'main_record.local_points' => 'required|numeric',
-        'main_record.visit_points' => 'required|numeric',
+        'main_record.round_id' => 'required|exists:rounds,id',
+        'main_record.local_team_id' => 'required|exists:teams,id',
+        'main_record.visit_team_id' => 'required|exists:teams,id',
+        'main_record.game_day'      => 'required',
+        'main_record.game_time'     => 'required',
+        'main_record.local_points'  => 'nullable|numeric',
+        'main_record.visit_points'  => 'nullable|numeric',
 
     ];
+
     public $error_message;
+
+    public $min_date = null;
+    public $max_date = null;
 
     public function mount(){
         $this->manage_title = 'Gestionar Juegos';
         $this->search_label = 'Jornada';
-        $this->view_search  =null;
+        $this->view_search  =  null;
         $this->view_form    = 'livewire.games.form';
         $this->view_table   = 'livewire.games.table';
         $this->view_list    = 'livewire.games.list';
@@ -59,6 +65,7 @@ class Games extends Component
         return view('livewire.games.index');
     }
 
+
     /*+---------------+
     | Guarda Registro |
     +-----------------+
@@ -69,28 +76,38 @@ class Games extends Component
         $this->reset('error_message');
         $this->validate();
 
-        if($this->main_record->visit_points == $this->main_record->local_points){
+        $this->main_record->winner = null;
+
+        if(!$this->main_record->visit_points){
+            $this->main_record->visit_points = null;
+        }
+
+        if(!$this->main_record->local_points){
+            $this->main_record->local_points = null;
+        }
+
+        if(($this->main_record->visit_points || $this->main_record->local_points) && $this->main_record->visit_points == $this->main_record->local_points){
             $this->error_message = 'Los marcadores deben ser diferentes, no se permiten empates';
             return false;
         }
-        $this->main_record->save();
-        $this->main_record->winner = $this->main_record->local_points > $this->main_record->visit_points ? 1 : 2;
 
         $this->main_record->save();
 
-        $this->qualify_picks($this->main_record);        // Califica pronósticos
+        if($this->main_record->visit_points && $this->main_record->local_points){
+            $this->main_record->winner = $this->main_record->local_points > $this->main_record->visit_points ? 1 : 2;
+            $this->qualify_picks($this->main_record);        // Califica pronósticos
 
-        // TODO: Si juega CAUDILLOS su partido, si no el último (Partido de desempate)
-        if($this->main_record->is_last_game_round()){
-            $this->update_tie_breaker($this->main_record);
+            // TODO: Si juega CAUDILLOS su partido, si no el último (Partido de desempate)
+            if($this->main_record->is_last_game_round()){
+                $this->update_tie_breaker($this->main_record);
+            }
+
+            if($this->main_record->is_last_game_round()){
+            }
+
+            $this->update_total_hits_positions( $this->selected_round); // Actualiza tabla de aciertos por jornada (POSITIONS)
+            $this->update_positions(); // Asigna posiciones en tabla de POSITIONS
         }
-
-        if($this->main_record->is_last_game_round()){
-        }
-
-
-        $this->update_total_hits_positions( $this->selected_round); // Actualiza tabla de aciertos por jornada (POSITIONS)
-        $this->update_positions(); // Asigna posiciones en tabla de POSITIONS
 
         $this->receive_round( $this->main_record->round);
         $this->close_store('Juego');
@@ -114,7 +131,6 @@ class Games extends Component
         $this->main_record  = $record;
         $this->record_id    = $record->id;
         $this->openModal();
-
     }
 
     /*+----------------+
@@ -125,7 +141,7 @@ class Games extends Component
     public function receive_round(Round $round){
         if($round){
             $this->selected_round = $round;
-            $this->round_games = $round->games()->orderby('id')->get();
+            $this->round_games = $this->selected_round->games()->orderby('id')->get();
         }
     }
 

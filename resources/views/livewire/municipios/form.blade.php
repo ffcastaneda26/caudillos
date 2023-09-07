@@ -5,7 +5,6 @@
             <label class="input-group-text mb-2">{{__("Entidad")}}</label>
             <label class="input-group-text mb-2">{{__("Municipio")}}</label>
             <label class="input-group-text mb-2">{{__("Predeteraminado")}}</label>
-
         </div>
 
         <div class="col flex flex-col">

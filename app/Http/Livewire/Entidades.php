@@ -30,9 +30,9 @@ class Entidades extends Component
         $this->view_form    = 'livewire.entidades.form';
         $this->view_table   = 'livewire.entidades.table';
         $this->view_list    = 'livewire.entidades.list';
-
         $this->main_record  = new Entidad();
         $this->sort         = 'nombre';
+        $this->allow_create = false;
     }
 
     /*+---------------------------------+

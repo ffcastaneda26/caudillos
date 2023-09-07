@@ -38,6 +38,10 @@ class Round extends Model
      */
     protected $fillable = ['start_date','end_date','type'];
 
+    protected $casts = [
+        'start_date'    => 'datetime:Y-m-d',
+        'end_date'      => 'datetime:Y-m-d',
+    ];
 
     /*+------------+
        | Relaciones |
@@ -46,7 +50,7 @@ class Round extends Model
 
     public function games(): HasMany
     {
-        return $this->hasMany(Game::class)->orderby('game_date');
+        return $this->hasMany(Game::class)->orderby('game_day')->orderby('game_time');
     }
 
     public function positions(): HasMany

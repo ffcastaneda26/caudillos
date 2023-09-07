@@ -33,6 +33,7 @@ class Municipios extends Component
         $this->main_record  = new Municipio();
         $this->entidades    = Entidad::orderby('nombre')->get();
         $this->sort         = 'entidad_id';
+        $this->allow_create = false;
     }
 
     /*+---------------------------------+

@@ -189,7 +189,7 @@ class User extends Authenticatable
     // Asignarle los pronósticos que falten
     public function create_missing_picks(){
 
-        $games = Game::where('game_date','>=',now())->get();
+        $games = Game::where('game_day','>=',now())->get();
         foreach($games as $game){
             if($game->allow_pick()){
                 $winner = mt_rand(1,2);
