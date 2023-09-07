@@ -59,8 +59,7 @@ trait FuncionesGenerales
 
     // Lee equipos
     public function read_teams(){
-        $this->teams = Team::orderby('id')->get();
-
+        return $this->teams = Team::orderby('id')->get();
     }
 
 

@@ -1,5 +1,5 @@
 <div class="container">
-    <x-jet-validation-errors></x-jet-validation-errors>
+    <x-validation-errors></x-validation-errors>
     <div class="row align-items-start">
         <div class="col-md-4 flex flex-col">
             <label class="input-group-text mb-2">{{__("Entidad")}}</label>

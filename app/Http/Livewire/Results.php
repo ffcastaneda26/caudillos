@@ -8,10 +8,12 @@ use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
+use App\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Auth;
 
 class Results extends Component
 {
@@ -24,7 +26,7 @@ class Results extends Component
     protected $listeners = ['receive_round'];
 
     public $gamesids= array();
-
+    public $users_with_picks_round= null;
 
     public function mount(){
         $this->read_configuration();
@@ -54,10 +56,23 @@ class Results extends Component
             $this->selected_round = $round;
             $this->gamesids[]   = $round->games()->select('id')->orderby('id')->get()->toArray();
             $this->round_games  = $round->games()->orderby('id')->get();
-            $this->round_picks  = $round->picks()
-                                        ->distinct('')
-                                        ->orderby('user_id')
-                                        ->get();
+
+           $this->users_with_picks_round = User::role('participante')
+                            ->wherehas('picks',function(Builder $query) use ($round){
+                                $query->wherehas('game',function(Builder $query) use ($round){
+                                    $query->where('round_id',$round->id);
+                                });
+                            })->get();
+
+            // dd( $this->users_with_picks_round);
+            // $users = User::role('participante')->whereHas('picks',function(Builder $query){
+            //     $query->wherehas('game',function(Builder $query){
+            //         $query->where('round_id',$round->id);
+            //     })->get();
+            // dd($users);
+            // $this->round_picks  = $round->picks()
+            //                             ->orderby('user_id')
+            //                             ->get();
 
         }
     }

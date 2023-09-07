@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use App\Http\Livewire\Games;
 use App\Http\Livewire\Picks;
 use App\Http\Livewire\Teams;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Configurations;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\DataUsers;
+use App\Http\Livewire\PicksRoundUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Positions\ByRound;
 use App\Http\Livewire\Positions\General;
@@ -36,6 +38,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(func
     Route::get('positions-general',General::class)->name('positions-general');      // Posiciones General
     Route::get('results-by-round',Results::class)->name('results-by-round');        // Resultados x Jornada
     Route::get('data-users',DataUsers::class)->name('data-users');                  // Datos complementarios
+    Route::get('picks-round-user/{user}/{round}',PicksRoundUser::class)->name('picks-round-user'); // Pronósticos del usuario en una jornada
    // Route::get('picks-review',PicksReview::class)->name('picks-review');            // Tabla de pronósticos
 
 
@@ -66,7 +69,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'role:Admin']
 
     Route::get('teams',Teams::class)->name('teams');                    // Equipos
     Route::get('rounds',Rounds::class)->name('rounds');                 // Jornadas
-
+    Route::get('partidos',[GameController::class,'index'])->name('partidos');
 });
 
 Route::get('current_round',SelectRound::class);
