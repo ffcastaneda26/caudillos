@@ -214,7 +214,7 @@
                     <div class="flex items-center">
                         <x-checkbox wire:model="confirmar" required />
                         <div class="ml-2">
-                            <label for="" class="underline text-sm text-red-600 dark:text-gray-400 hover:text-red-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800">
+                            <label for="" class="underline text-sm text-white dark:text-gray-400 hover:text-red-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800">
                                 Acepto que al enviar mis datos no podrán ser modificados
                             </label>
                         </div>

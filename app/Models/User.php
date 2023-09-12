@@ -46,21 +46,26 @@ class User extends Authenticatable
         'paid'
     ];
 
-    protected function firstName(): Attribute
+
+    public function getFNameAttribute()
     {
-        return Attribute::make(
-            get: fn (string $value) => ucfirst($value),
-            set: fn (string $value) => ucwords(strtolower($value)),
-        );
+        return strtoupper($this->first_name) . ' ' . strtoupper($this->last_name) . ' ' . strtoupper($this->maternal_name);
     }
 
 
-    protected function lastName(): Attribute
+    public function setFirstNameAttribute($value)
     {
-        return Attribute::make(
-            get: fn (string $value) => ucfirst($value),
-            set: fn (string $value) => ucwords(strtolower($value)),
-        );
+        $this->attributes['first_name'] = ucwords($value);
+    }
+
+    public function setLastNameAttribute($value)
+    {
+        $this->attributes['last_name'] = ucwords($value);
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = strtolower($value);
     }
 
     protected function name(): Attribute
@@ -214,6 +219,20 @@ class User extends Authenticatable
             }
         }
 
+    }
+
+    /*+-------------------+
+      | Búsquedas         |
+      +-------------------+
+    */
+
+    public function scopeGeneral($query,$valor)
+    {
+        if ( trim($valor) != "") {
+            $query->where('first_name','LIKE',"%$valor%")
+                 ->orwhere('last_name','LIKE',"%$valor%")
+                 ->orwhere('email','LIKE',"%$valor%");
+         }
     }
 
 }

@@ -18,6 +18,7 @@ use App\Http\Livewire\PicksRoundUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Positions\ByRound;
 use App\Http\Livewire\Positions\General;
+use App\Http\Livewire\Users;
 use App\Http\Livewire\UsersData;
 use App\Models\Configuration;
 
@@ -66,10 +67,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'role:Admin']
     Route::get('configurations',Configurations::class)->name('configurations'); // Configuración General
     Route::get('entidades',Entidades::class)->name('entidades');        // Entidades Federativas
     Route::get('municipios',Municipios::class)->name('municipios');     // municipios Federativas
-
     Route::get('teams',Teams::class)->name('teams');                    // Equipos
     Route::get('rounds',Rounds::class)->name('rounds');                 // Jornadas
     Route::get('partidos',[GameController::class,'index'])->name('partidos');
+    Route::get('users',Users::class)->name('users'); // Usuarios
 });
 
 Route::get('current_round',SelectRound::class);

@@ -7,10 +7,11 @@ use App\Models\Pick;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Round;
-use App\Models\Configuration;
 use App\Models\Position;
+use App\Models\Configuration;
 use Illuminate\Support\Facades\DB;
 
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -22,9 +23,12 @@ trait FuncionesGenerales
     public $round_games     = null;
     public $current_round   = null;
     public $rounds          = null;
+    public $roles           = null;
     public $teams           = null;
     public $team            = null;
     public $round_id        = null;
+    public $role_id        = null;
+
     public $team_id         = null;
     public $game_instance   = null;
     public $configuration   = null;
@@ -39,6 +43,10 @@ trait FuncionesGenerales
 
     }
 
+    // Lee Roles
+    public function read_roles(){
+        return $this->roles = Role::orderby('name')->get();
+    }
 
     // Lee jornadas
     public function read_rounds(){

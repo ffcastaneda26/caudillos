@@ -1,4 +1,4 @@
-<div class="mt-5">
+<div class="mt-2">
     @livewire('select-round')
     <div class="container-fluid mt-2">
         @if(isset($round_games) && !empty($round_games))
@@ -26,3 +26,4 @@
         @endif
     </div>
 </div>
+

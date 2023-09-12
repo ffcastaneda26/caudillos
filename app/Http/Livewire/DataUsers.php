@@ -30,7 +30,7 @@ class DataUsers extends Component
     protected $rules = [
         'main_record.gender'        => 'required|:in:Hombre,Mujer',
         'main_record.birthday'      => 'required|date',
-        'main_record.curp'          => 'required',
+        'main_record.curp'          => 'required|unique:profiles,curp',
         'main_record.entidad_id'    => 'required|exists:entidades,id',
         'main_record.municipio_id'  => 'required|exists:municipios,id',
         'main_record.codpos'        => 'required|numeric',
