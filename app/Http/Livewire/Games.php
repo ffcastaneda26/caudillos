@@ -30,8 +30,8 @@ class Games extends Component
 
     ];
 
-    public $error_message;
-
+    public $error_message = null;
+    public $error= null;
     public $min_date = null;
     public $max_date = null;
 
@@ -72,48 +72,51 @@ class Games extends Component
     */
 
     public function store(){
-
         $this->reset('error_message');
         $this->validate();
 
-        $this->main_record->winner = null;
+        if(strlen($this->main_record->visit_points) && strlen($this->main_record->local_points) < 1 ){
+            $this->error_message = 'Falta Marcador Local';
+            return false;
+        }
 
+        if(strlen($this->main_record->local_points) && strlen($this->main_record->visit_points) < 1 ){
+            $this->error_message = 'Falta Marcador Visita';
+            return false;
+        }
+
+        $this->main_record->winner = null;
         if(!$this->main_record->visit_points){
-            $this->main_record->visit_points = null;
+            $this->main_record->visit_points = 0;
         }
 
         if(!$this->main_record->local_points){
-            $this->main_record->local_points = null;
+            $this->main_record->local_points = 0;
         }
 
-        if(($this->main_record->visit_points || $this->main_record->local_points) && $this->main_record->visit_points == $this->main_record->local_points){
+        if($this->main_record->visit_points && $this->main_record->visit_points == $this->main_record->local_points){
             $this->error_message = 'Los marcadores deben ser diferentes, no se permiten empates';
             return false;
         }
 
+
+        $this->main_record->winner = $this->main_record->win();
         $this->main_record->save();
 
-        if($this->main_record->visit_points && $this->main_record->local_points){
-            $this->main_record->winner = $this->main_record->local_points > $this->main_record->visit_points ? 1 : 2;
+        // Si se pusieron puntos se procede a calificar pronósticos
+        if($this->main_record->local_points || $this->main_record->visit_points){
             $this->qualify_picks($this->main_record);        // Califica pronósticos
-
-            // TODO: Si juega CAUDILLOS su partido, si no el último (Partido de desempate)
             if($this->main_record->is_last_game_round()){
                 $this->update_tie_breaker($this->main_record);
             }
-
-            if($this->main_record->is_last_game_round()){
-            }
-
             $this->update_total_hits_positions( $this->selected_round); // Actualiza tabla de aciertos por jornada (POSITIONS)
             $this->update_positions(); // Asigna posiciones en tabla de POSITIONS
         }
 
+        $this->show_alert('success','JUEGO ACTUALIZADO SATISFACTORIAMENTE');
         $this->receive_round( $this->main_record->round);
         $this->close_store('Juego');
-
     }
-
 
     // Restaura campos
     public function resetInputFields(){

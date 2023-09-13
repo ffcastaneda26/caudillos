@@ -13,7 +13,9 @@
                                     <tbody>
                                         @foreach ($users_with_picks_round as $pick_user)
                                             <tr>
-                                                @livewire('picks-round-user', ['user' => $pick_user,'round' => $selected_round], key($pick_user->id))
+                                                @livewire('picks-round-user', ['user'   => $pick_user,
+                                                                               'round'  => $selected_round,
+                                                                               'game'   => $gamesids], key($pick_user->id))
                                             </tr>
                                         @endforeach
                                     </tbody>

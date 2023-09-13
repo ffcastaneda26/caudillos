@@ -5,6 +5,7 @@
         @foreach ($round_games as $game)
             <td class="text-left">
                 <img src="{{Storage::url($game->visit_team->logo)}}" class="avatar-xs">
+                -
                 <img src="{{Storage::url($game->local_team->logo)}}" class="avatar-xs">
             </td>
         @endforeach

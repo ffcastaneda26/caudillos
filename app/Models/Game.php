@@ -132,6 +132,6 @@ class Game extends Model
     // ¿Gana local o visita?
     public function win()
     {
-        return $this->local_points > $this->visit_points ? 'local' : 'visit';
+        return $this->local_points > $this->visit_points ? 1 : 2;
     }
 }

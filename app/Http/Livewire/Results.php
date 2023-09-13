@@ -64,20 +64,8 @@ class Results extends Component
                                 });
                             })->get();
 
-            // dd( $this->users_with_picks_round);
-            // $users = User::role('participante')->whereHas('picks',function(Builder $query){
-            //     $query->wherehas('game',function(Builder $query){
-            //         $query->where('round_id',$round->id);
-            //     })->get();
-            // dd($users);
-            // $this->round_picks  = $round->picks()
-            //                             ->orderby('user_id')
-            //                             ->get();
-
         }
     }
-
-
 }
 
 

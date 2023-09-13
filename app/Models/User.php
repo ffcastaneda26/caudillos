@@ -133,6 +133,11 @@ class User extends Authenticatable
         return $this->hasMany(Pick::class);
     }
 
+    public function picks_game($game_id): HasMany
+    {
+        return $this->hasMany(Pick::class)->where('game_id',$game_id);
+    }
+
     public function positions(): HasMany
     {
         return $this->hasMany(Position::class);
@@ -152,6 +157,13 @@ class User extends Authenticatable
        return $this->positions->where('round_id',$round_id)->count();
     }
 
+    public function hits_round($round_id){
+        return $this->positions->where('round_id',$round_id)->first()->hits;
+    }
+
+    // ¿El usuario tiene pronóstico en el juego?
+
+
     public function is_active(){
         return $this->active;
     }
@@ -167,12 +179,8 @@ class User extends Authenticatable
             if($pick->game->round_id == $round_id && $pick->hit){
                 $hits++;
             }
-
-
         }
         return $hits;
-        return $this->picks()->game()->where('round_id',$round_id)->count();
-
     }
 
     // ¿Tiene datos complementarios?)
