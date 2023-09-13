@@ -19,7 +19,7 @@
                                             {{-- <th>Id</th> --}}
                                             <th>Fecha</th>
                                             <th colspan="3">Visita</th>
-                                            <th colspan="3">Pronóstico  </th>
+                                            <th colspan="3" class="w-auto">Pronóstico</th>
                                             <th colspan="3">Local</th>
                                         </tr>
                                     </thead>

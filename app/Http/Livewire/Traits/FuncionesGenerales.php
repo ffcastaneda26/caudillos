@@ -163,13 +163,15 @@ trait FuncionesGenerales
     // Actualiza si acertó el último partido
     public function update_hit_last_game(Game $game){
         $sql = "UPDATE picks pic,games ga ";
-
+        $sql.="SET hit_last_game= CASE WHEN pic.winner=ga.winner THEN 1 ELSE 0 END ";
         $sql.="WHERE ga.id = pic.game_id ";
+        $sql.="  AND ga.visit_points IS NOT NULL ";
+        $sql.="  AND ga.local_points IS NOT NULL ";
 		$sql.="  AND ga.id=" . $game->id;
         return DB::update($sql);
     }
     // // Califica los pronósticos
-    public function qualify_picks(Game $game){
+    public function qualify_picks(){
         $sql = "UPDATE picks pic,games ga ";
 		$sql.="SET ";
 		$sql.="hit= CASE WHEN pic.winner=ga.winner THEN 1 ELSE 0 END ";
@@ -272,7 +274,16 @@ trait FuncionesGenerales
         DB::update($sql);
     }
 
-    // Lee y calcula para poner la tabla General de Posiciones
+    /**+--------------------------------------------------------+
+       |  Lee tabla de POSICIONES x Cada Participante           |
+       +--------------------------------------------------------+
+       |                Suma                    |  Ordenado x   |
+       +----------------------------------------+---------------+
+       | - Aciertos                             | Descendente   |
+       | - Veces que ha acertado último partido | Descendente   |
+       | - Dferencia total de puntos            | Ascendente    |
+       +--------------------------------------------------------+
+     */
 
     public function read_records_to_general_positions(){
         $positions = User::role('participante')
@@ -281,14 +292,13 @@ trait FuncionesGenerales
                                 DB::raw('SUM(positions.hits) as hits'),
                                 DB::raw('SUM(positions.hit_last_game)    as hit_last_games'),
                                 DB::raw('SUM(positions.dif_total_points) as dif_total_points'))
-            ->Join('positions', 'positions.user_id', '=', 'users.id')
-            ->where('users.active','1')
-            ->groupBy('users.id')
-            ->orderbyDesc('hits')
-            ->orderbyDesc('hit_last_games')
-            ->orderby('dif_total_points')
-            ->paginate(15);
-
+                        ->Join('positions', 'positions.user_id', '=', 'users.id')
+                        ->where('users.active','1')
+                        ->groupBy('users.id')
+                        ->orderbyDesc('hits')
+                        ->orderbyDesc('hit_last_games')
+                        ->orderby('dif_total_points')
+                        ->paginate(15);
         return $positions;
     }
 }

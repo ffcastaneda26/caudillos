@@ -8,7 +8,7 @@
            @endif
         @endforeach
 
-    <td class="text-base text-center text-2xl">
+    <td class="text-base text-center">
         {{ $user->has_position_record_round($round->id) ? $user->hits_round($round->id) : ''}}
     </td>
 </div>

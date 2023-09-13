@@ -11,10 +11,21 @@
     @include('livewire.picks.pick_visit')
 
     @if( $is_last_game)
-        <td><input type='number' wire:model="points_visit_last_game" min=0 max=99 class="{{ $error =='visit' || $error =='tie' ? 'bg-red-500' : ''}}"></td>
+        <td>
+            <input type='number'
+                    wire:model="points_visit_last_game"
+                    min=0 max=99
+                    class="{{ $error =='visit' || $error =='tie' ? 'bg-red-500' : ''}}"
+                    {{ $allow_pick ? '' : 'disabled' }}>
+        </td>
         {{-- Icono si acertó/falló o aún no se sabe --}}
         @include('livewire.picks.pick_icono_acerto')
-        <td><input type='number' wire:model="points_local_last_game" min=0 max=99 class="{{ $error =='local' || $error =='tie' ? 'bg-red-500' : ''}}"></td>
+        <td>
+            <input type='number'
+                    wire:model="points_local_last_game"
+                    min=0 max=99 class="{{ $error =='local' || $error =='tie' ? 'bg-red-500' : ''}}"
+                    {{ $allow_pick ? '' : 'disabled' }}>>
+        </td>
     @else
         @include('livewire.picks.pick_pick_result')
     @endif

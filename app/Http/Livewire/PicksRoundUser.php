@@ -18,17 +18,6 @@ class PicksRoundUser extends Component
     public function mount(User $user,Round $round){
 
         $this->reset('cols_show');
-
-        // $this->user_picks_round = Pick::select('picks.*')
-        //                             ->join('games', 'picks.game_id', '=', 'games.id')
-        //                             ->join('users', 'picks.user_id', '=', 'users.id')
-        //                             ->where('picks.user_id','=',$user->id)
-        //                             ->where('games.round_id','=',$round->id)
-        //                             ->orderBy('games.game_day', 'ASC')
-        //                             ->orderBy('games.game_time', 'ASC')
-        //                             ->get();
-
-
             $games  = $round->games()->select('id as game_id')->orderby('id')->get();
             $picks =  Pick::select('picks.game_id')
                     ->distinct('game_id')

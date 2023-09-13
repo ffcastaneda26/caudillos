@@ -13,8 +13,16 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Http\Livewire\Traits\FuncionesGenerales;
 
 
+
+Route::get('pruebax',function(){
+    // $funciones_generales = new FuncionesGenerales;
+    $game = Game::find(4);
+    $this->update_hit_last_game( $game);
+    echo 'Revisa por favor...';
+});
 
 Route::get('/juegos_sin_pronostico_usuario_conectado',function(){
     $games = game::whereDoesntHave('picks', function (Builder $query) {

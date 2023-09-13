@@ -87,6 +87,9 @@ class Game extends Model
         $fecha_juego = new Carbon($this->game_day);
         $fecha_juego->subMinute($configuration->minuts_before_picks);
         $newDateTime = Carbon::now()->subMinute($configuration->minuts_before_picks);
+        if(!is_null($this->local_points) || !is_null($this->visit_points)){
+            return false;
+        }
         return $fecha_juego > $newDateTime;
     }
 
