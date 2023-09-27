@@ -77,14 +77,15 @@ class Round extends Model
 
     // Jornada actual segun las fechas de inicio y final
      public function  read_current_round(){
-        $dt = Carbon::now();
+        $dt = Carbon::now()->toDateString();
 
-        $current_round = $this::where('start_date','<=',$dt->endOfDay())
-                            ->where('end_date','>=',$dt->endOfDay())
+        $current_round = $this::where('start_date','<=',$dt)
+                            ->where('end_date','>=',$dt)
                             ->first();
         $current_round->active = 1;
         $current_round->save();
         return $current_round;
+
      }
 
      // ¿Es el último partido de la jornada?
