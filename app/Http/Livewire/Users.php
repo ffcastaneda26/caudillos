@@ -2,9 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Game;
 use App\Models\User;
-use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
@@ -74,12 +72,9 @@ class Users extends Component
 
     public function store(){
         $this->reset('error_message');
-        $this->rules['main_record.name']  = $this->main_record->id ? "required|min:3|max:50|unique:users,name,{$this->main_record->id}"
-                                                                   : 'required|min:3|max:50|unique:users,name';
+
         $this->rules['main_record.email'] = $this->main_record->id ? "required|email|unique:users,email,{$this->main_record->id}"
                                                                    : 'required|email|unique:users,email';
-        $this->rules['main_record.alias'] = $this->main_record->id ? "required|min:6|max:12|unique:users,alias,{$this->main_record->id}"
-                                                                   : 'required|min:6|max:12|unique:users,alias';
 
         if(!$this->record_id){
             $this->rules['password'] = 'required|min:8|confirmed';

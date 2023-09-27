@@ -3,9 +3,9 @@
         {{-- <th>Id</th> --}}
         <th rowspan="2" valign="middle" class="w-40">PARTICIPANTE</th>
         @foreach ($round_games as $game)
-            <td class="text-left">
+            <td class="text-left w-auto" >
                 <img src="{{Storage::url($game->visit_team->logo)}}" class="avatar-xs">
-                -
+                vs
                 <img src="{{Storage::url($game->local_team->logo)}}" class="avatar-xs">
             </td>
         @endforeach

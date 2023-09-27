@@ -62,7 +62,7 @@
                         required
                         placeholder="Teléfono"
                         class="form-control mb-2 @error('main_record.phone') is-invalid @enderror"
-                        maxlength="50"
+                        maxlength="10"
                 >
             </div>
 

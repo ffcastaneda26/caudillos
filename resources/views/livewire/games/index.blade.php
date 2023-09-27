@@ -21,7 +21,7 @@
 
         <div class="table-responsive bg-white">
             @if(isset($round_games) && $round_games->count())
-                <table class="table table-hover mb-0">
+                <table class="table table-striped table-hover mb-0">
                     @if(isset($view_table))
                         @include($view_table)
                     @endif

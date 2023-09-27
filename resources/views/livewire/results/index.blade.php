@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table text-xs">
+                                <table class="table table-striped table-hover text-xs">
                                     @include('livewire.results.header_game_teams')
 
                                     <tbody>

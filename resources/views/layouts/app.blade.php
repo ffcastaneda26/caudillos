@@ -142,7 +142,7 @@
                     if (result.isConfirmed) {
                         window.livewire.emit('store_data');
                         Swal.fire(
-                            "Listo!",
+                            "¡Listo!",
                             "Actualizando Datos",
                             'warning'
                         )

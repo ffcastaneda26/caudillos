@@ -17,11 +17,11 @@
                 </x-nav-link>
             @else
 
-                @if (Route::has('games'))
+                {{-- @if (Route::has('games'))
                     <x-nav-link href="{{ route('games') }}" :active="request()->routeIs('games')">
                         Partidos
                     </x-nav-link>
-                @endif
+                @endif --}}
 
                 @if (Route::has('picks'))
                     <x-nav-link href="{{ route('picks') }}" :active="request()->routeIs('picks')">

@@ -24,7 +24,7 @@
             <input type='number'
                     wire:model="points_local_last_game"
                     min=0 max=99 class="{{ $error =='local' || $error =='tie' ? 'bg-red-500' : ''}}"
-                    {{ $allow_pick ? '' : 'disabled' }}>>
+                    {{ $allow_pick ? '' : 'disabled' }}>
         </td>
     @else
         @include('livewire.picks.pick_pick_result')
