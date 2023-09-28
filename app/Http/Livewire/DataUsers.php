@@ -65,15 +65,7 @@ class DataUsers extends Component
         $this->view_table   = 'livewire.datausers.table';
         $this->view_list    = 'livewire.datausers.list';
         $this->main_record  =  new Profile();
-        $this->profile      = Auth::user()->profile;
-        if($this->profile){
-            $this->allow_create         = false;
-            $this->main_record          = $this->profile;
-            $this->ine_anverso_anterior = $this->main_record->ine_anverso;
-            $this->ine_reverso_anterior = $this->main_record->ine_reverso;
-            $this->allow_edit           = false;
-        }
-
+        $this->read_profile();
         $this->read_configuration();
         $this->lee_entidades();
         $this->modal_size   = 'modal-lg';
@@ -88,6 +80,7 @@ class DataUsers extends Component
     */
 
     public function render(){
+        $this->read_profile();
         return view('livewire.datausers.index');
     }
 
@@ -134,6 +127,18 @@ class DataUsers extends Component
         $this->resetInputFields();
     }
 
+    /** Lee los datos complemenatrios del perfil */
+
+    public function read_profile(){
+        $this->profile      = Auth::user()->profile;
+        if($this->profile){
+            $this->allow_create         = false;
+            $this->main_record          = $this->profile;
+            $this->ine_anverso_anterior = $this->main_record->ine_anverso;
+            $this->ine_reverso_anterior = $this->main_record->ine_reverso;
+            $this->allow_edit           = false;
+        }
+    }
     /** Lee entidades */
 
     public function lee_entidades(){
@@ -147,6 +152,7 @@ class DataUsers extends Component
     /** Lee la entidad para que se puedan cargar los municipios */
 
     public function lee_entidad(){
+        $this->reset('municipios');
         if($this->main_record->entidad_id){
             $this->entidad = Entidad::findOrFail($this->main_record->entidad_id);
             $this->municipios = $this->entidad->municipios()->orderby('nombre')->get();
@@ -192,9 +198,11 @@ class DataUsers extends Component
         }
         $this->main_record->save();
         $message = 'Datos Complementarios Actualizados';
+        $this->read_profile();
         $this->show_alert('success',$message);
         $this->closeModal();
         $this->resetInputFields();
+        return redirect()->back(); // This is not working
     }
 
 
