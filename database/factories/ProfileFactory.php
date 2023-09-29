@@ -18,13 +18,13 @@ class ProfileFactory extends Factory
      */
     public function definition(): array
     {
-
         $entidad = Entidad::all()->random();
         $municipio = $entidad->municipios->random();
+
         return [
-            // 'gender' => $gender,
-             'birthday' => Carbon::now()->subYear($this->faker->randomNumber(2))->format('Y-m-d'),
-             'entidad_id' => $entidad->id,
+             'gender'       => $this->faker->randomElement(['Hombre','Mujer']),
+             'birthday'     => Carbon::now()->subYear($this->faker->randomNumber(2))->format('Y-m-d'),
+             'entidad_id'   => $entidad->id,
              'municipio_id' => $municipio->id,
         ];
     }

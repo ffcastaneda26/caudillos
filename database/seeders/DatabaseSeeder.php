@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->truncateTables([
+            'general_positions',
             'positions',
             'picks',
             'user_roles',
@@ -37,7 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleAndPermissionSeeder::class,
             CreateAdminUserSeeder::class,
-            // CreateParticipantsSeeder::class,
+            CreateParticipantsSeeder::class,
         ]);
 
     }

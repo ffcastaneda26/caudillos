@@ -7,27 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
-/**
- * Class Position
- *
- * @property $id
- * @property $round_id
- * @property $user_id
- * @property $hits
- * @property $extra_points
- * @property $dif_winner_points
- * @property $dif_total_points
- * @property $dif_local_points
- * @property $dif_visit_points
- * @property $dif_victory
- * @property $hit_last_game
- * @property $hit_visit
- * @property $hit_local
- * @property $position
- *
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
 class Position extends Model
 {
     use HasFactory;

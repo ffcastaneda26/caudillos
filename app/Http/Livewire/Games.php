@@ -8,6 +8,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
+use App\Models\GeneralPosition;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Games extends Component
@@ -112,6 +113,13 @@ class Games extends Component
             }
             $this->update_total_hits_positions( $this->selected_round); // Actualiza tabla de aciertos por jornada (POSITIONS)
             $this->update_positions(); // Asigna posiciones en tabla de POSITIONS
+            $this->read_general_positions(); // Lee posicions generales
+            $general_position = new GeneralPosition();
+            $positions = $this->read_general_positions();
+            if($positions){
+                $general_position->truncate_me();
+                $general_position->create_positions($positions);
+            }
         }
 
         $this->show_alert('success','JUEGO ACTUALIZADO SATISFACTORIAMENTE');
