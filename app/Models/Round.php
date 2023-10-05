@@ -63,6 +63,10 @@ class Round extends Model
         return $this->throughgames()->haspicks();
     }
 
+    public function picks_user($user_id): HasManyThrough
+    {
+        return $this->throughgames()->haspicks()->where('user_id',$user_id)->orderby('game_id');
+    }
 
 
     /*+-----------------+

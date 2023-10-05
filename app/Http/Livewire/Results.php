@@ -2,39 +2,31 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Game;
-use App\Models\Pick;
 use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
 use App\Models\User;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Results extends Component
 {
     use AuthorizesRequests;
     use WithPagination;
-    use WithFileUploads;
     use CrudTrait;
     use FuncionesGenerales;
 
     protected $listeners = ['receive_round'];
 
-    public $gamesids= array();
     public $users_with_picks_round= null;
+    public $cols_show= [];
 
     public function mount(){
-        $this->read_configuration();
-        $this->rounds = $this->read_rounds();
         $round = new Round();
         $this->current_round = $round->read_current_round();
         $this->selected_round =$this->current_round;
-        $this->receive_round($this->current_round );
+        $this->receive_round($this->selected_round );
     }
 
     /*+---------------------------------+
@@ -42,33 +34,27 @@ class Results extends Component
       +---------------------------------+
     */
     public function render(){
-        return view('livewire.results.index');
+        return view('livewire.results.index', [
+            'records' => User::role('participante')
+                            ->select('users.*')
+                            ->Join('picks', 'picks.user_id', '=', 'users.id')
+                            ->Join('games', 'picks.game_id', '=', 'games.id')
+                            ->where('games.round_id',$this->selected_round->id)
+                            ->where('users.active','1')
+                            ->groupBy('users.id')
+                            ->paginate($this->pagination),
+        ]);
     }
 
-    /*+---------------+
-      | Recibe Juegos |
-      +---------------+
-    */
 
+    /*+------------------------------------+
+      | Recibe Jornada y selecciona juegos |
+      +------------------------------------+
+    */
     public function receive_round(Round $round){
         if($round){
-            $this->reset('gamesids');
             $this->selected_round = $round;
-            $this->gamesids[]   = $round->games()->select('id')->orderby('id')->get()->toArray();
-            $this->round_games  = $round->games()->orderby('id')->get();
-
-           $this->users_with_picks_round = User::role('participante')
-                            ->wherehas('picks',function(Builder $query) use ($round){
-                                $query->wherehas('game',function(Builder $query) use ($round){
-                                    $query->where('round_id',$round->id);
-                                });
-                            })->get();
-
+            $this->round_games  = $this->selected_round->games()->orderby('game_day')->orderby('game_time')->get();
         }
     }
 }
-
-
-
-
-
