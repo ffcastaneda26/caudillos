@@ -2,8 +2,8 @@
     @livewire('select-round')
     <div class="container-fluid mt-2">
         @if(isset($round_games) && !empty($round_games))
-            <div class="row">
-                <div class="col-sm-12">
+            <div class="flex flex-row justify-center">
+                <div class="col-sm-7">
                     <div class="table-responsive">
                         <table class="table text-xs">
                             @include('livewire.results.header_game_teams')

@@ -3,10 +3,11 @@
         <th>Pos</th>
         <th>Participante  </th>
         <th>Aciertos</th>
-        <th>¿Partido Desempate?</th>
-        <th>Error Total</th>
-        <th>Best Shot</th>
-        <th>Error Ganador</th>
-        <th>Diferencia Victoria</th>
+        @if($tie_breaker_game_played)
+            <th>¿Partido Desempate?</th>
+            <th>Error Local + Error Visita</th>
+            <th>Error Puntos Ganador</th>
+            <th colspan="2">Marcador Total</th>
+        @endif
     </tr>
 </thead>

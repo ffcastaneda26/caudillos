@@ -23,6 +23,7 @@ class ByRound extends Component
     use FuncionesGenerales;
 
     protected $listeners = ['receive_round'];
+    public $tie_breaker_game_played = false;
 
 
     public function mount(){
@@ -41,6 +42,7 @@ class ByRound extends Component
     */
 
     public function render(){
+        $this->tie_breaker_game_played = $this->selected_round->get_last_game_round()->has_result();
 
         return view('livewire.positions.round.index', [
             'records' => $this->selected_round->positions()->orderby('position')->paginate(10),
