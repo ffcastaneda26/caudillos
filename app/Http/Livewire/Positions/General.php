@@ -22,13 +22,15 @@ class General extends Component
       +---------------------------------+
     */
 
+    private $pagination = 15; //paginación de tabla
+
     public function render(){
-        $positions = $this->read_records_to_general_positions();
-        $positions = GeneralPosition::orderby('position','desc')->paginate(5);
+        $positions = GeneralPosition::orderby('position','desc')->paginate($this->pagination);
         return view('livewire.positions.general.index', [
             'records' => $positions,
         ]);
     }
+
 
 }
 

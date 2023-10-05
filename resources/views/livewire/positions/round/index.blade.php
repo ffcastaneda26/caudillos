@@ -1,9 +1,9 @@
 <div>
     @livewire('select-round')
-    <div class="container-fluid mt-2">
+    <div class="container-fluid">
         @if(isset($records ))
-            <div class="row flex-row justify-center">
-                <div class="{{ $tie_breaker_game_played ? 'col-sm-12' : 'col-4'}}">
+            <div class="mt-3 flex justify-center">
+                <div class="{{ $tie_breaker_game_played ? 'col-sm-8' : 'col-4'}}">
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover text-xs">
