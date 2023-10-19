@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
@@ -35,6 +36,14 @@
             margin: 20px;
         }
 
+        .images-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px;
+        }
+
         .image {
             margin: 10px;
             width: 150px;
@@ -60,55 +69,81 @@
             font-weight: bold;
 
         }
+        @media (max-width: 768px) {
+            .text-custom {
+                font-size: 12px;
+            }
+        }
+
+
+        @media (max-width: 640px) {
+            .text-custom {
+                font-size: 10px;
+            }
+
+            .images-row {
+                flex-direction: column;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .text-custom {
+                font-size: 20px;
+            }
+        }
         </style>
     </head>
     <body>
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <header>
-                Con tu aportación estas apoyando el Programa <br>
-                        "Programa Formación  en Deportes y Valores <br>
-                        Torneo Tochito Estatal 2023-2024 que
-            </header>
-
-            <div class="images-row">
-                <img src="{{ asset('images/patrocinios/fundacion_caudillos.png') }}" class="image" alt="Imagen 1">
-                <img src="{{ asset('images/patrocinios/ahava.png') }}" class="image" alt="Imagen 2">
-                <img src="{{ asset('images/patrocinios/jaquez_imper.png') }}" class="image" alt="Imagen 3">
-                <img src="{{ asset('images/patrocinios/secorp.png') }}" class="image" alt="Imagen 3">
-
-            </div>
-
-            <div class="welcome-legend">
-                Trabajan en conjunto en busca de un mejor Chihuahua
-            </div>
-
-            <div class="flex flex-row justify-center items-center mb-6">
-                <a href=""> Mas información del proyecto</a>
-            </div>
-
-            @if (Route::has('login'))
-                <div class="text-center p-6">
-                    @auth
-                        <a href="{{ url('/dashboard') }}"
-                            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                            Dashboard
-                        </a>
-                    @else
-
-                        <div>
-                            <a href="{{ route('login') }}" class="inline">
-                                <button class="btn btn-sm bg-primary text-white">INGRESAR</button>
-                            </a>
-                            <a href="{{ route('register') }}" class="inline">
-                                <button class="btn btn-sm bg-secondary text-white">REGISTRARSE</button>
-                            </a>
-                        </div>
+        <container-fluid>
 
 
-                    @endauth
+            <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+                <header class="text-custom">
+                    Con tu aportación estas apoyando el Programa <br>
+                            "Programa Formación  en Deportes y Valores <br>
+                            Torneo Tochito Estatal 2023-2024 que
+                </header>
+                {{-- col-sm-12 col-md-6 col-lg-4 --}}
+                <div class="sm:bg-dark images-row">
+                    <img src="{{ asset('images/patrocinios/fundacion_caudillos.png') }}" class="image" alt="Imagen 1">
+                    <img src="{{ asset('images/patrocinios/ahava.png') }}" class="image" alt="Imagen 2">
+                    <img src="{{ asset('images/patrocinios/jaquez_imper.png') }}" class="image" alt="Imagen 3">
+                    <img src="{{ asset('images/patrocinios/secorp.png') }}" class="image" alt="Imagen 3">
+
                 </div>
-            @endif
-        </div>
+
+                <div class="welcome-legend">
+                    Trabajan en conjunto en busca de un mejor Chihuahua
+                </div>
+
+                <div class="text-custom flex flex-row justify-center items-center mb-6">
+                    <a href=""> Mas información del proyecto</a>
+                </div>
+
+                @if (Route::has('login'))
+                    <div class="text-center p-6">
+                        @auth
+                            <a href="{{ url('/dashboard') }}"
+                                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                Dashboard
+                            </a>
+                        @else
+
+                            <div>
+                                <a href="{{ route('login') }}" class="inline">
+                                    <button class="btn btn-sm bg-primary text-white">INGRESAR</button>
+                                </a>
+                                <a href="{{ route('register') }}" class="inline">
+                                    <button class="btn btn-sm bg-secondary text-white">REGISTRARSE</button>
+                                </a>
+                            </div>
+
+
+                        @endauth
+                    </div>
+                @endif
+            </div>
+        </container-fluid>
 
     </body>
 </html>
