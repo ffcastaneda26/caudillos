@@ -14,7 +14,7 @@
 {{-- Inicia lo de admiria --}}
 
             <!-- App favicon -->
-            <link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
+            <link rel="shortcut icon" href="{{ asset('images/patrocinios/fundacion_caudillos.png') }}">
 
             <!-- Fonts -->
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">

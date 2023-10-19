@@ -1,5 +1,5 @@
 <thead class="thead">
-    <tr class="bg-dark text-white text-center text-sm">
+    <tr class="text-black text-center text-sm" style="background-color: #EAE8E1">
         {{-- <th>Id</th> --}}
         <th rowspan="2" valign="middle" class="w-40">PARTICIPANTE</th>
         @foreach ($round_games as $game)

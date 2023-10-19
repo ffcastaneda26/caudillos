@@ -1,7 +1,8 @@
 <div>
     <td align="center">
         @if($allow_pick)
-            <img src="{{ asset('images/reloj.jpg') }}" alt="" width="32px" height="32px">
+            <img src="{{ asset('images/reloj.png') }}" alt="" width="32px" height="32px">
+
         @else
             @if($user_pick_round->winner== 1)
                 <img src="{{Storage::url($user_pick_round->game->local_team->logo)}}"  class="avatar-xs">

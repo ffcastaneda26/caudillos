@@ -9,8 +9,6 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
 
         <!-- Styles -->
         <style>
@@ -22,15 +20,15 @@
         }
 
         header {
-            background-color: #d6e8f2;
-            color: #110d0d;
+            background-color: #0072b5;
+            color: #fff;
             padding: 20px;
             font-size: 24px;
         }
 
         .images-row {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             margin: 20px;
         }
@@ -53,62 +51,46 @@
         .login-buttons {
             margin: 20px;
         }
-        a:link {
-            color: #2700b5; /* Cambia el color a tu preferencia */
-            text-decoration: none; /* Elimina el subrayado por defecto */
-            font-size: 10px;
-            font-weight: bold;
-
-        }
         </style>
     </head>
     <body>
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <header>
-                Con tu aportación estas apoyando el Programa <br>
-                        "Programa Formación  en Deportes y Valores <br>
-                        Torneo Tochito Estatal 2023-2024 que
-            </header>
+        <header>
+            Con tu aportación estas apoyando el Programa <br>
+                    "Programa Formación  en Deportes y Valores <br>
+                    Torneo Tochito Estatal 2023-2024 que
+        </header>
 
-            <div class="images-row">
-                <img src="{{ asset('images/patrocinios/fundacion_caudillos.png') }}" class="image" alt="Imagen 1">
-                <img src="{{ asset('images/patrocinios/ahava.png') }}" class="image" alt="Imagen 2">
-                <img src="{{ asset('images/patrocinios/jaquez_imper.png') }}" class="image" alt="Imagen 3">
-                <img src="{{ asset('images/patrocinios/secorp.png') }}" class="image" alt="Imagen 3">
+        <div class="images-row">
+            <img src="{{ asset('images/patrocinios/fundacion_caudillos.png') }}" class="image" alt="Imagen 1">
+            <img src="{{ asset('images/patrocinios/ahava.png') }}" class="image" alt="Imagen 2">
+            <img src="{{ asset('images/patrocinios/jaquez_imper.png') }}" class="image" alt="Imagen 3">
+            <img src="{{ asset('images/patrocinios/secorp.png') }}" class="image" alt="Imagen 3">
 
-            </div>
-
-            <div class="welcome-legend">
-                Trabajan en conjunto en busca de un mejor Chihuahua
-            </div>
-
-            <div class="flex flex-row justify-center items-center mb-6">
-                <a href=""> Mas información del proyecto</a>
-            </div>
-
-            @if (Route::has('login'))
-                <div class="text-center p-6">
-                    @auth
-                        <a href="{{ url('/dashboard') }}"
-                            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                            Dashboard
-                        </a>
-                    @else
-
-                        <div>
-                            <a href="{{ route('login') }}" class="inline">
-                                <button class="btn btn-sm bg-primary text-white">INGRESAR</button>
-                            </a>
-                            <a href="{{ route('register') }}" class="inline">
-                                <button class="btn btn-sm bg-secondary text-white">REGISTRARSE</button>
-                            </a>
-                        </div>
-
-
-                    @endauth
-                </div>
-            @endif
         </div>
+
+        <div class="welcome-legend">
+            Trabajan en conjunto en busca de un mejor Chihuahua
+        </div>
+
+        <div class="link_mas_informacion ">
+            <a href="">Mas información del proyecto</a>
+        </div>
+
+        @if (Route::has('login'))
+            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                @auth
+                    <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                        Dashboard
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">INGRESAR</a>
+
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">REGISTRARSE</a>
+                    @endif
+                @endauth
+            </div>
+        @endif
 
     </body>
 </html>
