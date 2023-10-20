@@ -36,13 +36,6 @@
             margin: 20px;
         }
 
-        .images-col {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px;
-        }
 
         .image {
             margin: 10px;
@@ -69,28 +62,25 @@
             font-weight: bold;
 
         }
-        @media (max-width: 768px) {
+
+        /* @media (max-width: 768px) {
             .text-custom {
                 font-size: 12px;
             }
-        }
+        } */
 
 
         @media (max-width: 640px) {
-            .text-custom {
-                font-size: 10px;
-            }
+            /* .text-custom {
+                font-size: 12px;
+            } */
 
             .images-row {
                 flex-direction: column;
             }
         }
 
-        @media (min-width: 769px) {
-            .text-custom {
-                font-size: 20px;
-            }
-        }
+
         </style>
     </head>
     <body>
@@ -112,11 +102,11 @@
 
                 </div>
 
-                <div class="welcome-legend">
+                <div class="welcome-legend text-custom">
                     Trabajan en conjunto en busca de un mejor Chihuahua
                 </div>
 
-                <div class="text-custom flex flex-row justify-center items-center mb-6">
+                <div class="flex flex-row justify-center items-center mb-6">
                     <a href=""> Mas información del proyecto</a>
                 </div>
 
