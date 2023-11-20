@@ -5,12 +5,13 @@
 
     @if($tie_breaker_game_played)
         <td align="center">
-            @if($position->dif_victory)
-                <img src="{{ $position->hit_last_game  ? asset('images/afirmativo.png') : asset('images/negativo.png') }}"
+            {{-- @if($position->dif_victory) --}}
+                <img src="{{ $position->hit_last_game  ? asset('images/afirmativo.png')
+                                                       : asset('images/negativo.png') }}"
                 width="17" height="17">
-            @else
+            {{-- @else
                 <img src="{{ asset('images/reloj.png') }}" alt="" width="17" height="17">
-            @endif
+            @endif --}}
 
         </td>
         <td align="center">{{ $position->dif_total_points }}</td>

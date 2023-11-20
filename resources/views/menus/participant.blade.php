@@ -10,10 +10,12 @@
         </x-nav-link>
     @else
 
+
         @role('participante')
             @if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue)
                 <x-nav-link href="{{ route('data-users') }}" :active="request()->routeIs('data-users')">
-                    Datos Complementarios
+
+                    <label class="my-fondo-header">Datos Complementarios</label>
                 </x-nav-link>
             @else
 
@@ -25,37 +27,44 @@
 
                 @if (Route::has('picks'))
                     <x-nav-link href="{{ route('picks') }}" :active="request()->routeIs('picks')">
-                        Pronósticos
+
+                        <label class="my-fondo-header">Pronósticos</label>
                     </x-nav-link>
                 @endif
 
                 @if (Route::has('results-by-round'))
                     <x-nav-link href="{{ route('results-by-round') }}" :active="request()->routeIs('results-by-round')">
-                        Tabla de Pronósticos
+
+                        <label class="my-fondo-header">Tabla de Pronósticos</label>
                     </x-nav-link>
                 @endif
 
                 @if (Route::has('positions-by-round'))
                     <x-nav-link href="{{ route('positions-by-round') }}" :active="request()->routeIs('positions-by-round')">
-                        Posiciones por Jornada
+
+                        <label class="my-fondo-header">Posiciones por Jornada</label>
+
                     </x-nav-link>
                 @endif
 
                 @if (Route::has('positions-general'))
                     <x-nav-link href="{{ route('positions-general') }}" :active="request()->routeIs('positions-general')">
-                        Posiciones Generales
+
+                        <label class="my-fondo-header">Posiciones Generales</label>
+
                     </x-nav-link>
                 @endif
 
                 @if (Route::has('picks-review'))
                     <x-nav-link href="{{ route('picks-review') }}" :active="request()->routeIs('picks-review')">
-                        Resultados por Jornada
+
+                        <label class="my-fondo-header">Resultados por Jornada</label>
                     </x-nav-link>
                 @endif
 
                 @if (Route::has('data-users'))
                     <x-nav-link href="{{ route('data-users') }}" :active="request()->routeIs('data-users')">
-                        Datos Complementarios
+                        <label class="my-fondo-header">Datos Complementarios</label>
                     </x-nav-link>
                 @endif
             @endif

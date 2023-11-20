@@ -11,10 +11,10 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-{{-- Inicia lo de admiria --}}
+            {{-- Inicia lo de admiria --}}
 
             <!-- App favicon -->
-            <link rel="shortcut icon" href="{{ asset('images/patrocinios/fundacion_caudillos.png') }}">
+            <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
 
             <!-- Fonts -->
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -37,13 +37,12 @@
 
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+            {{-- Termina lo de Admiria --}}
+            <!-- Scripts -->
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-{{-- Termina lo de Admiria --}}
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <!-- Styles -->
-        @livewireStyles
+            <!-- Styles -->
+            @livewireStyles
     </head>
     <body class="font-sans antialiased">
         <x-banner />

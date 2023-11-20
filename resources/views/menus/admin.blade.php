@@ -1,5 +1,4 @@
 @role('Admin')
-
         <div class="mt-3 relative">
             <x-dropdown align="right" width="30">
 
@@ -67,19 +66,20 @@
 
     @if (Route::has('positions-by-round'))
         <x-nav-link href="{{ route('positions-by-round') }}" :active="request()->routeIs('positions-by-round')">
-            Posiciones por Jornada
+
+            <label class="my-fondo-header">Posiciones por Jornada</label>
         </x-nav-link>
     @endif
 
     @if (Route::has('positions-general'))
         <x-nav-link href="{{ route('positions-general') }}" :active="request()->routeIs('positions-general')">
-            Posiciones Generales
+            <label class="my-fondo-header">Posiciones Generales</label>
         </x-nav-link>
     @endif
 
 
     <x-nav-link href="{{ route('games') }}" :active="request()->routeIs('games')">
-        Partidos
+        <label class="my-fondo-header">Partidos</label>
     </x-nav-link>
 
 @endrole

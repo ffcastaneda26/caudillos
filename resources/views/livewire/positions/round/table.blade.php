@@ -6,8 +6,9 @@
         @if($tie_breaker_game_played)
             <th>¿Partido Desempate?</th>
             <th>Error Local + Error Visita</th>
-            <th>Error Puntos Ganador</th>
-            <th colspan="2">Marcador Total</th>
+            <th>Menor Error Puntos</th>
+            <th>Menor Error Ganador</th>
+            <th>Menor Error Puntos Totales</th>
         @endif
     </tr>
 </thead>

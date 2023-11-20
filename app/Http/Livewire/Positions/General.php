@@ -25,7 +25,7 @@ class General extends Component
     private $pagination = 15; //paginación de tabla
 
     public function render(){
-        $positions = GeneralPosition::orderby('position','desc')->paginate($this->pagination);
+        $positions = GeneralPosition::orderby('position','asc')->paginate($this->pagination);
         return view('livewire.positions.general.index', [
             'records' => $positions,
         ]);

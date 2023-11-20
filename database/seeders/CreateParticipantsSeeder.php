@@ -14,7 +14,7 @@ class CreateParticipantsSeeder extends Seeder
      */
     public function run(): void
     {
-        $count_users = 10;
+        $count_users = 5;
         User::factory()
                 ->count($count_users)
                 ->create([
