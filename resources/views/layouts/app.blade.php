@@ -21,20 +21,14 @@
 
             <!-- Bootstrap Css -->
 
-
-
             <!-- Icons Css -->
             <link href="/admiria/assets/css/icons.min.css" rel="stylesheet" type="text/css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
             <!-- App Css-->
             <link href="/admiria/assets/css/app.min.css" rel="stylesheet" type="text/css">
-            <!-- Custom Css-->
-            <link href="/admiria/assets/css/custom.css" rel="stylesheet" type="text/css">
             <link href="/admiria/assets/css/font.css" rel="stylesheet" type="text/css">
-
             <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
-
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
             {{-- Termina lo de Admiria --}}
@@ -44,7 +38,9 @@
             <!-- Styles -->
             @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    {{-- <body class="font-sans antialiased"> --}}
+    <body class="font-pilat antialiased">
+
         <x-banner />
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">

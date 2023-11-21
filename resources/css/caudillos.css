@@ -22,5 +22,4 @@ body {
          url('/fonts/pilat/PilatExtended-Light.woff') format('woff'),
          url('/PilatExtended-Regular.woff') format('woff'),
     ;
-    /* Puedes agregar más formatos si es necesario (e.g., 'ttf', 'svg') */
 }
