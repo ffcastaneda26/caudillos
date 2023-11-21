@@ -1,4 +1,26 @@
+body {
+    font-family: 'Pilat', sans-serif;
+    /* Otros estilos para el cuerpo del documento */
+}
 .my-fondo-header {
     background-color: #04273C;
     color: #F3F4F6;
+}
+
+.font-glass-antiqua{
+    font-family: 'Glass Antiqua', cursive;
+}
+
+.font-pilat {
+    font-family: 'Pilat';
+}
+
+@font-face {
+    font-family: 'Pilat';
+    src: url('/fonts/pilat/PilatExtended-Black.woff') format('woff'),
+         url('/fonts/pilat/PilatExtended-Bold.woff') format('woff'),
+         url('/fonts/pilat/PilatExtended-Light.woff') format('woff'),
+         url('/PilatExtended-Regular.woff') format('woff'),
+    ;
+    /* Puedes agregar más formatos si es necesario (e.g., 'ttf', 'svg') */
 }
