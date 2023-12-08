@@ -1,9 +1,7 @@
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <x-welcome />
-            </div>
+    <div class="py-12 flex justify-center justify-items-center">
+        <div class="card text-center">
+            <x-welcome />
         </div>
     </div>
 </x-app-layout>

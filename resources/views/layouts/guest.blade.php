@@ -29,23 +29,6 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        {{-- <script src="https://www.google.com/recaptcha/api.js?render=6LeMws4nAAAAANplVRimJKeXbC4snnd4R-Es262a"></script>
-        <script>
-            document.addeventlistener('submit',function(e){
-                e.preventDefault();
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('6LeMws4nAAAAANplVRimJKeXbC4snnd4R-Es262a', {action: 'submit'}).then(function(token) {
-                        let form = e.target;
-                        let input = document.createElement('input');
-                        // input.type = 'hidden';
-                        input.name = 'g-regcaptcha-response';
-                        input.value = token;
-                        form.appendChild(input);
-                        form.submit();
-                    });
-                });
-            });
-        </script> --}}
 
 
     </head>

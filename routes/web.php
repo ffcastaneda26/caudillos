@@ -1,26 +1,38 @@
 <?php
 
-use App\Http\Controllers\GameController;
+use App\Models\User;
 use App\Http\Livewire\Games;
 use App\Http\Livewire\Picks;
 use App\Http\Livewire\Teams;
+use App\Http\Livewire\Users;
 use App\Http\Livewire\Rounds;
+use App\Models\Configuration;
 use App\Http\Livewire\Results;
+use App\Http\Livewire\Dashboard;
+use App\Http\Livewire\DataUsers;
 use App\Http\Livewire\Entidades;
+use App\Http\Livewire\UsersData;
 use App\Http\Livewire\Municipios;
 use App\Http\Livewire\PicksReview;
 use App\Http\Livewire\SelectRound;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Configurations;
-use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\DataUsers;
 use App\Http\Livewire\PicksRoundUser;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GameController;
 use App\Http\Livewire\Positions\ByRound;
 use App\Http\Livewire\Positions\General;
-use App\Http\Livewire\Users;
-use App\Http\Livewire\UsersData;
-use App\Models\Configuration;
+
+Route::get('cambiar-password/{email}',function($email){
+    $user = User::where('email',$email)->first();
+
+    // $2y$10$NkDvdkmdYvp1H5HQufFM7.eG67y2g5Fkl55Vi5g.TBhyWYxPC5hEO
+    // $2y$10$8mYDK.4742ojDYfHMnpX0e91QwldnV0x3gLGdQotkfNkCUjj/w2f6
+    $user->password = bcrypt('password');
+    $user->save();
+    dd($user->password);
+
+});
 
 Route::get('/', function () {
     return view('welcome');

@@ -1,12 +1,42 @@
+:root {
+    --main-bg-color: #dddddd;
+    --second-bg-color: #957633;
+    --texto-azul: #04273C;
+    --fondo-azul: #04273C;
+    --texto-oro:var(--second-bg-color)
+    /* --main-bg-color: #08d5f5; */
+  }
+
 body {
     font-family: 'Pilat', sans-serif;
     /* Otros estilos para el cuerpo del documento */
 }
+
+
+.fondo-principal {
+    background-color: var(--main-bg-color) !important;
+}
+
+.fondo-secundario {
+    background-color: var(--second-bg-color);
+}
+
+.texto-azul{
+    color: var(--texto-azul);
+}
+
+.texto-oro {
+    color: var(--texto-oro);
+}
 .my-fondo-header {
-    background-color: #04273C;
+    /* background-color: #04273C; */
+    background-color:var(--fondo-azul);
     color: #F3F4F6;
 }
 
+.fondo-azul {
+    background-color: var(--fondo-azul);
+}
 .font-glass-antiqua{
     font-family: 'Glass Antiqua', cursive;
 }
