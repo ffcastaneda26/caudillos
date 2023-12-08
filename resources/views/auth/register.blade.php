@@ -115,10 +115,9 @@
                     </div>
                 @endif
                 <div class="flex justify-between items-center mt-4">
-                    <a href="{{ route('login') }}" class="inline">
-                        <button class="rounded-xl btn btn-sm fondo-azul texto-oro font-semibold hover:text-white">
-                            {{ __('Already registered?') }}
-                        </button>
+
+                    <a href="{{ route('login') }}" class="inline rounded-xl btn btn-sm fondo-azul texto-oro font-semibold  hover:text-white">
+                        {{ __('Already registered?') }}
                     </a>
 
                     <x-register />

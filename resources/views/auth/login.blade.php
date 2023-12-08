@@ -61,7 +61,9 @@
                 @endif
 
                 <div class="flex items-center justify-between mt-4">
-                    <x-register />
+                    <a href="{{ route('register') }}" class="inline rounded-xl btn btn-sm fondo-secundario texto-azul font-semibold  hover:text-white">
+                        {{ __('Register') }}
+                    </a>
 
                     <x-login />
                 </div>
