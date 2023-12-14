@@ -5,51 +5,79 @@
     text-align: center;
 }
 
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    align-content: center;
+  }
+
 header {
-    /* background-color: #d6e8f2; */
     color: #110d0d;
-    padding: 20px;
     font-size: 24px;
-    /* font-family: 'Pilat', sans-serif; */
+    font-family: 'Pilat', sans-serif;
 }
 
 
 
 .images-row {
     display: flex;
+    flex-wrap: nowrap;
     justify-content: space-evenly;
     align-items: center;
     margin: 20px;
-
 }
-
 
 .image {
     margin: 10px;
     width: 100px;
-
 }
+
 
 .welcome-legend {
     font-size: 24px;
     margin: 20px;
 }
 
+
+
 .link_mas_informacion {
     font-size: 16px;
     margin: 20px;
     text-align: center;
 }
+
 .login-buttons {
     margin: 20px;
 }
 
+.text-link-information{
+    font-size: 16px;
+}
 
-/* @media (max-width: 768px) {
-    .text-custom {
-        font-size: 12px;
+@media (max-width: 640px) {
+    .images-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
     }
-} */
+
+    .image {
+        margin:auto;
+        width: 75px;
+    }
+    .welcome-legend {
+        font-size: 14px;
+    }
+
+    .text-link-information{
+        font-size: 10px;
+    }
+}
 
 
 
