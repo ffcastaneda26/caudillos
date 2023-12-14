@@ -4,23 +4,22 @@
 
 
     <div class="row align-items-start">
-        <div class="col-md-4 flex flex-col mt-2">
+        {{-- <div class="col-md-3 flex flex-col mt-2">
             <label class="input-group-text mb-2">Entidad</label>
             @error('main_record.entidad_id')<div><label for=""></label></div>@enderror
             <label class="input-group-text mb-2">Municipio</label>
             @error('main_record.municipio_id')<div><label for=""></label></div>@enderror
-            <label class="input-group-text mb-2">Código Postal</label>
+            <label class="input-group-text mb-2">C.P.</label>
             @error('main_record.codpos')<div><label for=""></label></div>@enderror
-
 
             <label class="input-group-text mb-2">Género</label>
             @error('main_record.gender')<div><label for=""></label></div>@enderror
-            <label class="input-group-text mb-2">F. Nacimiento</label>
+            <label class="input-group-text mb-2">F. Nac</label>
             @error('main_record.birthday')<div><label for=""></label></div>@enderror
 
             <label class="input-group-text mb-2 mt-1">Curp</label>
             @error('main_record.curp')<div><label for=""></label></div>@enderror
-        </div>
+        </div> --}}
 
 
 
@@ -32,23 +31,25 @@
                         {{ $this->allow_edit ? '' : 'disabled'}}
                         class="form-select form-select-md  sm:mr-2 {{ $errors->has('entidad_id') ? 'bg-red-500' : '' }}"
                         {{ Auth::user()->has_suplementary_data() ? 'disabled' : ''}}>
-                    <option value="" selected>Elegir</option>
+                    <option value="" selected>Seleccionar Entidad</option>
                     @foreach($entidades as $entidad_select)
                         <option value="{{ $entidad_select->id }}">{{ $entidad_select->nombre }}</option>
                     @endforeach
                 </select>
                 @error('main_record.entidad_id')<div class="badge rounded-pill bg-danger">{{ $message }}</div>@enderror
-
             </div>
 
             {{-- Municipio --}}
             <div class="flex-flex-column">
                 <select wire:model="main_record.municipio_id"
                         {{ $this->allow_edit ? '' : 'disabled'}}
-                        class="form-select form-select-md sm:mr-2 {{ $errors->has('entidad_id') ? 'bg-red-500' : '' }}"
+                        class="form-select form-select-md sm:mr-2
+                            {{ $main_record->entidad_id ? '' : 'hidden' }}
+                                 {{ $errors->has('entidad_id') ? 'bg-red-500' : '' }}"
                         {{ Auth::user()->has_suplementary_data() ? 'disabled' : ''}}
                         {{ !isset($municipios) ? 'disabled' : ''}}>
-                    <option value="" selected>Elegir</option>
+
+                    <option value="" selected>Seleccionar Municipio</option>
 
                     @if(isset($municipios) && $municipios->count())
                         @foreach($entidad->municipios as $municipio)
@@ -64,13 +65,14 @@
             <div class="flex-flex-column mb-2">
                 <input type="text"
                     wire:model="main_record.codpos"
+                    placeholder="Código Postal"
                     {{ $this->allow_edit ? '' : 'disabled'}}
-                    class="block mt-1 rounded {{ $errors->has('codpos') ? 'bg-red-500' : '' }}"
+                    class="block mt-1 rounded  {{ $errors->has('codpos') ? 'bg-red-500' : '' }}"
                     {{ $this->allow_edit ? '' : 'disabled'}}
                     @if (!$this->allow_edit)
                         style="background-color:#e9ecef;"
                     @endif
-                    size="5"
+                    size="10"
                     minlength="5"
                     maxlength="5"
                 >
@@ -82,7 +84,7 @@
                 <select wire:model="main_record.gender"
                         {{ $this->allow_edit ? '' : 'disabled'}}
                         class="form-select form-select-md sm:mr-2 w-80 {{ $errors->has('gender') ? 'bg-red-500' : '' }}">
-                    <option value="" selected>Elegir</option>
+                    <option value="" selected>Seleccionar Género</option>
                     <option value="Hombre" class="bg-blue-500">Hombre</option>
                     <option value="Mujer" class="bg-pink-500">Mujer</option>
                 </select>
@@ -91,14 +93,16 @@
 
             {{-- Fecha de Nacimiento --}}
             <div class="flex-flex-column mb-2">
+                <label for="" class="text-white">Fecha de Nacimiento</label>
                     <input wire:model="main_record.birthday"
                             type="date"
+                            placeholder="F. Nacimiento"
                             {{ $this->allow_edit ? '' : 'disabled'}}
                             @if (!$this->allow_edit)
                                 style="background-color:#e9ecef;"
                             @endif
                             max="{{Carbon\Carbon::now()->subYear(18)->format('Y-m-d')}}"
-                            class="p-2  border rounded-md w-80 {{ $errors->has('birthday') ? 'bg-red-500' : '' }}"
+                            class="p-2  border rounded-md w-40 {{ $errors->has('birthday') ? 'bg-red-500' : '' }}"
                             required
                     >
                 @error('main_record.birthday')<div class="badge rounded-pill bg-danger">{{ $message }}</div>@enderror
@@ -112,10 +116,12 @@
                         @if (!$this->allow_edit)
                             style="background-color:#e9ecef;"
                         @endif
-                        class="p-2 w-full border rounded-md {{ $errors->has('curp') ? 'bg-red-500' : '' }}"
+                        class="p-2 border rounded-md {{ $errors->has('curp') ? 'bg-red-500' : '' }}"
                         required
+                        size="21"
                         maxlength="18"
                         minlength="18"
+                        placeholder="CURP"
                         pattern="^[A-Z][A,E,I,O,U,X][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][M,H][A-Z]{2}[B,C,D,F,G,H,J,K,L,M,N,Ñ,P,Q,R,S,T,V,W,X,Y,Z]{3}[0-9,A-Z][0-9]$"
                 >
                 @error('main_record.curp')<div class="badge rounded-pill bg-danger">{{ $message }}</div>@enderror

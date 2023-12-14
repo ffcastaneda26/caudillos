@@ -34,8 +34,8 @@ class DataUsers extends Component
         'main_record.entidad_id'    => 'required|exists:entidades,id',
         'main_record.municipio_id'  => 'required|exists:municipios,id',
         'main_record.codpos'        => 'required|numeric',
-        'ine_anverso'   => 'required|image|max:2048|mimes:jpg,jpeg,png',
-        'ine_reverso'   => 'required|image|max:2048|mimes:jpg,jpeg,png',
+        'ine_anverso'   => 'required|image|max:5120|mimes:jpg,jpeg,png',
+        'ine_reverso'   => 'required|image|max:5120|mimes:jpg,jpeg,png',
         'confirmar'     => 'accepted',
     ];
 
@@ -87,9 +87,14 @@ class DataUsers extends Component
 
     public function store_data(){
 
+
         $this->reset('error_message');
+        if($this->main_record->curp){
+            $this->main_record->curp = strtoupper($this->main_record->curp);
+        }
 
         $this->validate();
+
 
         if(!$this->validaCURP($this->main_record->curp)){
             $this->error_message = 'Revise la CURP, al parecer está mal integrada';

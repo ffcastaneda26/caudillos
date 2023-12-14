@@ -26,6 +26,12 @@ class Profile extends Model
         'stripe_session'
     ];
 
+
+    public function setCurpAttribute($value)
+    {
+        $this->attributes['curp'] = strtoupper($value);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
