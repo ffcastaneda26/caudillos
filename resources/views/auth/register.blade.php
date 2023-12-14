@@ -6,8 +6,8 @@
         </x-slot>
 
 
-        <div class="text-register-size texto-azul grid grid-row grid-cols-1 text-center">
-            <p class="font-bold italic">Introducir nombre completo (Nombres y Apellidos)</p>
+        <div class="text-register-size texto-azul  text-center">
+            <p class="italic">Introducir nombre completo (Nombres y Apellidos)</p>
             <p class="font-extrabold underline italic">Serán verificados con un documento oficial</p>
         </div>
 
