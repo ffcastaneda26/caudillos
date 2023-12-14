@@ -45,6 +45,10 @@ body {
     font-family: 'Pilat';
 }
 
+.text-register-size {
+    font-size: 14px;
+}
+
 @font-face {
     font-family: 'Pilat';
     src: url('/fonts/pilat/PilatExtended-Black.woff') format('woff'),
