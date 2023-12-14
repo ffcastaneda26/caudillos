@@ -40,6 +40,9 @@ header {
     margin: 20px;
 }
 
+.welcome-legend-second {
+    font-size: 20px;
+}
 
 
 .link_mas_informacion {
@@ -73,7 +76,9 @@ header {
     .welcome-legend {
         font-size: 14px;
     }
-
+    .welcome-legend-second {
+        font-size: 12px;
+    }
     .text-link-information{
         font-size: 10px;
     }

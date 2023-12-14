@@ -49,7 +49,7 @@
                 <img class="image" src="{{ asset('images/patrocinios/secorp.png') }}" alt="Imagen 3">
             </div>
 
-            <div class="welcome-legend texto-azul font-semibold">
+            <div class="welcome-legend-second texto-azul font-semibold">
                 Trabajando en conjunto en busca de un mejor Chihuahua
             </div>
 
