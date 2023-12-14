@@ -61,7 +61,11 @@
 
                 @include('auth.password_and_confirm')
 
-
+                <div>
+                    @error('password')
+                        <div class="badge rounded-pill bg-danger">{{ $message }}</div>
+                    @enderror
+                </div>
                 {{-- Aceptar ser mayor de edad --}}
                 <div class=" row align-items-start">
                     <div class="mt-4">
