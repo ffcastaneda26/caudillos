@@ -86,15 +86,12 @@ class DataUsers extends Component
 
 
     public function store_data(){
-
-
         $this->reset('error_message');
         if($this->main_record->curp){
             $this->main_record->curp = strtoupper($this->main_record->curp);
         }
 
         $this->validate();
-
 
         if(!$this->validaCURP($this->main_record->curp)){
             $this->error_message = 'Revise la CURP, al parecer está mal integrada';
@@ -130,6 +127,7 @@ class DataUsers extends Component
         $this->show_alert('success',$message);
         $this->closeModal();
         $this->resetInputFields();
+        return redirect()->route('dashboard');
     }
 
     /** Lee los datos complemenatrios del perfil */
@@ -207,7 +205,8 @@ class DataUsers extends Component
         $this->show_alert('success',$message);
         $this->closeModal();
         $this->resetInputFields();
-        return redirect()->back(); // This is not working
+        return redirect()->route('dashboard');
+        // return redirect()->back(); // This is not working
     }
 
 
@@ -217,5 +216,7 @@ class DataUsers extends Component
         $this->resetErrorBag();
     }
 
-
+    public function closeDataUser(){
+        return redirect()->route('dashboard');
+    }
 }

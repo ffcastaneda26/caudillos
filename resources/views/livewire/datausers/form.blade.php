@@ -261,7 +261,7 @@
                     <p class="text-white">Si necesita actualizar los datos póngase en contacto con un administrador</p>
                 </div>
             @endif
-            <button wire:click="closeModal()"
+            <button wire:click="closeDataUser()"
                 class="btn btn-danger">
                 {{__("Cancel")}}
             </button>
