@@ -44,9 +44,9 @@
 
             <div class="sm:bg-dark images-row">
                 <img class="image" src="{{ asset('images/patrocinios/fundacion_caudillos.png') }} "alt="Imagen 1">
-                <img class="image" src="{{ asset('images/patrocinios/ahava.png') }}" alt="Imagen 2">
-                <img class="image" src="{{ asset('images/patrocinios/jaquez_imper.png') }}" alt="Imagen 3">
                 <img class="image" src="{{ asset('images/patrocinios/secorp.png') }}" alt="Imagen 3">
+
+                <img class="image" src="{{ asset('images/patrocinios/jaquez_imper.png') }}" alt="Imagen 3">
             </div>
 
             <div class="welcome-legend-second texto-azul font-semibold">

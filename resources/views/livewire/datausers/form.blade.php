@@ -4,23 +4,6 @@
 
 
     <div class="row align-items-start">
-        {{-- <div class="col-md-3 flex flex-col mt-2">
-            <label class="input-group-text mb-2">Entidad</label>
-            @error('main_record.entidad_id')<div><label for=""></label></div>@enderror
-            <label class="input-group-text mb-2">Municipio</label>
-            @error('main_record.municipio_id')<div><label for=""></label></div>@enderror
-            <label class="input-group-text mb-2">C.P.</label>
-            @error('main_record.codpos')<div><label for=""></label></div>@enderror
-
-            <label class="input-group-text mb-2">Género</label>
-            @error('main_record.gender')<div><label for=""></label></div>@enderror
-            <label class="input-group-text mb-2">F. Nac</label>
-            @error('main_record.birthday')<div><label for=""></label></div>@enderror
-
-            <label class="input-group-text mb-2 mt-1">Curp</label>
-            @error('main_record.curp')<div><label for=""></label></div>@enderror
-        </div> --}}
-
 
 
         <div class="col flex flex-col mt-2">
@@ -110,8 +93,9 @@
 
             {{-- CURP --}}
             <div class="flex-flex-column mb-2">
-                <input wire:model="main_record.curp"
+                <input  wire:model.debounce.150ms="main_record.curp"
                         type="text"
+
                         {{ $this->allow_edit ? '' : 'disabled'}}
                         @if (!$this->allow_edit)
                             style="background-color:#e9ecef;"
@@ -158,7 +142,6 @@
                     <div class="col-lg-6  col-md-8 mb-4 {{ $errors->has('curp') ? 'bg-red-500' : '' }}">
                         <input type="file"
                                 wire:model="ine_anverso"
-                                {{-- wire:loading wire:target="store" --}}
                                 {{$allow_edit ? '' : 'disabled' }}
                                 class="form-control">
                     </div>
@@ -168,7 +151,6 @@
                     <div class="col-lg-6  col-md-8 mb-4">
                         <input type="file"
                                 wire:model="ine_reverso"
-                                {{-- wire:loading wire:target="store" --}}
                                 {{$allow_edit ? '' : 'disabled' }}
                                 class="form-control">
                     </div>
@@ -254,7 +236,6 @@
 
     {{-- Botones de acción --}}
     <div class="modal-footer">
-
         <div class="d-flex justify-content-around">
             @if(!$this->allow_edit)
                 <div class="w-1/2">
@@ -266,13 +247,16 @@
                 {{__("Cancel")}}
             </button>
 
-            @if($this->allow_edit)
-                <button  onclick="confirm_user_data()"
-                    class="btn btn-success"
-                    title="Guardar">
-                    {{__("Save")}}
-                    <i class="mdi mdi-content-save-alert"></i>
-                </button>
+            @if(isset($confirmar) && $confirmar  && isset($ine_anverso) && isset($ine_reverso) && $main_record->entidad_id  && $main_record->municipio_id && $main_record->codpos && $main_record->gender && $main_record->birthday && $main_record->curp)
+                @if($this->allow_edit)
+                    <button  onclick="confirm_user_data()"
+                        class="btn btn-success"
+                        title="Guardar"
+                        {{ isset($ine_anverso) && isset($ine_reverso) ? '' : 'disabled'}}>
+                        {{__("Save")}}
+                        <i class="mdi mdi-content-save-alert"></i>
+                    </button>
+                @endif
             @endif
         </div>
     </div>
