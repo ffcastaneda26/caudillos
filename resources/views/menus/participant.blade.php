@@ -14,7 +14,6 @@
         @role('participante')
             @if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue)
                 <x-nav-link href="{{ route('data-users') }}" :active="request()->routeIs('data-users')">
-
                     <label class="my-fondo-header">Datos Complementarios</label>
                 </x-nav-link>
             @else
@@ -62,11 +61,7 @@
                     </x-nav-link>
                 @endif
 
-                @if (Route::has('data-users'))
-                    <x-nav-link href="{{ route('data-users') }}" :active="request()->routeIs('data-users')">
-                        <label class="my-fondo-header">Datos Complementarios</label>
-                    </x-nav-link>
-                @endif
+
             @endif
 
         @endrole
