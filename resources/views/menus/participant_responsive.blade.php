@@ -54,7 +54,7 @@
 
                     @if (Route::has('data-users'))
                         <x-my-responsive-nav-link href="{{ route('data-users') }}">
-                            Posiciones Generales
+                            Datos Complementarios
                         </x-my-responsive-nav-link>
                     @endif
                 @endif
