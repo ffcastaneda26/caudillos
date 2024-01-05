@@ -79,9 +79,9 @@
             <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                 <div class="mt-3 space-y-1">
                     <!-- Account Management -->
-                    <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    <x-my-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                         <label class="text-sm">{{ __('Profile') }}</label>
-                    </x-responsive-nav-link>
+                    </x-my-responsive-nav-link>
 
                     @include('auth.apis_menu')
 
@@ -89,9 +89,9 @@
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
 
-                        <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                        <x-my-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
                             {{ __('Log Out') }}
-                        </x-responsive-nav-link>
+                        </x-my-responsive-nav-link>
                     </form>
 
                     <!-- Team Management -->
