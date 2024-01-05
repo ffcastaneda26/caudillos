@@ -80,11 +80,13 @@
             <!-- Responsive Settings Options -->
             {{-- @include('auth.settings_responsive_user_name') --}}
 
-            <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-                <div class="mt-3 space-y-1">
+            <div class="pt-1 pb-1 border-t border-gray-200 dark:border-gray-600">
+                <div class="space-y-1">
                     <!-- Account Management -->
                     <x-my-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                        <label class="text-sm">{{ __('Profile') }}</label>
+                       <i class="fa-regular fa-user"></i>
+                        <label class="text-sm ml-2">{{ __('Profile Information') }}</label>
+
                     </x-my-responsive-nav-link>
 
                     @include('auth.apis_menu')
@@ -94,7 +96,8 @@
                         @csrf
 
                         <x-my-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                            {{ __('Log Out') }}
+                            <label class="text-sm mr-5">{{ __('Log Out') }}</label>
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         </x-my-responsive-nav-link>
                     </form>
 
