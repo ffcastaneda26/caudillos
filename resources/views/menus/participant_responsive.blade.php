@@ -16,7 +16,7 @@
                 @else
                     @if (Route::has('dashboard'))
                         <x-my-responsive-nav-link href="{{ route('dashboard') }}">
-                            Paneil Inicial
+                            {{ __('Dashboard') }}
                         </x-my-responsive-nav-link>
                     @endif
 

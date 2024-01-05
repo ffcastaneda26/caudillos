@@ -27,13 +27,12 @@
 
                 </div>
 
-
             </div>
 
             {{-- Nombre de usuario arriba --}}
             <div class="mr-10 flex items-center justify-end sm:hidden">
-                {{ Auth::user()->name }}
-            </div>
+                <div class="text-xs">{{ Auth::user()->name }}</div>
+              </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
