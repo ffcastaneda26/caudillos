@@ -31,7 +31,11 @@
 
             {{-- Nombre de usuario arriba --}}
             <div class="mr-10 flex items-center justify-end sm:hidden">
-                <div class="text-xs">{{ Auth::user()->name }}</div>
+                <div class="flex flex-col">
+                    <div class="text-xs">{{ Auth::user()->first_name }}</div>
+                    <div class="text-xs">{{ Auth::user()->last_name }}</div>
+                </div>
+
               </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
