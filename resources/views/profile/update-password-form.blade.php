@@ -4,7 +4,7 @@
     <x-slot name="description"></x-slot>
 
     <x-slot name="form">
-        <div class="sm:col-span-4">
+        <div class="col-span-6 sm:col-span-4">
             <div class="row">
                 <h1 class="text-center font-bold text-sm">{{ __('Update Password') }}</h1>
                 <h2 class="text-center font-bold text-xs"> {{ __('Ensure your account is using a long, random password to stay secure.') }}</h2>
