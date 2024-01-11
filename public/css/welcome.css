@@ -61,9 +61,8 @@ header {
 
 @media (max-width: 640px) {
     .images-row {
-
         flex-direction: column;
-        gap: 10px;
+        gap: 30px;
         justify-content: center;
         align-content: center;
         text-align: center;
