@@ -4,4 +4,4 @@
 {{-- <img class="rounded-xs" src="{{asset('images/patrocinios/fundacion_caudillos.png')}}" alt="Logo" width="64px" height="64px"> --}}
 
 
-<img class="rounded-xs" src="{{asset('images/patrocinios/fundacion_header.png')}}" alt="Logo" width="64px" height="64px">
+<img class="rounded-xs" src="{{asset('images/patrocinios/tdxcausa_circle.png')}}" alt="Logo" width="40px" height="40px">

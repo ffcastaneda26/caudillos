@@ -43,10 +43,10 @@
             </header>
 
             <div class="sm:bg-dark images-row">
-                <img class="image" src="{{ asset('images/patrocinios/fundacion_caudillos.png') }} "alt="Imagen 1">
-                <img class="image" src="{{ asset('images/patrocinios/secorp.png') }}" alt="Imagen 3">
-
-                <img class="image" src="{{ asset('images/patrocinios/jaquez_imper.png') }}" alt="Imagen 3">
+                <img class="image" src="{{ asset('images/patrocinios/tdxcausa.png') }} "alt="TDxCausa">
+                <img class="image" src="{{ asset('images/patrocinios/fundacion_caudillos.png') }} "alt="Fundación Caudillos">
+                <img class="image" src="{{ asset('images/patrocinios/secorp.png') }}" alt="Secorp">
+                <img class="image" src="{{ asset('images/patrocinios/jaquez_imper.png') }}" alt="Patronicador">
             </div>
 
             <div class="welcome-legend-second texto-azul font-semibold">
