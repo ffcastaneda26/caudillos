@@ -16,11 +16,10 @@
                                 <table class="table table-striped table-hover text-xs">
                                     <thead class="thead">
                                         <tr class="bg-dark text-white text-center">
-                                            {{-- <th>Id</th> --}}
                                             <th>Fecha</th>
-                                            <th colspan="3">Visita</th>
+                                            <th colspan="2">Visita</th>
                                             <th colspan="3" class="w-auto">Pronóstico</th>
-                                            <th colspan="3">Local</th>
+                                            <th colspan="2">Local</th>
                                         </tr>
                                     </thead>
 

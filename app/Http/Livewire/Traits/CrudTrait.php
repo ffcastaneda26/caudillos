@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 trait CrudTrait {
 
+    public $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+
 
     protected $paginationTheme = 'bootstrap';
     public $image_path;

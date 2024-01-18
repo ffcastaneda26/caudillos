@@ -1,11 +1,15 @@
    {{-- Datos del Local --}}
    <td align="center" style="vertical-align:top;">
-        <label class="rounded-pill  text-lg {{ $game->winner == 1 ? 'bg-success' : 'bg-danger'}}">
-            {{ $game->local_points }}
-        </label>
-    </td>
+       <label
+           class="rounded-pill  text-lg {{ $game->visit_points ? '' : 'd-none' }} {{ $game->winner == 1 ? 'bg-success' : 'bg-danger' }}">
+           {{ $game->local_points }}
+       </label>
+   </td>
 
-   {{-- <td align="center" valign="middle" class="{{ $game->winner == 1 ? 'font-bold  bg-success rounded-full' : 'text-base font-mono'}}">{{ $game->local_points }}</td> --}}
-   <td>{{ $game->local_team->alias }}</td>
-   <td><img src="{{Storage::url($game->local_team->logo)}}" class="avatar-sm"></td>
 
+   <td>
+       {{-- <img src="{{Storage::url($game->local_team->logo)}}" class="avatar-sm"> --}}
+       <div style="width: 30px">
+           <img src="{{ Storage::url($game->visit_team->logo) }}" class="avatar-sm md:w-100 h-100">
+       </div>
+   </td>
