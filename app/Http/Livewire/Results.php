@@ -45,7 +45,7 @@ class Results extends Component
         })->General($this->search)
              ->paginate();
 
-             dd($users);
+
         // if($this->search){
         //      dd($users);
         // }
