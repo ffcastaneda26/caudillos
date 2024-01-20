@@ -82,14 +82,15 @@ class Game extends Model
     // ¿Permite pronosticar?
     public function allow_pick()
     {
+        if(!is_null($this->local_points) || !is_null($this->visit_points)){
+            return false;
+        }
+
         date_default_timezone_set("America/Chihuahua");
         $configuration = Configuration::first();
         $fecha_juego = new Carbon($this->game_day);
         $fecha_juego->subMinute($configuration->minuts_before_picks);
         $newDateTime = Carbon::now()->subMinute($configuration->minuts_before_picks);
-        if(!is_null($this->local_points) || !is_null($this->visit_points)){
-            return false;
-        }
         return $fecha_juego > $newDateTime;
     }
 

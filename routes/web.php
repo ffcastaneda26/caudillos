@@ -25,9 +25,6 @@ use App\Http\Livewire\Positions\General;
 
 Route::get('cambiar-password/{email}',function($email){
     $user = User::where('email',$email)->first();
-
-    // $2y$10$NkDvdkmdYvp1H5HQufFM7.eG67y2g5Fkl55Vi5g.TBhyWYxPC5hEO
-    // $2y$10$8mYDK.4742ojDYfHMnpX0e91QwldnV0x3gLGdQotkfNkCUjj/w2f6
     $user->password = bcrypt('password');
     $user->save();
     dd($user->password);

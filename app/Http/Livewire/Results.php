@@ -19,42 +19,94 @@ class Results extends Component
 
     protected $listeners = ['receive_round'];
 
-    public $users_with_picks_round= null;
-    public $cols_show= [];
+    public $users_with_picks_round = null;
+    public $cols_show = [];
 
-    public function mount(){
+    public function mount()
+    {
         $round = new Round();
+        $this->search_label = 'Search Participant';
         $this->current_round = $round->read_current_round();
-        $this->selected_round =$this->current_round;
-        $this->receive_round($this->selected_round );
+        $this->selected_round = $this->current_round;
+        $this->receive_round($this->selected_round);
     }
 
     /*+---------------------------------+
       | Regresa Vista con Resultados    |
       +---------------------------------+
     */
-    public function render(){
+    public function render()
+    {
+
+        $users = User::whereHas('picks', function ($query)  {
+            $query->whereHas('game',function($query){
+                $query->where('round_id', $this->selected_round->id)->with('picks');
+            });
+        })->General($this->search)
+             ->paginate();
+
+             dd($users);
+        // if($this->search){
+        //      dd($users);
+        // }
+
         return view('livewire.results.index', [
-            'records' => User::role('participante')
-                            ->select('users.*')
-                            ->Join('picks', 'picks.user_id', '=', 'users.id')
-                            ->Join('games', 'picks.game_id', '=', 'games.id')
-                            ->where('games.round_id',$this->selected_round->id)
-                            ->where('users.active','1')
-                            ->groupBy('users.id')
-                            ->paginate($this->pagination),
+            'records' => $users,
         ]);
+
+
+
+
+        // return view('livewire.results.index', [
+        //     'records' => User::role('participante')
+        //     ->select('users.*')
+        //     ->Join('picks', 'picks.user_id', '=', 'users.id')
+        //     ->Join('games', 'picks.game_id', '=', 'games.id')
+        //     ->where('games.round_id', $this->selected_round->id)
+        //     ->where('users.active', '1')
+        //     ->groupBy('users.id')
+        //     ->paginate($this->pagination),
+        // ]);
     }
 
+    /*+------------------------------------+
+      | Lee datos                           |
+      +------------------------------------+
+    */
+
+    private function read_data()
+    {
+        if($this->search){
+            $results =  User::role('participante')
+            ->select('users.*')
+            ->Join('picks', 'picks.user_id', '=', 'users.id')
+            ->Join('games', 'picks.game_id', '=', 'games.id')
+            ->where('games.round_id', $this->selected_round->id)
+            ->where('users.active', '1')
+            ->groupBy('users.id')
+            ->paginate($this->pagination);
+            if($results->count()){
+                foreach ($results as $result){
+
+                    foreach($this->selected_round->picks_user($result->id)->get() as $pick){
+                        dd($pick);
+                    }
+                }
+            }
+            dd($this->search,$results);
+        }
+    }
 
     /*+------------------------------------+
       | Recibe Jornada y selecciona juegos |
       +------------------------------------+
     */
-    public function receive_round(Round $round){
-        if($round){
+    public function receive_round(Round $round)
+    {
+        if ($round) {
             $this->selected_round = $round;
-            $this->round_games  = $this->selected_round->games()->orderby('game_day')->orderby('game_time')->get();
+            $this->round_games  = $this->selected_round->games()->get();
+
         }
     }
 }

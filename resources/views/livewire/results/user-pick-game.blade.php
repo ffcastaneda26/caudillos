@@ -1,13 +1,14 @@
 <div>
+
+    {{-- @dd('Pick de ='. $pick->user->name,'allow_pick=' . $allow_pick,'Pronostica=' . $pick->winner,' Partido tiene resultado=' , $has_result , 'Acertó el partido=' . $hit_game) --}}
     <td align="center">
         @if($allow_pick)
             <img src="{{ asset('images/reloj.png') }}" alt="" width="32px" height="32px">
-
         @else
-            @if($user_pick_round->winner== 1)
-                <img src="{{Storage::url($user_pick_round->game->local_team->logo)}}"  class="avatar-xs">
+            @if($pick->winner== 1)
+                <img src="{{Storage::url($game->local_team->logo)}}"  class="avatar-xs">
             @else
-                <img src="{{Storage::url($user_pick_round->game->visit_team->logo)}}"  class="avatar-xs">
+                <img src="{{Storage::url($game->visit_team->logo)}}"  class="avatar-xs">
             @endif
 
             @if($has_result)
