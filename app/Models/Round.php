@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -68,6 +69,10 @@ class Round extends Model
         return $this->throughgames()->haspicks()->where('user_id',$user_id)->orderby('game_day')->orderby('game_time');
     }
 
+    public function picks_auth_user(): HasManyThrough
+    {
+        return $this->throughgames()->haspicks()->where('user_id',Auth::user()->id)->orderby('game_day')->orderby('game_time');
+    }
 
     /*+-----------------+
       | Funciones Apoyo |
@@ -80,15 +85,22 @@ class Round extends Model
     }
 
     // Jornada actual segun las fechas de inicio y final
-     public function  read_current_round(){
+    public function  read_current_round(){
         $dt = Carbon::now()->toDateString();
 
         $current_round = $this::where('start_date','<=',$dt)
                             ->where('end_date','>=',$dt)
                             ->first();
-        $current_round->active = 1;
-        $current_round->save();
-        return $current_round;
+        if(!$current_round){
+            $current_round=$this::where('id',$this->max('id'))->first();
+        }
+
+        if($current_round){
+            $current_round->active = 1;
+            $current_round->save();
+            return $current_round;
+        }
+        return null;
 
      }
 

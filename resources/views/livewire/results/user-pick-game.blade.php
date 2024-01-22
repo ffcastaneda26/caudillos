@@ -5,7 +5,7 @@
         @if($allow_pick)
             <img src="{{ asset('images/reloj.png') }}" alt="" width="32px" height="32px">
         @else
-            @if($pick->winner== 1)
+            @if($user_pick_round->winner== 1)
                 <img src="{{Storage::url($game->local_team->logo)}}"  class="avatar-xs">
             @else
                 <img src="{{Storage::url($game->visit_team->logo)}}"  class="avatar-xs">

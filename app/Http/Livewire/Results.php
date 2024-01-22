@@ -9,6 +9,7 @@ use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 
 class Results extends Component
 {
@@ -20,53 +21,28 @@ class Results extends Component
     protected $listeners = ['receive_round'];
 
     public $users_with_picks_round = null;
-    public $cols_show = [];
+    // public $cols_show = [];
+    public $picks_auth_user_round;
 
     public function mount()
     {
         $round = new Round();
-        $this->search_label = 'Search Participant';
         $this->current_round = $round->read_current_round();
         $this->selected_round = $this->current_round;
         $this->receive_round($this->selected_round);
+        $this->picks_auth_user_round =  $this->selected_round->picks_auth_user()->get();
+        $this->read_configuration();
     }
 
     /*+---------------------------------+
       | Regresa Vista con Resultados    |
       +---------------------------------+
     */
-    public function render()
-    {
-
-        $users = User::whereHas('picks', function ($query)  {
-            $query->whereHas('game',function($query){
-                $query->where('round_id', $this->selected_round->id)->with('picks');
-            });
-        })->General($this->search)
-             ->paginate();
-
-
-        // if($this->search){
-        //      dd($users);
-        // }
+    public function render(){
 
         return view('livewire.results.index', [
-            'records' => $users,
+            'records' => $this->read_data(),
         ]);
-
-
-
-
-        // return view('livewire.results.index', [
-        //     'records' => User::role('participante')
-        //     ->select('users.*')
-        //     ->Join('picks', 'picks.user_id', '=', 'users.id')
-        //     ->Join('games', 'picks.game_id', '=', 'games.id')
-        //     ->where('games.round_id', $this->selected_round->id)
-        //     ->where('users.active', '1')
-        //     ->groupBy('users.id')
-        //     ->paginate($this->pagination),
-        // ]);
     }
 
     /*+------------------------------------+
@@ -76,25 +52,22 @@ class Results extends Component
 
     private function read_data()
     {
-        if($this->search){
-            $results =  User::role('participante')
-            ->select('users.*')
-            ->Join('picks', 'picks.user_id', '=', 'users.id')
-            ->Join('games', 'picks.game_id', '=', 'games.id')
-            ->where('games.round_id', $this->selected_round->id)
-            ->where('users.active', '1')
-            ->groupBy('users.id')
-            ->paginate($this->pagination);
-            if($results->count()){
-                foreach ($results as $result){
+        return User::role('participante')
+                            ->select('users.*')
+                            ->Join('picks', 'picks.user_id', '=', 'users.id')
+                            ->Join('games', 'picks.game_id', '=', 'games.id')
+                            ->where('games.round_id',$this->selected_round->id)
+                            ->where('users.active','1')
+                            ->where('first_name','LIKE',"%$this->search%")
+                            ->orwhere('last_name','LIKE',"%$this->search%")
+                            ->orwhere('email','LIKE',"%$this->search%")
+                            ->where('users.id','<>',Auth::user()->id)
+                            ->groupBy('users.id')
+                            ->orderBy('users.first_name')
+                            ->orderBy('users.last_name')
+                            ->paginate($this->pagination);
+            // dd($users);
 
-                    foreach($this->selected_round->picks_user($result->id)->get() as $pick){
-                        dd($pick);
-                    }
-                }
-            }
-            dd($this->search,$results);
-        }
     }
 
     /*+------------------------------------+
@@ -103,10 +76,11 @@ class Results extends Component
     */
     public function receive_round(Round $round)
     {
+
         if ($round) {
+            // dd($round);
             $this->selected_round = $round;
             $this->round_games  = $this->selected_round->games()->get();
-
         }
     }
 }
