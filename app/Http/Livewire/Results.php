@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
 use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
-use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Auth;
 
 class Results extends Component
 {
@@ -23,23 +24,30 @@ class Results extends Component
     public $users_with_picks_round = null;
     // public $cols_show = [];
     public $picks_auth_user_round;
-    public $sort_secondary='last_name';
+    public $sort_secondary = 'last_name';
+    public $sort_by = 'name';
+    public $sort_asc_desc = 'ascending';
     public function mount()
     {
+
         $round = new Round();
         $this->current_round = $round->read_current_round();
         $this->selected_round = $this->current_round;
         $this->receive_round($this->selected_round);
         $this->picks_auth_user_round =  $this->selected_round->picks_auth_user()->get();
         $this->read_configuration();
+        $this->sort = 'name';
+        $this->direction = 'asc';
     }
 
     /*+---------------------------------+
       | Regresa Vista con Resultados    |
       +---------------------------------+
     */
-    public function render(){
-           return view('livewire.results.index', [
+    public function render()
+    {
+
+        return view('livewire.results.index', [
             'records' => $this->read_data(),
         ]);
     }
@@ -51,20 +59,24 @@ class Results extends Component
 
     private function read_data()
     {
-        return User::role('participante')
-                            ->select('users.*')
-                            ->Join('picks', 'picks.user_id', '=', 'users.id')
-                            ->Join('games', 'picks.game_id', '=', 'games.id')
-                            ->where('games.round_id',$this->selected_round->id)
-                            ->where('users.active','1')
-                            ->where('first_name','LIKE',"%$this->search%")
-                            ->orwhere('last_name','LIKE',"%$this->search%")
-                            ->orwhere('email','LIKE',"%$this->search%")
-                            ->where('users.id','<>',Auth::user()->id)
-                            ->groupBy('users.id')
-                            ->orderBy($this->sort,$this->direction)
-                            ->orderBy($this->sort_secondary,$this->direction)
-                            ->paginate($this->pagination);
+        $users = User::role('participante')
+            ->join('picks', 'users.id', '=', 'picks.user_id')
+            ->join('games', 'picks.game_id', '=', 'games.id')
+            ->where('games.round_id', '=', $this->selected_round->id)
+            ->where('users.active', '1')
+            ->where('first_name', 'LIKE', "%$this->search%")
+            ->orwhere('last_name', 'LIKE', "%$this->search%")
+            ->orwhere('email', 'LIKE', "%$this->search%")
+            ->groupBy('users.id')
+            ->select('users.*', DB::raw('SUM(picks.hit) as total_hits'));
+        if ($this->sort === 'name') {
+            $users->orderBy(DB::raw('CONCAT(users.first_name, " ", users.last_name)'), $this->direction);
+        } else {
+            $users->orderBy(DB::raw('SUM(picks.hit)'), $this->direction);
+        }
+
+        $users = $users->paginate($this->pagination);
+        return $users;
     }
 
     /*+------------------------------------+
@@ -81,19 +93,21 @@ class Results extends Component
         }
     }
 
-        // Ordernar por algun campo
-    public function result_order($orderby){
-        if($orderby == 'first_name'){
+
+    // Ordernar por algun campo
+    public function result_order_x($orderby)
+    {
+        if ($orderby == 'first_name') {
             $this->sort_secondary = 'last_name';
         }
 
-        if($this->sort == $orderby){
-            if($this->direction == 'asc'){
+        if ($this->sort == $orderby) {
+            if ($this->direction == 'asc') {
                 $this->direction = 'desc';
-            }else{
+            } else {
                 $this->direction = 'asc';
             }
-        }else{
+        } else {
             $this->sort = $orderby;
             $this->direction = 'asc';
         }
