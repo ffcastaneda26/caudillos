@@ -74,6 +74,7 @@
                                                 <td
                                                     class="text-base text-center {{ $hit_last_game ? 'text-success' : 'text-danger' }}">
                                                     @if ($allow_pick)
+
                                                         <img src="{{ asset('images/reloj.png') }}" alt=""
                                                             width="32px" height="32px">
                                                     @else

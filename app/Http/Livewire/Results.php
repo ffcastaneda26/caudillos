@@ -23,7 +23,7 @@ class Results extends Component
     public $users_with_picks_round = null;
     // public $cols_show = [];
     public $picks_auth_user_round;
-
+    public $sort_secondary='last_name';
     public function mount()
     {
         $round = new Round();
@@ -39,8 +39,7 @@ class Results extends Component
       +---------------------------------+
     */
     public function render(){
-
-        return view('livewire.results.index', [
+           return view('livewire.results.index', [
             'records' => $this->read_data(),
         ]);
     }
@@ -63,11 +62,9 @@ class Results extends Component
                             ->orwhere('email','LIKE',"%$this->search%")
                             ->where('users.id','<>',Auth::user()->id)
                             ->groupBy('users.id')
-                            ->orderBy('users.first_name')
-                            ->orderBy('users.last_name')
+                            ->orderBy($this->sort,$this->direction)
+                            ->orderBy($this->sort_secondary,$this->direction)
                             ->paginate($this->pagination);
-            // dd($users);
-
     }
 
     /*+------------------------------------+
@@ -78,9 +75,27 @@ class Results extends Component
     {
 
         if ($round) {
-            // dd($round);
+
             $this->selected_round = $round;
             $this->round_games  = $this->selected_round->games()->get();
+        }
+    }
+
+        // Ordernar por algun campo
+    public function result_order($orderby){
+        if($orderby == 'first_name'){
+            $this->sort_secondary = 'last_name';
+        }
+
+        if($this->sort == $orderby){
+            if($this->direction == 'asc'){
+                $this->direction = 'desc';
+            }else{
+                $this->direction = 'asc';
+            }
+        }else{
+            $this->sort = $orderby;
+            $this->direction = 'asc';
         }
     }
 }
