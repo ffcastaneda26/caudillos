@@ -45,8 +45,9 @@
             <div class="sm:bg-dark images-row">
                 <img class="image" src="{{ asset('images/patrocinios/tdxcausa.png') }} "alt="TDxCausa">
                 <img class="image" src="{{ asset('images/patrocinios/fundacion_caudillos.png') }} "alt="Fundación Caudillos">
-                <img class="image" src="{{ asset('images/patrocinios/secorp.png') }}" alt="Secorp">
-                <img class="image" src="{{ asset('images/patrocinios/jaquez_imper.png') }}" alt="Patronicador">
+                <img class="image" src="{{ asset('images/patrocinios/jidosha_vertical.png') }}" alt="Jidosha">
+                {{-- <img class="image" src="{{ asset('images/patrocinios/secorp.png') }}" alt="Secorp"> --}}
+
             </div>
 
             <div class="welcome-legend-second texto-azul font-semibold">
