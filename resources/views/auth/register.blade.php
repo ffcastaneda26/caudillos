@@ -5,7 +5,6 @@
             <x-authentication-card-logo />
         </x-slot>
 
-
         <div class="text-register-size texto-azul  text-center">
             <p class="italic">Introducir nombre completo (Nombres y Apellidos)</p>
             <p class="font-extrabold underline italic">Serán verificados con un documento oficial</p>
@@ -116,6 +115,9 @@
                 </div>
             </form>
         </div>
-    </x-authentication-card>
+
+     </x-authentication-card>
+     {{-- Logo de patrocinador principal --}}
+     <x-authentication-card-partner-logo />
 
 </x-guest-layout>
