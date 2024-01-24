@@ -1,14 +1,9 @@
 <thead class="thead">
     <tr class="text-black text-center text-sm" style="background-color: #EAE8E1">
-        {{-- <th>Id</th> --}}
-        {{-- <th  class="w-40">PARTICIPANTE</th> --}}
 
         <th rowspan="2" valign="middle" class="w-40 text-center text-sm">
             PARTICIPANTE
         </th>
-
-
-
 
         @foreach ($round_games as $game)
             <td class="text-left w-auto" >
