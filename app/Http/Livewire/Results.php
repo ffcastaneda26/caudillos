@@ -118,23 +118,4 @@ class Results extends Component
         }
     }
 
-
-    // Ordernar por algun campo
-    public function result_order_x($orderby)
-    {
-        if ($orderby == 'first_name') {
-            $this->sort_secondary = 'last_name';
-        }
-
-        if ($this->sort == $orderby) {
-            if ($this->direction == 'asc') {
-                $this->direction = 'desc';
-            } else {
-                $this->direction = 'asc';
-            }
-        } else {
-            $this->sort = $orderby;
-            $this->direction = 'asc';
-        }
-    }
 }

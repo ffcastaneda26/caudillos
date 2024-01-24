@@ -3,19 +3,7 @@
         {{-- <th>Id</th> --}}
         {{-- <th  class="w-40">PARTICIPANTE</th> --}}
 
-        <th rowspan="2" valign="middle"
-            class="w-40"
-            wire:click="result_order('first_name')">
-            @if($sort == 'first_name')
-                @if($direction == 'asc')
-                    <span class="float-right"><i class="mdi mdi-arrow-up "></i></span>
-                @else
-                    <span class="float-right"><i class="mdi mdi-arrow-down"></i></span>
-                @endif
-            @else
-                <span class="float-right"><i class="mdi mdi-sort"></i></span>
-
-            @endif
+        <th rowspan="2" valign="middle" class="w-40 text-center text-sm">
             PARTICIPANTE
         </th>
 
@@ -29,7 +17,7 @@
                 <img src="{{Storage::url($game->local_team->logo)}}" class="avatar-xs">
             </td>
         @endforeach
-        <th rowspan="2" valign="middle">ACIERTOS</th>
+        <th rowspan="2" valign="middle" class="text-sm">ACIERTOS</th>
     </tr>
     <tr class="bg-dark text-white text-left text-sm">
         @foreach ($round_games as $game)
