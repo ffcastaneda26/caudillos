@@ -26,7 +26,8 @@ class Results extends Component
     public $picks_auth_user_round;
     public $sort_secondary = 'last_name';
     public $sort_by = 'name';
-    public $sort_asc_desc = 'ascending';
+    public $order_by = 'name_asc';
+
     public function mount()
     {
 
@@ -59,6 +60,30 @@ class Results extends Component
 
     private function read_data()
     {
+        switch ($this->order_by) {
+            case 'name_asc':
+                $this->sort = 'name';
+                $this->direction = 'asc';
+                break;
+            case 'name_desc':
+                $this->sort = 'name';
+                $this->direction = 'desc';
+
+            case 'picks_asc':
+                $this->sort = 'picks';
+                $this->direction = 'asc';
+
+            case 'picks_desc':
+                $this->sort = 'picks';
+                $this->direction = 'desc';
+
+
+            default:
+                $this->sort = 'name';
+                $this->direction = 'desc';
+        }
+
+
         $users = User::role('participante')
             ->join('picks', 'users.id', '=', 'picks.user_id')
             ->join('games', 'picks.game_id', '=', 'games.id')
