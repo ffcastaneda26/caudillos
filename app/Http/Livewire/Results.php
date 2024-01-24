@@ -76,8 +76,6 @@ class Results extends Component
             case 'picks_desc':
                 $this->sort = 'picks';
                 $this->direction = 'desc';
-
-
             default:
                 $this->sort = 'name';
                 $this->direction = 'desc';

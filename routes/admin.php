@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Livewire\CreateMissingPicks;
 use App\Http\Controllers\Admin\GameController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\RoundController;
 // use App\Http\Controllers\Admin\ConfigurationController;
 
-
+Route::get('create-missing-picks',CreateMissingPicks::class)->name('create-missing-picks');
 
 Route::middleware(['auth','role:Admin'])->group(function () {
     Route::get('storage-link',function(){

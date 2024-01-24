@@ -34,6 +34,10 @@ header {
     width: 100px;
 }
 
+.image-header-picks {
+    margin: auto;
+    width: 75px;
+}
 
 .welcome-legend {
     font-size: 24px;
@@ -69,6 +73,10 @@ header {
     }
 
     .image {
+        margin:auto;
+        width: 75px;
+    }
+    .image-header-picks {
         margin:auto;
         width: 75px;
     }

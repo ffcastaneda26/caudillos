@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\CreateMissingPicks;
 use App\Models\Game;
 use App\Models\Pick;
 use App\Models\User;
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Http\Livewire\Traits\FuncionesGenerales;
+
+Route::get('create-missing-picks',CreateMissingPicks::class)->name('create-missing-picks');
+
+Route::get('generar_pronosticos_faltantes',function(){
+    $rounds = Round::all();
+    $users = User::role('participante')->whereDoesntHave('picks')->get();
+ });
 
 
 
