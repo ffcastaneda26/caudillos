@@ -3,16 +3,12 @@
 namespace App\Http\Livewire\Positions;
 
 use App\Models\Game;
-use App\Models\Pick;
-use App\Models\Team;
 use App\Models\Round;
 use Livewire\Component;
-use App\Models\Position;
 use Livewire\WithPagination;
 use App\Models\Configuration;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -47,6 +43,9 @@ class ByRound extends Component
                                            ->orwhere('visit_team_id',$configuration_record->team_id)
                                            ->first();
             $this->tie_breaker_game_played = $this->tie_breaker_game->has_result();
+        }else{
+            $this->tie_breaker_game = null;
+            $this->tie_breaker_game_played = false;
         }
 
 

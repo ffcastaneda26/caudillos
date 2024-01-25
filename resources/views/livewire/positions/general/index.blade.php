@@ -1,7 +1,12 @@
 <div>
 
     <div class="container-fluid mt-2">
-        @if(isset($records ))
+        @if (isset($records))
+            <div class="flex flex-row justify-center">
+                <div class="card">
+                    @include('livewire.positions.general.search')
+                </div>
+            </div>
             <div class="mt-3 flex justify-center">
                 <div class="col-sm-8">
                     <div class="table-responsive">
@@ -14,7 +19,7 @@
                             </tbody>
                         </table>
                         <div>
-                            {{ $records->links()}}
+                            {{ $records->links() }}
                         </div>
                     </div>
                 </div>
