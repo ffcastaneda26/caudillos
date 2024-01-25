@@ -9,7 +9,7 @@ $previous_pick = null;
         @if(!is_null($previous_pick))
             @if($previous_pick->game->allow_pick())
                 <td align="center">
-                    <img src="{{ asset('images/reloj.jpg') }}" alt="" width="32px" height="32px">
+                    <x-reloj-image/>>
                 </td>
             @else
             <td align="center" class="{{  $previous_pick->hit ? 'bg-success' : 'bg-danger' }}">
@@ -33,7 +33,7 @@ $previous_pick = null;
     @if($pick->user_id == $participante_anterior)
             @if($pick->game->allow_pick())
                 <td align="center">
-                    <img src="{{ asset('images/reloj.jpg') }}" alt="" width="32px" height="32px">
+                    <x-reloj-image/>>
                 </td>
             @else
             <td align="center" class="{{  $pick->hit ? 'bg-success' : 'bg-danger' }}">
@@ -59,7 +59,7 @@ $previous_pick = null;
     @if(!is_null($previous_pick))
     @if($previous_pick->game->allow_pick())
     <td align="center">
-        <img src="{{ asset('images/reloj.jpg') }}" alt="" width="32px" height="32px">
+        <x-reloj-image/>>
     </td>
 @else
     <td align="center" class="{{  $previous_pick->hit ? 'bg-success' : 'bg-danger' }}">

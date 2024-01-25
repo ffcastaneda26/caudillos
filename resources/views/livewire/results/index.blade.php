@@ -28,7 +28,7 @@
                                                 $allow_pick = false;
                                             @endphp
                                             <tr>
-                                                <td>{{ $pick_user->name }}</td>
+                                                <td align="left">{{ $pick_user->name }}</td>
 
                                                 @foreach ($selected_round->picks_user($pick_user->id)->get() as $pick)
                                                     @php
@@ -40,15 +40,12 @@
                                                     @endphp
                                                     <td align="center">
                                                         @if ($allow_pick)
-                                                            <img src="{{ asset('images/reloj.png') }}" alt=""
-                                                                width="32px" height="32px">
+                                                            <x-reloj-image />
                                                         @else
                                                             @if ($pick->winner == 1)
-                                                                <img src="{{ Storage::url($game->local_team->logo) }}"
-                                                                    class="avatar-xs">
+                                                                <img src="{{ Storage::url($game->local_team->logo) }}" class="avatar-xs">
                                                             @else
-                                                                <img src="{{ Storage::url($game->visit_team->logo) }}"
-                                                                    class="avatar-xs">
+                                                                <img src="{{ Storage::url($game->visit_team->logo) }}" class="avatar-xs">
                                                             @endif
 
                                                             @if ($has_result)
@@ -60,10 +57,6 @@
                                                         @endif
                                                     </td>
 
-
-                                                    {{-- ------ Vista antes ---- --}}
-                                                    {{-- @livewire('user-pick-game', ['user' => $pick->user_id, 'game' => $pick->game_id, 'search' => $search], key($pick->id)) --}}
-
                                                     @php
                                                         $visit_points = $pick->visit_points;
                                                         $local_points = $pick->local_points;
@@ -71,18 +64,16 @@
                                                         $allow_pick = $pick->game->allow_pick($configuration->minuts_before_picks);
                                                     @endphp
                                                 @endforeach
-                                                <td
-                                                    class="text-base text-center {{ $hit_last_game ? 'text-success' : 'text-danger' }}">
+                                                <td class="text-center {{ $hit_last_game ? 'text-success' : 'text-danger' }}">
                                                     @if ($allow_pick)
+                                                        <x-reloj-image-12px />
 
-                                                        <img src="{{ asset('images/reloj.png') }}" alt=""
-                                                            width="32px" height="32px">
-                                                    @else
+                                                     @else
                                                         {{ $visit_points . '-' . $local_points }}
                                                     @endif
                                                 </td>
 
-                                                <td class="text-base text-center">
+                                                <td class="text-center">
                                                     {{ $pick_user->has_position_record_round($selected_round->id) ? $pick_user->hits_round($selected_round->id) : '' }}
                                                 </td>
 

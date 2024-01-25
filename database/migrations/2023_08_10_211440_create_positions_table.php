@@ -28,7 +28,7 @@ return new class extends Migration
             $table->boolean('hit_last_game')->nullable()->default(0)->comment('¿Acertó ultimo juego?');
             $table->boolean('hit_visit')->nullable()->default(0)->comment('¿Acertó al marcador visitante?');
             $table->boolean('hit_local')->nullable()->default(0)->comment('¿Acertó al marcador local');
-            $table->tinyInteger('position')->nullable()->default(null)->comment('Posición en la jornada');
+            $table->integer('position')->nullable()->default(null)->comment('Posición en la jornada');
             $table->timestamps();
         });
     }
