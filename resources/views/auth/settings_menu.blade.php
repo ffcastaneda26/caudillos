@@ -30,9 +30,9 @@
                 {{ __('Manage Account') }}
             </div>
 
-            <x-dropdown-link href="{{ route('profile.show') }}">
+            <x-dropdown-link id="profile_user_url" href="{{ route('profile.show') }}">
                 <i class="fa-regular fa-user"></i>
-                <label class="ml-2">{{ __('Profile') }}</label>
+                <label for="profile_user_url" class="ml-2">{{ __('Profile') }}</label>
             </x-dropdown-link>
 
             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -46,8 +46,8 @@
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}" x-data>
                 @csrf
-                <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                    <label class="text-sm mr-5">{{ __('Log Out') }}</label>
+                <x-dropdown-link id="logout_user_url" href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                    <label for="logout_user_url" class="text-sm mr-5">{{ __('Log Out') }}</label>
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </x-dropdown-link>
             </form>

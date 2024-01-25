@@ -9,7 +9,7 @@
                 <img src="{{ asset('images/negativo.png') }}"   width="25" height="25">
             @endif
         @else
-            <img src="{{ asset('images/balon.png') }}" alt="X" width="25" height="25">
+            <img src="{{ asset('images/vs.png') }}" alt="X" width="25" height="25">
         @endif
     </td>
 

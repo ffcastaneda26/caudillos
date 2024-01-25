@@ -5,14 +5,18 @@
                 <div class="p-2">
                         <label for="search-bar" class="mr-5">Participante</label>
                         <div class="search-bar" wire:ignore>
-                            <input wire:model="search" class="search-input form-control" placeholder="{{ __($search_label) }}">
+                            <input wire:model="search"
+                                    class="search-input form-control"
+                                    placeholder="{{ __($search_label) }}"
+                                    id="search_data"
+                                    name="search_data">
                         </div>
                 </div>
             </div>
             <div class="col-6">
                 <div class="p-2">
-                        <label class="text-center mx-auto">Ordenar Por</label>
-                        <select wire:model="order_by" class="form-control text-sm">
+                        <label for="" class="text-center mx-auto">Ordenar Por</label>
+                        <select wire:model="order_by" class="form-control text-sm" id="order_by" name="order_by">
                             <option value="name_asc">Participante A-Z</option>
                             <option value="name_desc">Participante Z-A</option>
                             <option value="picks_asc">Aciertos A-Z</option>

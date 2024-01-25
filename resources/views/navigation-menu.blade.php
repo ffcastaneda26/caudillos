@@ -17,8 +17,8 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        <label class="my-fondo-header">{{ __('Dashboard') }}</label>
+                    <x-nav-link id="dashboard" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        <label for="dashboard" class="my-fondo-header">{{ __('Dashboard') }}</label>
                     </x-nav-link>
 
                     @include('menus.admin')
@@ -83,9 +83,9 @@
             <div class="pt-1 pb-1 border-t border-gray-200 dark:border-gray-600">
                 <div class="space-y-1">
                     <!-- Account Management -->
-                    <x-my-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    <x-my-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')" id="profile_show">
                        <i class="fa-regular fa-user"></i>
-                        <label class="text-sm ml-2">{{ __('Profile Information') }}</label>
+                        <label for="profile_show"  class="text-sm ml-2">{{ __('Profile Information') }}</label>
 
                     </x-my-responsive-nav-link>
 
@@ -95,8 +95,8 @@
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
 
-                        <x-my-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                            <label class="text-sm mr-5">{{ __('Log Out') }}</label>
+                        <x-my-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();" id="logout">
+                            <label for="logout" class="text-sm mr-5">{{ __('Log Out') }}</label>
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         </x-my-responsive-nav-link>
                     </form>

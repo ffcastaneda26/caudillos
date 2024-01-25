@@ -1,7 +1,7 @@
 <thead class="thead">
     <tr class="text-black text-center text-xs" style="background-color: #EAE8E1">
 
-        <th rowspan="2" valign="middle" class="w-40 text-center text-xs">
+        <th rowspan="2" valign="middle" class="w-25 text-center text-xs">
             PARTICIPANTE
         </th>
 
@@ -27,3 +27,4 @@
         @endforeach
     </tr>
 </thead>
+

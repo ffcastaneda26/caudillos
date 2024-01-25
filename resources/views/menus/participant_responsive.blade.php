@@ -45,10 +45,10 @@
                     @endif
 
                     @if (Route::has('picks-review'))
-                        <my-responsive-nav-link href="{{ route('picks-review') }}"
+                        <my-responsive-nav-link id="picks_review_nav" href="{{ route('picks-review') }}"
                             :active="request() - > routeIs('picks-review')">
 
-                            <label class="my-fondo-header">Resultados por Jornada</label>
+                            <label for="picks_review_nav" class="my-fondo-header">Resultados por Jornada</label>
                         </my-responsive-nav-link>
                     @endif
 
