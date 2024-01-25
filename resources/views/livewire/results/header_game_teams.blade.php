@@ -15,7 +15,7 @@
         @endforeach
         <th rowspan="2" valign="middle" class="text-xs">ACIERTOS</th>
     </tr>
-    <tr class="bg-dark text-white text-left text-xs">
+    <tr class="fondo-azul text-white text-left text-xs">
         @foreach ($round_games as $game)
             <td>
                 @if ($game->visit_points || $game->local_pints)
