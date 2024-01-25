@@ -31,7 +31,6 @@ class CreateMissingPicks extends Component
     }
     public function render()
     {
-        //  dd('Tenemos ' . $this->rounds->count() . ' jornadas y ' . $this->users->count() . ' Usuarios sin pronósticos');
 
         return view('livewire.create-missing-picks')->layout('layouts.app');
     }

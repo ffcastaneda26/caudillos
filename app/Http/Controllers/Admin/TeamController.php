@@ -90,7 +90,6 @@ class TeamController extends Controller
     {
         request()->validate(Team::$rules);
 
-        // dd($request->all());
         $team->update($request->all());
 
         return redirect()->route('teams.index')

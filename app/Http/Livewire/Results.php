@@ -22,7 +22,6 @@ class Results extends Component
     protected $listeners = ['receive_round'];
 
     public $users_with_picks_round = null;
-    // public $cols_show = [];
     public $picks_auth_user_round;
     public $sort_secondary = 'last_name';
     public $sort_by = 'name';
@@ -68,18 +67,19 @@ class Results extends Component
             case 'name_desc':
                 $this->sort = 'name';
                 $this->direction = 'desc';
-
-            case 'picks_asc':
-                $this->sort = 'picks';
+                break;
+            case 'hits_asc':
+                $this->sort = 'hits';
                 $this->direction = 'asc';
-
-            case 'picks_desc':
-                $this->sort = 'picks';
+                break;
+            case 'hits_desc':
+                $this->sort = 'hits';
                 $this->direction = 'desc';
-
+                break;
             default:
                 $this->sort = 'name';
                 $this->direction = 'desc';
+                break;
         }
 
 

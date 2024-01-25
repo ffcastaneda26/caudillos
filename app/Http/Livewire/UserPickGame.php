@@ -31,9 +31,6 @@ class UserPickGame extends Component
         $this->hit_game         = $this->user_pick_round->winner == $this->game->winner;
         $this->game_selected    = $this->user_pick_round->selected;
         $this->search           = $search;
-        if($this->search){
-            dd($this->search);
-        }
     }
 
 
