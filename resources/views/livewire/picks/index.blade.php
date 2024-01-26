@@ -15,7 +15,7 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover text-xs">
                                     <thead class="thead">
-                                        <tr class="bg-dark text-white text-center">
+                                        <tr align="center" class="bg-dark text-white text-center">
                                             <th>Fecha</th>
                                             <th colspan="2">Visita</th>
                                             <th colspan="2" class="w-auto text-center">Pronóstico</th>

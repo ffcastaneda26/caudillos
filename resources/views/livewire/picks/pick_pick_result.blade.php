@@ -1,4 +1,4 @@
-<td>
+<td align="center">
     <input type="radio"
             wire:model='picks.{{ $loop->index }}'
             name="winner-{{ $loop->index }}"
@@ -14,7 +14,7 @@
 @endif
 
 {{-- Pronostica que gana Local --}}
-<td>
+<td align="center">
     <input type="radio"
                 wire:model='picks.{{ $loop->index }}'
                 name="winner-{{$loop->index}}"

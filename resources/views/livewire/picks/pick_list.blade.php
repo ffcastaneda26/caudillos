@@ -10,7 +10,7 @@
 @endphp
 
 <tr>
-    <td class="text-left text-xs">
+    <td align="center" class="text-center text-xs">
         {{ $game_day . '/' . $game_month }} {{ $game->game_time->format('H:i') }}
     </td>
     @include('livewire.picks.pick_visit')

@@ -1,5 +1,5 @@
     {{-- Datos de la visita --}}
-    <td>
+    <td align="center" style="vertical-align:top;">
         <div style="width: 30px">
             <img src="{{Storage::url($game->visit_team->logo)}}" class="avatar-sm md:w-100 h-100">
         </div>

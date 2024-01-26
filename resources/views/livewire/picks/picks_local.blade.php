@@ -7,7 +7,7 @@
    </td>
 
 
-   <td>
+   <td align="center" style="vertical-align:top;">
        <div style="width: 25px">
            <img src="{{ Storage::url($game->local_team->logo) }}" class="avatar-sm md:w-100 h-100">
        </div>
