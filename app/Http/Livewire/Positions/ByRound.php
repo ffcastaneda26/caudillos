@@ -89,7 +89,17 @@ class ByRound extends Component
                 ->where('first_name', 'LIKE', "%$this->search%")
                 ->orwhere('last_name', 'LIKE', "%$this->search%")
                 ->orwhere('email', 'LIKE', "%$this->search%")
-                ->select(DB::raw('CONCAT(us.first_name, " ", us.last_name) AS name'), 'po.hits as hits', 'po.position', 'po.hit_last_game','po.dif_total_points','po.best_shot','po.dif_winner_points','po.dif_victory');
+                ->select(DB::raw('CONCAT(us.first_name, " ", us.last_name) AS name'),
+                        'po.hits as hits',
+                        'po.position',
+                        'po.hit_last_game',
+                        'po.dif_total_points',
+                        'po.best_shot',
+                        'po.dif_winner_points',
+                        'po.dif_victory',
+                        'po.tie_break_visit_points',
+                        'tie_break_local_points',
+                        'tie_break_winner');
 
                 if ($this->sort === 'name') {
                     $results->orderBy(DB::raw('CONCAT(us.first_name, " ", us.last_name)'), $this->direction);

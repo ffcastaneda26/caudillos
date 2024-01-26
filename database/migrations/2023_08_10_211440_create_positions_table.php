@@ -18,6 +18,9 @@ return new class extends Migration
             $table->foreignIdFor(Round::class)->comment('Jornada');
             $table->foreignIdFor(User::class)->comment('Jugador');
             $table->tinyInteger('hits')->nullable()->default(null)->comment('Aciertos');
+            $table->tinyInteger('tie_break_visit_points')->nullable()->default(null)->comment('Puntos visita partido desempate');
+            $table->tinyInteger('tie_break_local_points')->nullable()->default(null)->comment('Puntos local partido desemptate');
+            $table->tinyInteger('tie_break_winner')->nullable()->default(null)->comment('Ganador partido desempate');
             $table->tinyInteger('extra_points')->nullable()->default(null)->comment('Puntos Extra');
             $table->tinyInteger('dif_winner_points')->nullable()->default(null)->comment('Dif Puntos del ganador');
             $table->tinyInteger('dif_total_points')->nullable()->default(null)->comment('Dif total de puntos');

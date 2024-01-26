@@ -230,7 +230,7 @@ trait FuncionesGenerales
     }
 
     // Crea puntos x jornada
-    public function update_total_hits_positions(Round $round)
+    public function update_total_hits_positions(Round $round,Game $game=null)
     {
 
         $hits = User::role('participante')
@@ -244,7 +244,7 @@ trait FuncionesGenerales
                 DB::raw('SUM(picks.dif_victory) as dif_victory'),
                 DB::raw('SUM(picks.hit_last_game) as hit_last_game'),
                 DB::raw('SUM(picks.hit_local) as hit_local'),
-                DB::raw('SUM(picks.hit_visit) as hit_visit'),
+                DB::raw('SUM(picks.hit_visit) as hit_visit')
             )
             ->Join('picks', 'picks.user_id', '=', 'users.id')
             ->Join('games', 'picks.game_id', '=', 'games.id')
@@ -252,6 +252,7 @@ trait FuncionesGenerales
             ->where('users.active', '1')
             ->groupBy('users.id')
             ->get();
+
 
 
         if (!empty($hits)) {
@@ -276,6 +277,13 @@ trait FuncionesGenerales
                 $position_record->hit_local         = $hit->hit_local;
                 $position_record->best_shot         = $hit->dif_local_points > $hit->dif_visit_points ? $hit->dif_visit_points
                     : $hit->dif_local_points;
+
+                if($game && $game->is_last_game_round()){
+                    $pick_user_game =  $user->picks_game($game->id)->first();
+                    $position_record->tie_break_visit_points = $pick_user_game->visit_points;
+                    $position_record->tie_break_local_points = $pick_user_game->local_points;
+                    $position_record->tie_break_winner       = $pick_user_game->winner;
+                    }
                 $position_record->save();
             }
         }
@@ -359,4 +367,6 @@ trait FuncionesGenerales
         }
 
     }
+
+
 }

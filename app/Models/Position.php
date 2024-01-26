@@ -27,7 +27,10 @@ class Position extends Model
 		'hit_last_game'     => 'nullable',
 		'hit_visit'         => 'nullable',
 		'hit_local'         => 'nullable',
-		'position'          => 'nullable'
+		'position'          => 'nullable',
+		'tie_break_visit_points'    => 'nullable',
+		'tie_break_local_points'    => 'nullable',
+		'tie_break_winner'          => 'nullable',
     ];
 
     protected $perPage = 15;
@@ -50,7 +53,10 @@ class Position extends Model
         'hit_last_game',
         'hit_visit',
         'hit_local',
-        'position'
+        'position',
+        'tie_break_visit_points',
+		'tie_break_local_points',
+		'tie_break_winner',
     ];
 
     /*+------------+

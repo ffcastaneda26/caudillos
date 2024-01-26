@@ -111,9 +111,9 @@ class Games extends Component
                 $this->update_hit_last_game($this->main_record); // ¿Acertó último partido?
                 $this->update_tie_breaker($this->main_record);
             }
-            $this->update_total_hits_positions( $this->selected_round); // Actualiza tabla de aciertos por jornada (POSITIONS)
-            $this->update_positions(); // Asigna posiciones en tabla de POSITIONS
-            $this->read_general_positions(); // Lee posicions generales
+            $this->update_total_hits_positions( $this->selected_round,$this->main_record); // Actualiza tabla de aciertos por jornada (POSITIONS)
+            $this->update_positions();                                  // Asigna posiciones en tabla de POSITIONS
+            $this->read_general_positions();                            // Lee posicions generales
             $general_position = new GeneralPosition();
             $positions = $this->read_general_positions();
             if($positions){
