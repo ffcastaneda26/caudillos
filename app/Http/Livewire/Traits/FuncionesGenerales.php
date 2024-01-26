@@ -37,6 +37,7 @@ trait FuncionesGenerales
 
     public $tie_breaker_game = null;
     public $tie_breaker_game_played = false;
+    public $does_tie_breaker_team_rest =false;
 
     // Lee configuración
     public function read_configuration()
@@ -368,5 +369,21 @@ trait FuncionesGenerales
 
     }
 
+    // ¿Descansa el equipo de desempate?
+    public function does_tie_breaker_team_rest_in_round($round_id)
+    {
+
+      $game= Game::where('round_id',$round_id)
+                ->where(function($query){
+                    $query->where('local_team_id',$this->configuration->team_id)
+                          ->orWhere('visit_team_id',$this->configuration->team_id);
+                })->first();
+        if($game){
+           return false;
+        }
+
+        return true;
+
+    }
 
 }

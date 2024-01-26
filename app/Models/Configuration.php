@@ -15,7 +15,6 @@ class Configuration extends Model
 		'website_name'                  => 'required',
 		'website_url'                   => 'required',
 		'email'                         => 'required',
-		'email'                         => 'email',
 		'score_picks'                   => 'nullable',
 		'minuts_before_picks'           => 'required',
 		'allow_tie'                     => 'nullable',
@@ -56,7 +55,7 @@ class Configuration extends Model
        | Relaciones |
        +------------+
     */
-    public function round():BelongsTo
+    public function game():BelongsTo
     {
         return $this->belongsTo(Game::class,'team_id');
     }

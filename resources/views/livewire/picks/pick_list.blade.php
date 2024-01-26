@@ -1,6 +1,8 @@
 @php
     $allow_pick = $game->allow_pick();
     $is_last_game = $game->is_last_game_round();
+    $is_game_tie_breaker = $game->is_game_tie_breaker();
+    $is_last_game_round_to_pick = $game->is_last_game_round_to_pick();
     $pick_user = $game->pick_user();
     $print_score = $game->print_score();
     $acerto = $game->has_result() && $pick_user && $pick_user->winner == $game->winner;
@@ -15,11 +17,20 @@
     </td>
     @include('livewire.picks.pick_visit')
 
-    @if ($is_last_game)
-        @include('livewire.picks.pick_list_last_game')
+    @if ($does_tie_breaker_team_rest)
+        @if($is_last_game_round_to_pick)
+            @include('livewire.picks.pick_list_last_game')
+        @else
+            @include('livewire.picks.pick_pick_result')
+        @endif
     @else
-        @include('livewire.picks.pick_pick_result')
+        @if ($is_game_tie_breaker)
+            @include('livewire.picks.pick_list_last_game')
+        @else
+            @include('livewire.picks.pick_pick_result')
+        @endif
     @endif
+
 
     @include('livewire.picks.picks_local')
 
