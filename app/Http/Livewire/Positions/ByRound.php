@@ -22,10 +22,10 @@ class ByRound extends Component
     use FuncionesGenerales;
 
     protected $listeners = ['receive_round'];
-    public $tie_breaker_game_played = false;
+
 
     public $order_by = 'hits_desc';
-    public $tie_breaker_game;
+
 
     public function mount(){
         $this->manage_title = 'Posiciones x Jornada';
@@ -35,20 +35,7 @@ class ByRound extends Component
         $this->current_round = $round->read_current_round();
         $this->selected_round =$this->current_round;
         $this->receive_round($this->current_round );
-        $configuration_record = Configuration::first();
-        if($configuration_record->use_team_to_tie_breaker && $configuration_record->team_id ){
-
-            $this->tie_breaker_game = Game::Where('round_id',$this->selected_round->id)
-                                           ->where('local_team_id',$configuration_record->team_id)
-                                           ->orwhere('visit_team_id',$configuration_record->team_id)
-                                           ->first();
-            $this->tie_breaker_game_played = $this->tie_breaker_game->has_result();
-        }else{
-            $this->tie_breaker_game = null;
-            $this->tie_breaker_game_played = false;
-        }
-
-
+        $this->tie_breaker_game_has_played();
     }
 
     /*+---------------------------------+

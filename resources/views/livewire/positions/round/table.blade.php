@@ -3,7 +3,7 @@
         <th>Pos</th>
         <th >Participante </th>
         <th>Aciertos</th>
-        @if (isset($tie_breaker_game_played))
+        @if (isset($tie_breaker_game_played) && $tie_breaker_game_played )
             <th>
                 @if ($tie_breaker_game->winner == 1)
                     <img src="{{ Storage::url($tie_breaker_game->local_team->logo) }}" class="avatar-xs md:w-100 h-100">

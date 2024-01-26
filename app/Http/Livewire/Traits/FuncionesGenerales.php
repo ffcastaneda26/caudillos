@@ -35,7 +35,8 @@ trait FuncionesGenerales
     public $round_positions = null;
     public $round_picks     = null;
 
-
+    public $tie_breaker_game = null;
+    public $tie_breaker_game_played = false;
 
     // Lee configuración
     public function read_configuration()
@@ -341,5 +342,21 @@ trait FuncionesGenerales
             ->get();
 
         return $positions;
+    }
+
+    public function tie_breaker_game_has_played(){
+        $configuration_record = Configuration::first();
+        if($configuration_record->use_team_to_tie_breaker && $configuration_record->team_id ){
+
+            $this->tie_breaker_game = Game::Where('round_id',$this->selected_round->id)
+                                           ->where('local_team_id',$configuration_record->team_id)
+                                           ->orwhere('visit_team_id',$configuration_record->team_id)
+                                           ->first();
+            $this->tie_breaker_game_played = $this->tie_breaker_game->has_result();
+        }else{
+            $this->tie_breaker_game = null;
+            $this->tie_breaker_game_played = false;
+        }
+
     }
 }
