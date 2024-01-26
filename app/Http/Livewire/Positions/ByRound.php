@@ -24,7 +24,7 @@ class ByRound extends Component
     protected $listeners = ['receive_round'];
 
 
-    public $order_by = 'hits_desc';
+    public $order_by = 'position_asc';
 
 
     public function mount(){
@@ -67,16 +67,16 @@ class ByRound extends Component
                 $this->sort = 'name';
                 $this->direction = 'desc';
                 break;
-            case 'hits_asc':
-                $this->sort = 'hits';
+            case 'position_asc':
+                $this->sort = 'position';
                 $this->direction = 'asc';
                 break;
-            case 'hits_desc':
-                $this->sort = 'hits';
+            case 'position_desc':
+                $this->sort = 'position';
                 $this->direction = 'desc';
                 break;
             default:
-                $this->sort = 'hits';
+                $this->sort = 'position';
                 $this->direction = 'desc';
                 break;
         }
@@ -104,7 +104,7 @@ class ByRound extends Component
                 if ($this->sort === 'name') {
                     $results->orderBy(DB::raw('CONCAT(us.first_name, " ", us.last_name)'), $this->direction);
                 } else {
-                    $results->orderBy('hits', $this->direction);
+                    $results->orderBy('position', $this->direction);
                 }
 
         $results = $results->paginate($this->pagination);

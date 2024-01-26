@@ -25,12 +25,10 @@ class General extends Component
     */
 
     private $pagination = 15; //paginación de tabla
-    public $order_by = 'position_desc';
+    public $order_by = 'position_asc';
 
     public function render()
     {
-        // $positions = GeneralPosition::orderby('position', 'asc')->paginate($this->pagination);
-
         return view('livewire.positions.general.index', [
             'records' => $this->read_data()
         ]);
@@ -40,7 +38,6 @@ class General extends Component
     public function read_data()
     {
         $this->determinate_orderby_and_direction();
-
 
         $results = DB::table('general_positions as gp')
             ->join('users as us', 'us.id', '=', 'gp.user_id')
