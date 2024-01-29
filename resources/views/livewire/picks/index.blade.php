@@ -12,17 +12,11 @@
                 <div class="col-sm-12">
 
                     <div class="card">
+                        Partido Para puntos = {{ $id_game_last_game_round}}
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover text-xs">
-                                    <thead class="thead">
-                                        <tr align="center" class="bg-dark text-white text-center">
-                                            <th>Fecha</th>
-                                            <th colspan="2">Visita</th>
-                                            <th colspan="2" class="w-auto text-center">Pronóstico</th>
-                                            <th colspan="2">Local</th>
-                                        </tr>
-                                    </thead>
+                                    @include('livewire.picks.header_table')
 
                                     <tbody>
                                         @foreach ($round_games as $game)

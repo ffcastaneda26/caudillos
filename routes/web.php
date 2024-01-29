@@ -48,7 +48,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(func
     Route::get('positions-general',General::class)->name('positions-general');      // Posiciones General
     Route::get('results-by-round',Results::class)->name('results-by-round');        // Resultados x Jornada
     Route::get('data-users',DataUsers::class)->name('data-users');                  // Datos complementarios
-    Route::get('picks-round-user/{user}/{round}',PicksRoundUser::class)->name('picks-round-user'); // Pronósticos del usuario en una jornada
     Route::get('rounds',Rounds::class)->name('rounds');                             // Jornadas
 
    Route::get('/suscribe/{sesion_id}',function($sesion_id){                         // Registrar el pago

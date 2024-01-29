@@ -8,6 +8,7 @@ use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
@@ -52,7 +53,7 @@ class Picks extends Component
     public $points_local_last_game = null;
     public $error;
 
-
+    public $id_game_last_game_round = null;
     public function mount()
     {
         $this->read_configuration();
@@ -91,6 +92,33 @@ class Picks extends Component
         return view('livewire.picks.index');
     }
 
+    /*+-----------------------------+
+      | Juego para solicitar puntos |
+      +-----------------------------+
+    */
+    private function get_id_game_to_get_points(Round $round)
+    {
+        $round_games = $round->games()->orderby('game_day')->orderby('game_time')->get();
+        foreach ($round_games as $game) {
+            if ($game->is_game_tie_breaker()) {
+               return $game->id;
+            }
+        }
+        if($round->id == 3)
+        $last_game_round = DB::table('games')
+            ->where('round_id', $round->id)
+            ->orderBy('game_day', 'desc')
+            ->orderBy('game_time', 'desc')
+            ->first();
+        if($last_game_round){
+            return $last_game_round->id;
+        }
+
+        return null;
+
+
+    }
+
     /*+---------------+
       | Recibe Juegos |
       +---------------+
@@ -99,17 +127,22 @@ class Picks extends Component
     public function receive_round(Round $round)
     {
         if ($round) {
+            $this->id_game_last_game_round = $this->get_id_game_to_get_points($round);
+
             $this->selected_round = $round;
             $this->round_games = $round->games()->orderby('game_day')->orderby('game_time')->get();
             $i = 0;
             $this->reset('gamesids', 'games_to_pick', 'picks', 'points_visit_last_game', 'points_local_last_game', 'error', 'message');
+
+
             foreach ($this->round_games as $game) {
                 $this->gamesids[$i] = $game->id;
-                if ($game->pick_user()) {
-                    $this->picks[$i] = $game->pick_user()->winner;
-                    if ($game->is_last_game_round()) {
-                        $this->points_visit_last_game = $game->pick_user()->visit_points;
-                        $this->points_local_last_game = $game->pick_user()->local_points;
+                $pick_user = $game->pick_user();
+                if ($pick_user) {
+                    $this->picks[$i] = $pick_user->winner;
+                    if($pick_user->game_id == $this->id_game_last_game_round){
+                        $this->points_visit_last_game = $pick_user->visit_points;
+                        $this->points_local_last_game = $pick_user->local_points;
                     }
                     $i++;
                 }
@@ -133,6 +166,13 @@ class Picks extends Component
     public function store()
     {
 
+        // if($this->id_game_last_game_round){
+        //     dd('Juego para puntos=' .  $this->id_game_last_game_round);
+        // }else{
+        //     dd('No hay juego para puntos');
+        // }
+
+
         if (!$this->validate_data()) return;
 
         // Actualizamos los pronósticos
@@ -140,33 +180,30 @@ class Picks extends Component
         foreach ($this->gamesids as $game) {
             $game_pick = Game::findOrFail($game);
 
-
             if ($game_pick->allow_pick()) {
                 $pick_user = $game_pick->pick_user();
                 if ($pick_user) {
                     $pick_user->winner = $this->picks[$i];
-                    // Si es el último partido actualizamos los puntos y determinamos ganador
-                    if ($game_pick->is_last_game_round()) {
+                    if ($game_pick->id === $this->id_game_last_game_round) {
                         $pick_user->local_points = $this->points_local_last_game;
                         $pick_user->visit_points = $this->points_visit_last_game;
                         $pick_user->winner = $pick_user->local_points > $pick_user->visit_points ? 1 : 2;
                     }
-
                     $pick_user->save();
                 } else { // Cuando el juego no tiene pronóstico lo creamos
-                    $new_pick = Pick::create([
+                    $pick_user = Pick::create([
                         'user_id'   => Auth::user()->id,
                         'game_id'   => $game->id,
                         'winner'    => $this->picks[$i]
                     ]);
 
                     if ($game->is_last_game_round()) {
-                        $new_pick->local_points = $this->points_local_last_game;
-                        $new_pick->visit_points = $this->points_visit_last_game;
-                        $new_pick->winner       = $new_pick->local_points > $new_pick->visit_points ? 1 : 2;
+                        $pick_user->local_points = $this->points_local_last_game;
+                        $pick_user->visit_points = $this->points_visit_last_game;
+                        $pick_user->winner       = $pick_user->local_points > $pick_user->visit_points ? 1 : 2;
                     }
 
-                    $new_pick->save();
+                    $pick_user->save();
                 }
             }
             $i++;
@@ -203,13 +240,13 @@ class Picks extends Component
         }
 
         if (strlen($this->points_visit_last_game) < 1) {
-            $this->message = "Debe Introducir Puntos Para Equipo VISITANTE del Último Partido";
+            $this->message = "Debe Introducir Puntos Para Equipo VISITANTE del Partido de Desempate";
             $this->error = 'visit';
             return false;
         }
 
         if (strlen($this->points_local_last_game) < 1) {
-            $this->message = "Debe Introducir Puntos Para Equipo LOCAL del Último Partido";
+            $this->message = "Debe Introducir Puntos Para Equipo LOCAL del Partido de Desempate";
             $this->error = 'local';
             return false;
         }
@@ -217,6 +254,19 @@ class Picks extends Component
         if ($this->points_visit_last_game == $this->points_local_last_game) {
             $this->message = "El últimoo partido no puede ser EMPATE";
             $this->error = 'tie';
+            return false;
+        }
+
+
+        if ($this->points_local_last_game > 127) {
+            $this->message = "Puntos del Partido de Desempate máximo debe ser 127";
+            $this->error = 'local';
+            return false;
+        }
+
+        if ($this->points_visit_last_game > 127) {
+            $this->message = "Puntos del Partido de Desempate máximo debe ser 127";
+            $this->error = 'visit';
             return false;
         }
         return true;

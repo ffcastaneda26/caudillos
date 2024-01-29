@@ -12,25 +12,17 @@
 @endphp
 
 <tr>
+    <td>{{ $game->id }}</td>
     <td align="center" class="text-center text-xs">
         {{ $game_day . '/' . $game_month }} {{ $game->game_time->format('H:i') }}
     </td>
     @include('livewire.picks.pick_visit')
 
-    @if ($does_tie_breaker_team_rest)
-        @if($is_last_game_round_to_pick)
-            @include('livewire.picks.pick_list_last_game')
-        @else
-            @include('livewire.picks.pick_pick_result')
-        @endif
+    @if($id_game_last_game_round == $game->id)
+        @include('livewire.picks.pick_list_last_game')
     @else
-        @if ($is_game_tie_breaker)
-            @include('livewire.picks.pick_list_last_game')
-        @else
-            @include('livewire.picks.pick_pick_result')
-        @endif
+        @include('livewire.picks.pick_pick_result')
     @endif
-
 
     @include('livewire.picks.picks_local')
 

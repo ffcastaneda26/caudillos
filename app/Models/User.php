@@ -138,6 +138,11 @@ class User extends Authenticatable
         return $this->hasMany(Pick::class)->where('game_id',$game_id);
     }
 
+    public function pick_game($game_id): HasMany
+    {
+        return $this->hasMany(Pick::class)->where('game_id',$game_id)->first();
+    }
+
     public function positions(): HasMany
     {
         return $this->hasMany(Position::class);

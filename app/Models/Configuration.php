@@ -55,9 +55,9 @@ class Configuration extends Model
        | Relaciones |
        +------------+
     */
-    public function game():BelongsTo
+    public function TeamTieBreaker():BelongsTo
     {
-        return $this->belongsTo(Game::class,'team_id');
+        return $this->belongsTo(Team::class,'team_id');
     }
 
     /*+-----------------+

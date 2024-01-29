@@ -100,6 +100,7 @@ class Game extends Model
         return $this->picks->where('user_id', Auth::user()->id)->first();
     }
 
+
     // Imprime Resultado?
     public function print_score()
     {
