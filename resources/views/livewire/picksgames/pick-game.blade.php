@@ -8,7 +8,7 @@
 
             @include('livewire.picksgames.pick_visit')
 
-            @if ($id_game_tie_breaker === $game->id)
+            @if ($is_game_tie_breaker)
                 @include('livewire.picksgames.pick_list_tie_breaker_game')
             @else
                 @include('livewire.picksgames.pick_radio_buttons')
