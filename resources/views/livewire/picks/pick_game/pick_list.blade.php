@@ -18,7 +18,7 @@
     </td>
     @include('livewire.picks.pick_visit')
 
-    @if($is_game_tie_breaker == $game->id)
+    @if($id_game_tie_breaker == $game->id)
         @include('livewire.picks.pick_list_last_game')
     @else
         @include('livewire.picks.pick_pick_result')

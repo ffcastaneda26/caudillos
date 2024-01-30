@@ -20,6 +20,7 @@ use App\Http\Livewire\Configurations;
 use App\Http\Livewire\PicksRoundUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
+use App\Http\Livewire\Picks\Picks as PicksPicks;
 use App\Http\Livewire\Positions\ByRound;
 use App\Http\Livewire\Positions\General;
 
@@ -49,6 +50,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(func
     Route::get('results-by-round',Results::class)->name('results-by-round');        // Resultados x Jornada
     Route::get('data-users',DataUsers::class)->name('data-users');                  // Datos complementarios
     Route::get('rounds',Rounds::class)->name('rounds');                             // Jornadas
+    Route::get('picks-user-game',PicksPicks::class)->name('picks-user-game'); // Pronósticos con componente anidado
 
    Route::get('/suscribe/{sesion_id}',function($sesion_id){                         // Registrar el pago
         if (Auth::check() && $sesion_id) {

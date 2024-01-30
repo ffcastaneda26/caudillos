@@ -386,4 +386,24 @@ trait FuncionesGenerales
 
     }
 
+    public function get_id_game_to_get_points(Round $round){
+        $round_games = $round->games()->orderby('game_day')->orderby('game_time')->get();
+        foreach ($round_games as $game) {
+            if ($game->is_game_tie_breaker()) {
+               return $game->id;
+            }
+        }
+        if($round->id == 3)
+        $last_game_round = DB::table('games')
+            ->where('round_id', $round->id)
+            ->orderBy('game_day', 'desc')
+            ->orderBy('game_time', 'desc')
+            ->first();
+        if($last_game_round){
+            return $last_game_round->id;
+        }
+
+        return null;
+    }
+
 }

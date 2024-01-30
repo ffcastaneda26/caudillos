@@ -21,7 +21,7 @@ class PickGame extends Component
     public $pick_user;
     public $pick_user_winner;
     public $allow_pick;
-    public $has_result;
+    public $game_has_result;
     public $acerto;
     public $hit_pick_hame;
     public $is_game_tie_breaker;
@@ -53,12 +53,12 @@ class PickGame extends Component
     public function mount(Game $game,$id_game_tie_breaker){
         $this->id_game_tie_breaker = $id_game_tie_breaker;
         $this->game = $game;
-        $this->charge_data();
+        $this->prepare_data_to_view();
     }
 
     public function render()
     {
-        return view('livewire..picks.pick-game');
+        return view('livewire.picks.pick_game.pick-game');
     }
 
     /*+-------------------------------------------------+
@@ -67,41 +67,42 @@ class PickGame extends Component
       | desde las mismas                                |
       +-------------------------------------------------+
      */
-    public function charge_data(){
+    public function prepare_data_to_view(){
         $this->game_day = date('j', $this->game_date);
+        $this->game_month = date('n',$this->game_date);
         $this->allow_pick = $this->game->allow_pick();
-        $this->has_result = $this->game->has_result();
+        $this->game_has_result = $this->game->has_result();
         $this->is_game_tie_breaker = $this->game->is_game_tie_breaker();
-
         $this->pick_user = $this->game->pick_user();
-
         if(!$this->pick_user){
             $this->pick_user =  $this->create_pick_user_game();
         }
         $this->pick_user_winner = $this->pick_user->winner;
-        $this->acerto = $this->has_result && $this->pick_user_winner === $this->game->winner;
+        $this->acerto = $this->game_has_result && $this->pick_user_winner === $this->game->winner;
+        $this->visit_points =  $this->pick_user->visit_points;
+        $this->local_points =  $this->pick_user->local_points;
+
     }
 
     public function update_winner_game()
     {
         $this->validateOnly('winner');
-
-        $pick_user = $this->game->pick_user();
-        if($pick_user){
-            $pick_user->winner = $this->winner;
-            $pick_user->save();
-        }
+        $this->pick_user->winner = $this->winner;
+        $this->pick_user->save();
+        $this->pick_user->refresh();
+        $this->pick_user_winner = $this->pick_user->winner;
     }
 
     public function update_points(){
         $this->validateOnly('visit_points');
         $this->validateOnly('local_points');
         $this->winner = $this->local_points > $this->visit_points ? 1 : 2;
+
         if($this->visit_points == $this->local_points){
-            $this->errors->add('visit_points', 'No puede ser empate');
+            $this->errors->add('visit_points', 'No Empate');
+            $this->errors->add('local_points', 'No Empate');
             return;
         }
-
 
         $pick_user = $this->game->pick_user();
         if($pick_user){

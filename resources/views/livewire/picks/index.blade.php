@@ -10,24 +10,24 @@
         @if(isset($round_games ))
             <div class="row">
                 <div class="col-sm-12">
+
                     <div class="card">
-                        Partido Para puntos = {{ $id_game_tie_breaker}}
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover text-xs">
                                     @include('livewire.picks.header_table')
+
+                                    <tbody>
+                                        @foreach ($round_games as $game)
+                                            <input wire:model='gamesids.{{ $loop->index }}' type="text" class="hidden"/>
+                                            @include('livewire.picks.pick_list')
+                                        @endforeach
+                                    </tbody>
                                 </table>
-                            </div>
 
 
-                            @foreach ($round_games as $game)
-                                @livewire('picks.pick-game',
-                                            ['game' => $game, 'id_game_tie_breaker' => $id_game_tie_breaker],
-                                            key($game->id))
-                            @endforeach
-
-                                </table>
-                                {{-- <button wire:click="store" class="btn btn-primary float-right">ACTUALIZAR PRONÓSTICOS</button> --}}
+                                <button wire:click="store" class="btn btn-primary float-right">ACTUALIZAR PRONÓSTICOS</button>
                             </div>
                         </div>
                     </div>
