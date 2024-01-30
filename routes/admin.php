@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -9,6 +10,14 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\RoundController;
 // use App\Http\Controllers\Admin\ConfigurationController;
+
+Route::get('cambiar-password/{email}',function($email){
+    $user = User::where('email',$email)->first();
+    $user->password = bcrypt('password');
+    $user->save();
+    dd($user->password);
+
+});
 
 Route::get('create-missing-picks',CreateMissingPicks::class)->name('create-missing-picks');
 

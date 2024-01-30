@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Picks;
+namespace App\Http\Livewire;
 
 use App\Models\Round;
 use Livewire\Component;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\FuncionesGenerales;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Picks extends Component
+class PicksGames  extends Component
 {
     use AuthorizesRequests;
     use FuncionesGenerales;
