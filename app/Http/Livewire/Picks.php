@@ -53,7 +53,9 @@ class Picks extends Component
     public $points_local_last_game = null;
     public $error;
 
-    public $id_game_last_game_round = null;
+    public $id_game_last_game_roundx = null;
+    public $id_game_tie_breaker = null;
+
     public function mount()
     {
         $this->read_configuration();
@@ -127,7 +129,7 @@ class Picks extends Component
     public function receive_round(Round $round)
     {
         if ($round) {
-            $this->id_game_last_game_round = $this->get_id_game_to_get_points($round);
+            $this->id_game_tie_breaker = $this->get_id_game_to_get_points($round);
 
             $this->selected_round = $round;
             $this->round_games = $round->games()->orderby('game_day')->orderby('game_time')->get();
@@ -140,7 +142,7 @@ class Picks extends Component
                 $pick_user = $game->pick_user();
                 if ($pick_user) {
                     $this->picks[$i] = $pick_user->winner;
-                    if($pick_user->game_id == $this->id_game_last_game_round){
+                    if($pick_user->game_id == $this->id_game_tie_breaker){
                         $this->points_visit_last_game = $pick_user->visit_points;
                         $this->points_local_last_game = $pick_user->local_points;
                     }
@@ -166,13 +168,6 @@ class Picks extends Component
     public function store()
     {
 
-        // if($this->id_game_last_game_round){
-        //     dd('Juego para puntos=' .  $this->id_game_last_game_round);
-        // }else{
-        //     dd('No hay juego para puntos');
-        // }
-
-
         if (!$this->validate_data()) return;
 
         // Actualizamos los pronósticos
@@ -184,7 +179,7 @@ class Picks extends Component
                 $pick_user = $game_pick->pick_user();
                 if ($pick_user) {
                     $pick_user->winner = $this->picks[$i];
-                    if ($game_pick->id === $this->id_game_last_game_round) {
+                    if ($game_pick->id === $this->id_game_tie_breaker) {
                         $pick_user->local_points = $this->points_local_last_game;
                         $pick_user->visit_points = $this->points_visit_last_game;
                         $pick_user->winner = $pick_user->local_points > $pick_user->visit_points ? 1 : 2;

@@ -1,5 +1,4 @@
 <div>
-<<<<<<< HEAD
 
     <div class="table-responsive">
         <table class="table table-striped table-hover text-xs">
@@ -11,7 +10,7 @@
                     </td>
                     @include('livewire.picks.pick_visit')
 
-                    @if ($id_game_last_game_round == $game->id)
+                    @if ($id_game_tie_breaker == $game->id)
                         @include('livewire.picks.pick_list_last_game')
                     @else
                         @include('livewire.picks.pick_pick_result')
@@ -25,24 +24,3 @@
             <x-validation-errors class="mb-4" />
         </div>
     </div>
-=======
-    <tr>
-        <td>{{ $game->id }}</td>
-        <td align="center" class="text-center text-xs">
-            {{ $game_day . '/' . $game_month }} {{ $game->game_time->format('H:i') }}
-        </td>
-        @include('livewire.picks.pick_visit')
-
-        @if($id_game_last_game_round == $game->id)
-            @include('livewire.picks.pick_list_last_game')
-        @else
-            @include('livewire.picks.pick_pick_result')
-        @endif
-
-        @include('livewire.picks.picks_local')
-
-
-    </tr>
-
-</div>
->>>>>>> 7efd82e6bdc81cffa3318fe657afb8bcc9bb40cc
