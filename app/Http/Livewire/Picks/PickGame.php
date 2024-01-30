@@ -79,17 +79,15 @@ class PickGame extends Component
     {
         $this->validateOnly('winner');
 
-        $pick_user = $this->game->pick_user();
-        if($pick_user){
-            $pick_user->winner = $this->winner;
-            $pick_user->save();
-        }
+        $this->pick_user->winner = $this->winner;
+        $this->pick_user->save();
     }
 
     public function update_points(){
         $this->validateOnly('visit_points');
         $this->validateOnly('local_points');
         $this->winner = $this->local_points > $this->visit_points ? 1 : 2;
+
         if($this->visit_points == $this->local_points){
             $this->errors->add('visit_points', 'No puede ser empate');
             return;

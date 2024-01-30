@@ -16,13 +16,16 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover text-xs">
                                     @include('livewire.picks.header_table')
-                                    <tbody>
-                                        @foreach ($round_games as $game)
-                                            @livewire('picks.pick-game',
-                                                      ['game' => $game, 'id_game_tie_breaker' => $id_game_tie_breaker],
-                                                      key($game->id))
-                                        @endforeach
-                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            @foreach ($round_games as $game)
+                                @livewire('picks.pick-game',
+                                            ['game' => $game, 'id_game_tie_breaker' => $id_game_tie_breaker],
+                                            key($game->id))
+                            @endforeach
+
                                 </table>
                                 {{-- <button wire:click="store" class="btn btn-primary float-right">ACTUALIZAR PRONÓSTICOS</button> --}}
                             </div>
