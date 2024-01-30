@@ -1,5 +1,11 @@
 <td align="center">
+<<<<<<< HEAD
     {{-- <input type='number' wire:model="points_visit_last_game" min=0 max=127 style="font-size: 8px"
+=======
+    <input type='number'
+            wire:model="visit_pints"
+            min=0 max=127 style="font-size: 8px"
+>>>>>>> 7efd82e6bdc81cffa3318fe657afb8bcc9bb40cc
         class="w-auto {{ $error == 'visit' || $error == 'tie' ? 'bg-red-500' : '' }}"
         {{ $allow_pick ? '' : 'disabled' }}> --}}
     <input type='number'
@@ -20,7 +26,12 @@
     @include('livewire.picks.pick_icono_acerto')
 @endif
 <td align="center">
+<<<<<<< HEAD
     {{-- <input type='number' wire:model="points_local_last_game" min=0 max=127 style="font-size: 8px"
+=======
+    <input type='number'
+            wire:model="local_pints" min=0 max=127 style="font-size: 8px"
+>>>>>>> 7efd82e6bdc81cffa3318fe657afb8bcc9bb40cc
     class="w-auto text-center  {{ $error == 'local' || $error == 'tie' ? 'bg-red-500' : '' }}"
     {{ $allow_pick ? '' : 'disabled' }}> --}}
     <input type='number'

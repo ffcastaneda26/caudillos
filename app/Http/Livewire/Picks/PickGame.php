@@ -29,6 +29,7 @@ class PickGame extends Component
     public $winner;
     public $error;
 
+<<<<<<< HEAD
     protected $rules = [
         'winner' => 'required|in:1,2',
         'visit_points' => 'required|different:local_points|lt:128',
@@ -51,6 +52,9 @@ class PickGame extends Component
     public function mount(Game $game,$id_game_last_game_round){
         $this->id_game_last_game_round = $id_game_last_game_round;
         $this->game = $game;
+=======
+    public function mount(Game $game){
+>>>>>>> 7efd82e6bdc81cffa3318fe657afb8bcc9bb40cc
         $this->charge_data();
     }
 
@@ -64,7 +68,11 @@ class PickGame extends Component
         $this->game_month = date('n', $this->game_date);
         $this->game_day = date('j', $this->game_date);
         $this->allow_pick = $this->game->allow_pick();
+<<<<<<< HEAD
        // $this->is_last_game = $this->game->is_last_game_round();
+=======
+        $this->is_last_game = $this->game->is_last_game_round();
+>>>>>>> 7efd82e6bdc81cffa3318fe657afb8bcc9bb40cc
         $this->is_game_tie_breaker = $this->game->is_game_tie_breaker();
         $this->is_last_game_round_to_pick = $this->game->is_last_game_round_to_pick();
         $this->pick_user = $this->game->pick_user();
@@ -73,6 +81,7 @@ class PickGame extends Component
         $this->game_date = strtotime($this->game->game_day);
         $this->game_month = date('n', $this->game_date);
         $this->game_day = date('j', $this->game_date);
+<<<<<<< HEAD
     }
 
     public function update_winner_game()
@@ -103,5 +112,8 @@ class PickGame extends Component
             $pick_user->winner = $this->local_points > $this->visit_points ? 1 : 2;
             $pick_user->save();
         }
+=======
+
+>>>>>>> 7efd82e6bdc81cffa3318fe657afb8bcc9bb40cc
     }
 }

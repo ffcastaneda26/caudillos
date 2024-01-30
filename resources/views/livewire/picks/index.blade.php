@@ -10,13 +10,13 @@
         @if(isset($round_games ))
             <div class="row">
                 <div class="col-sm-12">
-
                     <div class="card">
                         Partido Para puntos = {{ $id_game_last_game_round}}
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover text-xs">
                                     @include('livewire.picks.header_table')
+<<<<<<< HEAD
                                 </table>
                                     <tbody>
                                         @foreach ($round_games as $game)
@@ -25,6 +25,13 @@
                                             @livewire('picks.pick-game',['game'=> $game,
                                                                          'id_game_last_game_round' => $id_game_last_game_round],
                                                                          key($game->id))
+=======
+                                    <tbody>
+                                        @foreach ($round_games as $game)
+                                            @livewire('picks.pick-game',
+                                                      ['game' => $game, 'id_game_last_game_round' => $id_game_last_game_round],
+                                                      key($game->id))
+>>>>>>> 7efd82e6bdc81cffa3318fe657afb8bcc9bb40cc
                                         @endforeach
                                     </tbody>
                                 </table>
