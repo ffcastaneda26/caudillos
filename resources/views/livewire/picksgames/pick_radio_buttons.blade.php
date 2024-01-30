@@ -1,3 +1,4 @@
+{{-- Pronostica que gana Local --}}
 <td align="center">
     <input type="radio"
             wire:model="pick_user_winner"
@@ -9,7 +10,7 @@
 </td>
 
 {{-- Icono si acertó/falló o aún no se sabe --}}
-@if( $game->has_result())
+@if($game_has_result)
     @include('livewire.picksgames.pick_icono_acerto')
 @endif
 
