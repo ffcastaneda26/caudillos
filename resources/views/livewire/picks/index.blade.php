@@ -10,14 +10,11 @@
         @if(isset($round_games ))
             <div class="row">
                 <div class="col-sm-12">
-
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover text-xs">
                                     @include('livewire.picks.header_table')
-
                                     <tbody>
                                         @foreach ($round_games as $game)
                                             <input wire:model='gamesids.{{ $loop->index }}' type="text" class="hidden"/>
@@ -25,8 +22,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
-
                                 <button wire:click="store" class="btn btn-primary float-right">ACTUALIZAR PRONÓSTICOS</button>
                             </div>
                         </div>

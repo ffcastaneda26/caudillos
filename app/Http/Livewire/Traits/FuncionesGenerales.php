@@ -393,7 +393,7 @@ trait FuncionesGenerales
                return $game->id;
             }
         }
-        if($round->id == 3)
+
         $last_game_round = DB::table('games')
             ->where('round_id', $round->id)
             ->orderBy('game_day', 'desc')

@@ -7,18 +7,18 @@
                     <td align="left" class="text-center text-xs">
                         {{ $game_day . '/' . $game_month }} {{ $game->game_time->format('H:i') }}
                     </td>
-                    {{-- @include('livewire.picks.pick_visit') --}}
-                    @include('livewire.picks.pick_game.pick_visit')
 
 
-                    @if ($id_game_tie_breaker == $game->id)
-                        @include('livewire.picks.pick_game.pick_list_tie_breaker_game')
+                    @include('livewire.picksgames.pick_visit')
+
+                    @if ($id_game_tie_breaker === $game->id)
+                        @include('livewire.picksgames.pick_list_tie_breaker_game')
                     @else
-                        @include('livewire.picks.pick_game.pick_pick_result')
+                        @include('livewire.picksgames.pick_pick_result')
                     @endif
 
-                    {{-- @include('livewire.picks.picks_local') --}}
-                    @include('livewire.picks.pick_game.pick_local')
+                    @include('livewire.picksgames.pick_local')
+
 
 
                 </tr>

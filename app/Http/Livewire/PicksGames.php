@@ -25,7 +25,6 @@ class PicksGames  extends Component
             return redirect()->route('dashboard');
         }
 
-        $this->manage_title = 'Pronósticos';
         $this->rounds = $this->read_rounds();
         $round = new Round();
         $this->current_round = $round->read_current_round();
@@ -45,7 +44,8 @@ class PicksGames  extends Component
     */
     public function render()
     {
-        return view('livewire.picks.pick_game.index');
+        return view('livewire.picksgames.index');
+
     }
 
     /*+-----------------+

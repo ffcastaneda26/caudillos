@@ -8,8 +8,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover text-xs">
-                                    {{-- @include('livewire.picks.header_table') --}}
-
+                                    @include('livewire.picksgames.header_table')
                                 </table>
                             </div>
 
