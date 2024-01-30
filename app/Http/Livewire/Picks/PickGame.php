@@ -77,6 +77,7 @@ class PickGame extends Component
         if(!$this->pick_user){
             $this->pick_user =  $this->create_pick_user_game();
         }
+        $this->winner = $this->pick_user->winner;
         $this->pick_user_winner = $this->pick_user->winner;
         $this->acerto = $this->game_has_result && $this->pick_user_winner === $this->game->winner;
         $this->visit_points =  $this->pick_user->visit_points;
@@ -87,10 +88,9 @@ class PickGame extends Component
     public function update_winner_game()
     {
         $this->validateOnly('winner');
-        $this->pick_user->winner = $this->winner;
+        $this->pick_user->winner = $this->pick_user_winner;
         $this->pick_user->save();
         $this->pick_user->refresh();
-        $this->pick_user_winner = $this->pick_user->winner;
     }
 
     public function update_points(){
