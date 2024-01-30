@@ -71,8 +71,10 @@ class PickGame extends Component
         $this->game_day = date('j', $this->game_date);
         $this->game_month = date('n',$this->game_date);
         $this->allow_pick = $this->game->allow_pick();
+
         $this->game_has_result = $this->game->has_result();
-        $this->is_game_tie_breaker = $this->game->is_game_tie_breaker();
+        $this->is_game_tie_breaker = $this->id_game_tie_breaker == $this->game->id;
+
         $this->pick_user = $this->game->pick_user();
         if(!$this->pick_user){
             $this->pick_user =  $this->create_pick_user_game();
