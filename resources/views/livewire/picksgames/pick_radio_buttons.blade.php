@@ -10,7 +10,7 @@
 
 {{-- Icono si acertó/falló o aún no se sabe --}}
 @if( $game->has_result())
-    @include('livewire.picks.pick_icono_acerto')
+    @include('livewire.picksgames.pick_icono_acerto')
 @endif
 
 {{-- Pronostica que gana Local --}}
