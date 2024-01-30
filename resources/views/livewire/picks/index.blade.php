@@ -17,17 +17,18 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover text-xs">
                                     @include('livewire.picks.header_table')
-
+                                </table>
                                     <tbody>
                                         @foreach ($round_games as $game)
-                                            <input wire:model='gamesids.{{ $loop->index }}' type="text" class="hidden"/>
-                                            @include('livewire.picks.pick_list')
+                                            {{-- <input wire:model='gamesids.{{ $loop->index }}' type="text" class="hidden"/>
+                                            @include('livewire.picks.pick_list') --}}
+                                            @livewire('picks.pick-game',['game'=> $game,
+                                                                         'id_game_last_game_round' => $id_game_last_game_round],
+                                                                         key($game->id))
                                         @endforeach
                                     </tbody>
                                 </table>
-
-
-                                <button wire:click="store" class="btn btn-primary float-right">ACTUALIZAR PRONÓSTICOS</button>
+                                {{-- <button wire:click="store" class="btn btn-primary float-right">ACTUALIZAR PRONÓSTICOS</button> --}}
                             </div>
                         </div>
                     </div>
