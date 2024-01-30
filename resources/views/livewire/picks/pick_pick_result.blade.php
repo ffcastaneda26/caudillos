@@ -1,10 +1,9 @@
 <td align="center">
     <input type="radio"
-            wire:model='picks.{{ $loop->index }}'
-            name="winner-{{ $loop->index }}"
+            wire:model="winner"
             value="2"
-            {{ !$allow_pick  ? 'disabled' : ''}}
-            {{ isset($pick_user) && $pick_user->winner == 2 ? 'checked' : ''}}
+            {{ !$allow_pick ? 'disabled' : '' }}
+            {{ isset($pick_user) && $pick_user->winner == 2 ? 'checked' : '' }}
     />
 </td>
 
@@ -16,8 +15,7 @@
 {{-- Pronostica que gana Local --}}
 <td align="center">
     <input type="radio"
-                wire:model='picks.{{ $loop->index }}'
-                name="winner-{{$loop->index}}"
+                wire:model='winner'
                 value="1"
                 {{ !$allow_pick  ? 'disabled' : '' }}
                 {{ isset($pick_user) && $pick_user->winner == 1 ? 'checked' : ''}}
