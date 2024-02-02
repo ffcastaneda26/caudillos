@@ -54,7 +54,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(func
         return view('dashboard',compact('configuration_record'));
     })->name('dashboard');
 
-    Route::get('games',Games::class)->name('games');                                // Juegos
     Route::get('picks',PicksGames::class)->name('picks');                                // Pronósticos
 
     Route::get('positions-by-round',ByRound::class)->name('positions-by-round');    // Posiciones x Jornada
@@ -102,7 +101,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'role:Admin']
     Route::get('municipios',Municipios::class)->name('municipios');     // municipios Federativas
     Route::get('teams',Teams::class)->name('teams');                    // Equipos
     Route::get('rounds',Rounds::class)->name('rounds');                 // Jornadas
-    Route::get('users',Users::class)->name('users'); // Usuarios
+    Route::get('users',Users::class)->name('users');                    // Usuarios
+    Route::get('games',Games::class)->name('games');                    // Juegos
+
 });
 
 Route::get('current_round',SelectRound::class);

@@ -3,7 +3,7 @@
 
         @if($pick_user && $game_has_result)
 
-            @if($acerto)
+            @if($hit_game)
                 <img src="{{ asset('images/afirmativo.png') }}" width="25" height="25">
              @else
                 <img src="{{ asset('images/negativo.png') }}"   width="25" height="25">

@@ -1,4 +1,5 @@
 <tr>
+    <td>{{ $game->id }}</td>
     <td style="vertical-align: middle">
         {{ $game->game_day->format('j-M-y')}} {{$game->game_time->format('h:i A') }}
     </td>

@@ -15,8 +15,8 @@
     @enderror
 </td>
 {{-- Icono si acertó/falló o aún no se sabe --}}
-@if ($game_has_result)
-    @include('livewire.picks.pick_icono_acerto')
+@if ($hit_game)
+    @include('livewire.picksgames.pick_icono_acerto')
 @endif
 
 {{-- Puntos Local --}}

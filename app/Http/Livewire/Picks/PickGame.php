@@ -27,7 +27,7 @@ class PickGame extends Component
     public $pick_user_winner;
     public $allow_pick;
     public $game_has_result;
-    public $acerto;
+    public $hit_game;
     public $hit_pick_hame;
 
 
@@ -75,7 +75,7 @@ class PickGame extends Component
         }
         $this->winner = $this->pick_user->winner;
         $this->pick_user_winner = $this->pick_user->winner;
-        $this->acerto = $this->game_has_result && $this->pick_user_winner === $this->game->winner;
+        $this->hit_game = $this->game_has_result && $this->pick_user_winner === $this->game->winner;
         $this->visit_points =  $this->pick_user->visit_points;
         $this->local_points =  $this->pick_user->local_points;
 
