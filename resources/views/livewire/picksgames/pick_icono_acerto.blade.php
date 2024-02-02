@@ -1,8 +1,6 @@
     {{-- Icono si acertó/falló o aún no se sabe --}}
-    <td>
-
+    <td style="vertical-align: middle">
         @if($pick_user && $game_has_result)
-
             @if($hit_game)
                 <img src="{{ asset('images/afirmativo.png') }}" width="25" height="25">
              @else
