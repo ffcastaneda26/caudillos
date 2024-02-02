@@ -77,7 +77,7 @@ Route::get('/home', function() {
 
 
     if(Auth::user()->hasRole('Admin')){
-        return '/dashboard';
+        return redirect()->route('dashboard');
     }
 
     $configuration_record = Configuration::first();

@@ -37,7 +37,7 @@
             @if (Auth::user()->has_suplementary_data())
                 <x-dropdown-link id="profile_user_url" href="{{ route('data-users') }}">
                     <i class="fa-regular fa-circle-user"></i>
-                    <label for="profile_user_url" class="ml-2">Datos Complementarios</label>
+                    <label for="profile_user_url" class="ml-2 text-xs">Datos Complementarios</label>
                 </x-dropdown-link>
             @endif
 
