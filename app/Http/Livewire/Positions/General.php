@@ -27,6 +27,11 @@ class General extends Component
     private $pagination = 15; //paginación de tabla
     public $order_by = 'position_asc';
 
+    public function mount(){
+        $this->read_configuration();
+        $this->validate_require_payment_to_continue();
+        $this->validate_has_sumplentary_data_to_continue();
+    }
     public function render()
     {
         return view('livewire.positions.general.index', [

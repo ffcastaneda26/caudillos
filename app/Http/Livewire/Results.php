@@ -29,13 +29,16 @@ class Results extends Component
 
     public function mount()
     {
+        $this->read_configuration();
+        $this->validate_require_payment_to_continue();
+        $this->validate_has_sumplentary_data_to_continue();
 
         $round = new Round();
         $this->current_round = $round->read_current_round();
         $this->selected_round = $this->current_round;
         $this->receive_round($this->selected_round);
         $this->picks_auth_user_round =  $this->selected_round->picks_auth_user()->get();
-        $this->read_configuration();
+
         $this->sort = 'name';
         $this->direction = 'asc';
     }

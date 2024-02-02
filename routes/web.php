@@ -23,13 +23,18 @@ use App\Http\Livewire\Positions\General;
 
 
 Route::get('/', function () {
+    $configuration_record = Configuration::first();
     if(Auth::user()){
         if(Auth::user()->hasRole('Admin')){
             return '/dashboard';
         }
 
+        if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
+            return redirect()->route('data-users');
+        }
+
         if(Auth::user()->hasRole('participante')){
-            if(!Auth::user()->has_suplementary_data() &&  $this->configuration->require_data_user_to_continue){
+            if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
                 return redirect()->route('data-users');
             }
             return redirect()->route('picks');
@@ -56,8 +61,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(func
     Route::get('positions-general',General::class)->name('positions-general');      // Posiciones General
     Route::get('results-by-round',Results::class)->name('results-by-round');        // Resultados x Jornada
     Route::get('data-users',DataUsers::class)->name('data-users');                  // Datos complementarios
-    Route::get('rounds',Rounds::class)->name('rounds');                             // Jornadas
-    Route::get('pick-user-game',PicksGames::class)->name('pick-user-game');
 
    Route::get('/suscribe/{sesion_id}',function($sesion_id){                         // Registrar el pago
         if (Auth::check() && $sesion_id) {

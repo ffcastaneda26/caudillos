@@ -6,9 +6,10 @@ use App\Models\Game;
 use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\GeneralPosition;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
-use App\Models\GeneralPosition;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Games extends Component
@@ -38,6 +39,10 @@ class Games extends Component
 
     public function mount(){
         $this->read_configuration();
+        $this->validate_require_payment_to_continue();
+        $this->validate_has_sumplentary_data_to_continue();
+
+
         $this->manage_title = 'Gestionar Juegos';
         $this->search_label = 'Jornada';
         $this->view_search  =  null;

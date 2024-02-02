@@ -41,6 +41,24 @@ trait FuncionesGenerales
     public $tie_breaker_game_played = false;
     public $does_tie_breaker_team_rest = false;
 
+    // Valida si debe redireccionar al dashboard
+
+    public function validate_require_payment_to_continue(){
+
+        if (!Auth::user()->hasRole('Admin') && $this->configuration->require_payment_to_continue && !Auth::user()->paid) {
+            return redirect()->route('dashboard');
+        }
+    }
+
+    public function validate_has_sumplentary_data_to_continue(){
+        if(!Auth::user()->hasRole('Admin') && !Auth::user()->has_suplementary_data() &&  $this->configuration->require_data_user_to_continue){
+            return redirect()->route('data-users');
+        }
+    }
+
+
+
+
     // Lee configuración
     public function read_configuration()
     {

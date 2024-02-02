@@ -28,7 +28,11 @@ class ByRound extends Component
 
 
     public function mount(){
+        $this->read_configuration();
+        $this->validate_require_payment_to_continue();
+        $this->validate_has_sumplentary_data_to_continue();
         $this->manage_title = 'Posiciones x Jornada';
+
         $this->view_table   = null;
         $this->view_list    = null;
         $round = new Round();
