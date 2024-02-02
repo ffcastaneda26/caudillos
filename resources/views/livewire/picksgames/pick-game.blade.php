@@ -1,7 +1,6 @@
 <div  wire:poll>
     <table class="table table-responsive table-striped table-hover text-xs">
         <tr>
-            <td>{{ $game->id }}</td>
             <td align="left" class="text-center text-xs">
                 {{ $game_day . '/' . $game_month }} {{ $game->game_time->format('H:i') }}
             </td>

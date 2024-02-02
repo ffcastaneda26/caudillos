@@ -23,6 +23,22 @@ use App\Http\Livewire\Positions\General;
 
 
 Route::get('/', function () {
+    if(Auth::user()){
+        if(Auth::user()->hasRole('Admin')){
+            return '/dashboard';
+        }
+
+        if(Auth::user()->hasRole('participante')){
+            if(!Auth::user()->has_suplementary_data() &&  $this->configuration->require_data_user_to_continue){
+                return redirect()->route('data-users');
+            }
+            return redirect()->route('picks');
+        }
+    }
+
+
+
+
     return view('welcome');
 });
 

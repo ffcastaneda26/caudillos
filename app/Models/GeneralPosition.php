@@ -32,7 +32,7 @@ class GeneralPosition extends Model
 
 
     /*+-------------+
-     | Apoyo   |
+     | Apoyo        |
      +--------------+
     */
 

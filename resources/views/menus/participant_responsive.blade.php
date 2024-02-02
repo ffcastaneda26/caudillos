@@ -52,11 +52,7 @@
                         </my-responsive-nav-link>
                     @endif
 
-                    @if (Route::has('data-users'))
-                        <x-my-responsive-nav-link href="{{ route('data-users') }}">
-                            Datos Complementarios
-                        </x-my-responsive-nav-link>
-                    @endif
+
                 @endif
             @endrole
         @endif

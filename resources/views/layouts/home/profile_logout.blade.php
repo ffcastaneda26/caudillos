@@ -16,10 +16,7 @@
     <div class="dropdown-menu dropdown-menu-end">
         <!-- item-->
         @auth
-            {{-- @if(!Auth::user()->update_account && !Auth::user()->change_password) --}}
-                <a class="dropdown-item" href="{{ route('profile.show') }}"> {{ __('Profile') }}</a>
-            {{-- @endif --}}
-
+            <a class="dropdown-item" href="{{ route('profile.show') }}"> {{ __('Profile') }}</a>
         @endauth
 
         <div class="dropdown-divider"></div>

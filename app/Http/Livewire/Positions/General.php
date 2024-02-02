@@ -53,38 +53,10 @@ class General extends Component
             $results->orderBy('position', $this->direction);
         }
 
-
-
-
         $results = $results->paginate($this->pagination);
 
         return $results;
 
-        // $query = GeneralPosition::query();
-
-        // $query->select('general_positions.*', DB::raw('CONCAT(users.first_name, " ", users.last_name) AS full_name'))
-        //       ->join('users', 'general_positions.user_id', '=', 'users.id');
-
-        // Filtrar por la variable $this->search
-        // if ($this->search) {
-        //     $query->where(function (Builder $query) {
-        //         $query->where('users.first_name', 'LIKE', '%' . $this->search . '%')
-        //             ->orWhere('users.last_name', 'LIKE', '%' . $this->search . '%')
-        //             ->orWhere('users.email', 'LIKE', '%' . $this->search . '%');
-        //     });
-        // }
-
-        // Ordenar por $this->sort y $this->direction
-        if ($this->sort === 'name') {
-            $query->orderBy('full_name', $this->direction);
-        } else {
-            $query->orderBy('general_positions.position', $this->direction);
-        }
-
-        // Paginación
-        $resultados = $query->paginate($this->pagination);
-
-        return view('tu_vista', ['resultados' => $resultados]);
     }
 
     private function determinate_orderby_and_direction()
