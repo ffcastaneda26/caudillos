@@ -14,7 +14,10 @@
 
                             @foreach ($round_games as $game)
                                 @livewire('picks.pick-game',
-                                            ['game' => $game, 'id_game_tie_breaker' => $id_game_tie_breaker],
+                                            ['game' => $game,
+                                             'id_game_tie_breaker' => $id_game_tie_breaker,
+                                             'configuration' => $configuration],
+
                                             key($game->id))
                             @endforeach
                         </div>

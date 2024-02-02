@@ -34,13 +34,14 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(func
     })->name('dashboard');
 
     Route::get('games',Games::class)->name('games');                                // Juegos
-    Route::get('picks',Picks::class)->name('picks');                                // Pronósticos
+    Route::get('picks',PicksGames::class)->name('picks');                                // Pronósticos
+
     Route::get('positions-by-round',ByRound::class)->name('positions-by-round');    // Posiciones x Jornada
     Route::get('positions-general',General::class)->name('positions-general');      // Posiciones General
     Route::get('results-by-round',Results::class)->name('results-by-round');        // Resultados x Jornada
     Route::get('data-users',DataUsers::class)->name('data-users');                  // Datos complementarios
     Route::get('rounds',Rounds::class)->name('rounds');                             // Jornadas
-    Route::get('picks-user-game',PicksGames::class)->name('picks-user-game'); // Pronósticos con componente anidado
+    Route::get('pick-user-game',PicksGames::class)->name('pick-user-game');
 
    Route::get('/suscribe/{sesion_id}',function($sesion_id){                         // Registrar el pago
         if (Auth::check() && $sesion_id) {

@@ -37,6 +37,7 @@ class Games extends Component
     public $max_date = null;
 
     public function mount(){
+        $this->read_configuration();
         $this->manage_title = 'Gestionar Juegos';
         $this->search_label = 'Jornada';
         $this->view_search  =  null;
@@ -104,22 +105,11 @@ class Games extends Component
         $this->main_record->winner = $this->main_record->win();
         $this->main_record->save();
 
+        $this->id_game_tie_breaker = $this->get_id_game_to_get_points($this->main_record->round);
+
         // Si se pusieron puntos se procede a calificar pronósticos
         if($this->main_record->local_points || $this->main_record->visit_points){
-            $this->qualify_picks();        // Califica pronósticos
-            if($this->main_record->is_last_game_round()){
-                $this->update_hit_last_game($this->main_record); // ¿Acertó último partido?
-                $this->update_tie_breaker($this->main_record);
-            }
-            $this->update_total_hits_positions( $this->selected_round,$this->main_record); // Actualiza tabla de aciertos por jornada (POSITIONS)
-            $this->update_positions();                                  // Asigna posiciones en tabla de POSITIONS
-            $this->read_general_positions();                            // Lee posicions generales
-            $general_position = new GeneralPosition();
-            $positions = $this->read_general_positions();
-            if($positions){
-                $general_position->truncate_me();
-                $general_position->create_positions($positions);
-            }
+            $this->update_picks_and_positions($this->main_record);
         }
 
         $this->show_alert('success','JUEGO ACTUALIZADO SATISFACTORIAMENTE');

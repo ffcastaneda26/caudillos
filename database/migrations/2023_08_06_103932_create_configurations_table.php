@@ -27,6 +27,9 @@ return new class extends Migration
             $table->boolean('add_user_to_stripe')->default(0)->comment('¿Agregar usuario a Stripe?');
             $table->boolean('use_team_to_tie_breaker')->default(0)->comment('¿Usar un Equipo para desempate?');
             $table->foreignIdFor(Team::class)->comment('Equipo para desempate');
+            $table->boolean('require_points_in_picks')->default(1)->comment('¿Solicitar puntos en pronósticos?');
+            $table->integer('points_to_hit_tie_breaker_game')->default(4)->comment('Puntos por acertar partido de desempate');
+            $table->integer('points_to_hit_game')->default(1)->comment('¿Solicitar puntos en pronósticos?');
         });
     }
 

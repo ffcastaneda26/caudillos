@@ -54,7 +54,7 @@ class Picks extends Component
     public $error;
 
     public $id_game_last_game_roundx = null;
-    public $id_game_tie_breaker = null;
+
 
     public function mount()
     {

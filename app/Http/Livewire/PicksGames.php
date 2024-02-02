@@ -19,6 +19,7 @@ class PicksGames  extends Component
 
     public function mount()
     {
+
         $this->read_configuration();
 
         if ($this->configuration->require_payment_to_continue && !Auth::user()->paid) {
@@ -36,6 +37,7 @@ class PicksGames  extends Component
             }
         }
         $this->receive_round($this->current_round);
+
     }
 
     /*+-----------------+
@@ -45,7 +47,6 @@ class PicksGames  extends Component
     public function render()
     {
         return view('livewire.picksgames.index');
-
     }
 
     /*+-----------------+

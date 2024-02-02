@@ -1,4 +1,4 @@
-<div>
+<div  wire:poll>
     <table class="table table-responsive table-striped table-hover text-xs">
         <tr>
             <td>{{ $game->id }}</td>
@@ -8,10 +8,14 @@
 
             @include('livewire.picksgames.pick_visit')
 
-            @if ($is_game_tie_breaker)
+            @if($configuration->require_points_in_picks)
                 @include('livewire.picksgames.pick_list_tie_breaker_game')
             @else
-                @include('livewire.picksgames.pick_radio_buttons')
+                @if ($is_game_tie_breaker)
+                    @include('livewire.picksgames.pick_list_tie_breaker_game')
+                @else
+                    @include('livewire.picksgames.pick_radio_buttons')
+                @endif
             @endif
 
             @include('livewire.picksgames.pick_local')

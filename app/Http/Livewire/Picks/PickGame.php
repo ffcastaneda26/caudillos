@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Picks;
 
+use App\Http\Livewire\Traits\FuncionesGenerales;
 use App\Models\Game;
 use App\Models\Pick;
 use Livewire\Component;
@@ -9,12 +10,15 @@ use Illuminate\Support\Facades\Auth;
 
 class PickGame extends Component
 {
+    use FuncionesGenerales;
+
     // Parámetros que se reciben
     public $game;
-    public $id_game_tie_breaker;
+    public $configuration;
+    public $is_game_tie_breaker;
+
 
     // Para las vistas y hacer la lógica en el backend
-
     public $game_month;
     public $game_day;
     public $game_date;
@@ -24,8 +28,10 @@ class PickGame extends Component
     public $game_has_result;
     public $acerto;
     public $hit_pick_hame;
-    public $is_game_tie_breaker;
 
+    // Errores:
+    public $local_error = null;
+    public $visit_error = null;
 
     // Para actualizar pronósticos
     public $winner;
@@ -33,26 +39,11 @@ class PickGame extends Component
     public $local_points;
 
 
-    protected $rules = [
-        'winner' => 'required|in:1,2',
-        'visit_points' => 'required|different:local_points',
-        'local_points' => 'required|different:visit_points',
-    ];
-
-    public function messages(): array
-    {
-        return [
-            'visit_points.required' => 'Indique puntos',
-            'visit_points.different'=> 'No Empates',
-            'local_points.required' => 'Indique puntos',
-            'local_points.different'=> 'No Empates',
-        ];
-    }
-
-
-    public function mount(Game $game,$id_game_tie_breaker){
+    public function mount(Game $game,$id_game_tie_breaker,$configuration){
         $this->id_game_tie_breaker = $id_game_tie_breaker;
         $this->game = $game;
+        $this->configuration = $configuration;
+
         $this->prepare_data_to_view();
     }
 
@@ -77,7 +68,7 @@ class PickGame extends Component
 
         $this->pick_user = $this->game->pick_user();
         if(!$this->pick_user){
-            $this->pick_user =  $this->create_pick_user_game();
+            $this->pick_user = $this->create_pick_user_game($this->game,Auth::user());
         }
         $this->winner = $this->pick_user->winner;
         $this->pick_user_winner = $this->pick_user->winner;
@@ -96,16 +87,24 @@ class PickGame extends Component
     }
 
     public function update_points(){
-        $this->validateOnly('visit_points');
-        $this->validateOnly('local_points');
         $this->winner = $this->local_points > $this->visit_points ? 1 : 2;
 
-        if($this->visit_points == $this->local_points){
-            $this->errors->add('visit_points', 'No Empate');
-            $this->errors->add('local_points', 'No Empate');
+        $this->validate([
+            'visit_points' => 'required|different:local_points',
+            'local_points' => 'required|different:visit_points',
+        ], [
+            'visit_points.required' => 'Indique puntos',
+            'visit_points.different' => 'No Empates',
+            'local_points.required' => 'Indique puntos',
+            'local_points.different' => 'No Empates',
+        ]);
+
+        if ($this->visit_points == $this->local_points) {
+            $this->addError('visit_points', 'No Empates');
+            $this->addError('local_points', 'No Empates');
             return;
         }
-
+        // TODO:: Revisar si se cambió el partido de desempate hay que quitar los puntos al anterior
         $pick_user = $this->game->pick_user();
         if($pick_user){
             $pick_user->visit_points = $this->visit_points;
@@ -116,7 +115,7 @@ class PickGame extends Component
     }
 
     // Crea pronóstico para el usuario en este partido
-    private function create_pick_user_game(){
+    private function create_pick_user_gamex(){
         $winner = mt_rand(1, 2);
         $new_pick = Pick::create([
             'user_id'   => Auth::user()->id,
@@ -124,7 +123,8 @@ class PickGame extends Component
             'winner'    => $winner
         ]);
 
-        if ($this->id_game_tie_breaker == $this->game->id) {
+
+        if($this->configuration->require_points_in_picks){
             if ($winner == 1) {
                 $new_pick->local_points = random_int(3, 48);
                 $new_pick->visit_points = 0;
@@ -133,7 +133,20 @@ class PickGame extends Component
                 $new_pick->visit_points = random_int(3, 48);
             }
             $new_pick->winner= $new_pick->local_points > $new_pick->visit_points ? 1 : 2;
+
+        }else{
+            if ($this->id_game_tie_breaker == $this->game->id) {
+                if ($winner == 1) {
+                    $new_pick->local_points = random_int(3, 48);
+                    $new_pick->visit_points = 0;
+                } else {
+                    $new_pick->local_points = 0;
+                    $new_pick->visit_points = random_int(3, 48);
+                }
+                $new_pick->winner= $new_pick->local_points > $new_pick->visit_points ? 1 : 2;
+            }
         }
+
         $new_pick->save();
         return $new_pick;
     }
