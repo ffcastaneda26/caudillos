@@ -1,13 +1,18 @@
-<div  wire:poll>
+<div wire:poll>
     <table class="table table-responsive table-striped table-hover text-xs">
         <tr>
             <td align="left" class="text-center text-xs">
-                {{ $game_day . '/' . $game_month }} {{ $game->game_time->format('H:i') }}
+                {{ $game_day . '-' . $game_month }} <br> {{ $game->game_time->format('H:i') }}
+                @if ($is_game_tie_breaker)
+                    <span class="badge bg-danger rounded-pill"><i class="fa-regular fa-star"></i></span>
+                @endif
+
+
             </td>
 
             @include('livewire.picksgames.pick_visit')
 
-            @if($configuration->require_points_in_picks)
+            @if ($configuration->require_points_in_picks)
                 @include('livewire.picksgames.pick_list_tie_breaker_game')
             @else
                 @if ($is_game_tie_breaker)

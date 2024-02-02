@@ -19,6 +19,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait FuncionesGenerales
 {
+    public $months_short_spanish = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+    public $months_short_english = array("Jab","Feb","Mar","Apr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dec");
+
     public $id_game_tie_breaker;
     // Variables
     public $selected_round  = null;

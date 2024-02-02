@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire\Picks;
 
-use App\Http\Livewire\Traits\FuncionesGenerales;
+use Carbon\Carbon;
 use App\Models\Game;
 use App\Models\Pick;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\Traits\FuncionesGenerales;
 
 class PickGame extends Component
 {
@@ -28,6 +29,7 @@ class PickGame extends Component
     public $game_has_result;
     public $acerto;
     public $hit_pick_hame;
+
 
     // Errores:
     public $local_error = null;
@@ -59,8 +61,9 @@ class PickGame extends Component
       +-------------------------------------------------+
      */
     public function prepare_data_to_view(){
-        $this->game_day = date('j', $this->game_date);
-        $this->game_month = date('n',$this->game_date);
+        $this->game_day = substr(date($this->game->game_day),8,2);
+        $this->game_month = $this->months_short_spanish[substr(date($this->game->game_day),5,2)-1];
+
         $this->allow_pick = $this->game->allow_pick();
 
         $this->game_has_result = $this->game->has_result();
@@ -95,13 +98,15 @@ class PickGame extends Component
         $this->winner = $this->local_points > $this->visit_points ? 1 : 2;
 
         $this->validate([
-            'visit_points' => 'required|different:local_points',
-            'local_points' => 'required|different:visit_points',
+            'visit_points' => 'required|different:local_points|not_in:1',
+            'local_points' => 'required|different:visit_points|not_in:1',
         ], [
             'visit_points.required' => 'Indique puntos',
             'visit_points.different' => 'No Empates',
+            'visit_points.not_in' => 'No Permitido',
             'local_points.required' => 'Indique puntos',
             'local_points.different' => 'No Empates',
+            'local_points.not_ind' => 'No Permitido',
         ]);
 
         if ($this->visit_points == $this->local_points) {
