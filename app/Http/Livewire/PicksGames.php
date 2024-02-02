@@ -25,6 +25,9 @@ class PicksGames  extends Component
         if ($this->configuration->require_payment_to_continue && !Auth::user()->paid) {
             return redirect()->route('dashboard');
         }
+        if(!Auth::user()->has_suplementary_data() &&  $this->configuration->require_data_user_to_continue){
+            return redirect()->route('data-users');
+        }
 
         $this->rounds = $this->read_rounds();
         $round = new Round();

@@ -1,6 +1,6 @@
 <!-- Settings Dropdown -->
 <div class="ml-3 relative">
-    <x-dropdown align="right" width="48">
+    <x-dropdown align="right" width="64">
         <x-slot name="trigger">
             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                 <button
@@ -34,6 +34,12 @@
                 <i class="fa-regular fa-user"></i>
                 <label for="profile_user_url" class="ml-2">{{ __('Profile') }}</label>
             </x-dropdown-link>
+
+            <x-dropdown-link id="profile_user_url" href="{{ route('data-users') }}">
+                  <i class="fa-regular fa-circle-user"></i>
+                <label for="profile_user_url" class="ml-2">Datos Complementarios</label>
+            </x-dropdown-link>
+
 
             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                 <x-dropdown-link href="{{ route('api-tokens.index') }}">

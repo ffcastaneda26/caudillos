@@ -46,7 +46,6 @@
                 <img class="image" src="{{ asset('images/patrocinios/tdxcausa.png') }} "alt="TDxCausa">
                 <img class="image" src="{{ asset('images/patrocinios/fundacion_caudillos.png') }} "alt="Fundación Caudillos">
                 <img class="image" src="{{ asset('images/patrocinios/jidosha_vertical.png') }}" alt="Jidosha">
-                {{-- <img class="image" src="{{ asset('images/patrocinios/secorp.png') }}" alt="Secorp"> --}}
 
             </div>
 

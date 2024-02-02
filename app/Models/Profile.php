@@ -27,10 +27,10 @@ class Profile extends Model
     ];
 
 
-    public function setCurpAttribute($value)
-    {
-        $this->attributes['curp'] = strtoupper($value);
-    }
+    // public function setCurpAttribute($value)
+    // {
+    //     $this->attributes['curp'] = strtoupper($value);
+    // }
 
     public function user(): BelongsTo
     {
