@@ -74,6 +74,20 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(func
 
 
 Route::get('/home', function() {
+
+
+    if(Auth::user()->hasRole('Admin')){
+        return '/dashboard';
+    }
+
+    $configuration_record = Configuration::first();
+    if(Auth::user()->hasRole('participante')){
+        if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
+            return redirect()->route('data-users');
+        }
+        return redirect()->route('picks');
+    }
+
     return view('home');
 })->name('home')->middleware('auth');
 
