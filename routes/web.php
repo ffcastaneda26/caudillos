@@ -26,7 +26,7 @@ Route::get('/', function () {
     $configuration_record = Configuration::first();
     if(Auth::user()){
         if(Auth::user()->hasRole('Admin')){
-            return '/dashboard';
+            return redirect()->route('dashboard');
         }
 
         if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
@@ -50,8 +50,24 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(function () {
 
     Route::get('/dashboard', function () {
+        if(Auth::user()->hasRole('Admin')){
+            return redirect()->route('dashboard');
+        }
         $configuration_record = Configuration::first();
+
+        if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
+            return redirect()->route('data-users');
+        }
+
+        if(Auth::user()->hasRole('participante')){
+            if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
+                return redirect()->route('data-users');
+            }
+            return redirect()->route('picks');
+        }
+
         return view('dashboard',compact('configuration_record'));
+
     })->name('dashboard');
 
     Route::get('picks',PicksGames::class)->name('picks');                                // Pronósticos
@@ -76,7 +92,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(func
 
 
 Route::get('/home', function() {
-
 
     if(Auth::user()->hasRole('Admin')){
         return redirect()->route('dashboard');

@@ -6,10 +6,23 @@
                 Dashboard
             </a>
         @else
-            <div class="flex flex-row  justify-center justify-items-center gap-40">
-                <x-register />
+            {{-- <div class="flex flex-row  justify-center justify-items-center gap-40 mt-2 mb-5">
+                <img class="rounded-xs" src="{{asset('images/patrocinios/tdxcausa.png')}}" alt="Logo" width="100px" height="150px">
+            </div> --}}
+            <div class="flex flex-row justify-center md:justify-between justify-items-center gap-40">
+                {{-- <x-register />
 
-                <x-login />
+                <img class="rounded-xs" src="{{asset('images/patrocinios/tdxcausa.png')}}" alt="Logo" width="100px" height="150px">
+
+                <x-login /> --}}
+
+                <div class="flex flex-col items-center md:flex-row md:justify-between gap-4 md:gap-40">
+                    <x-register class="mb-4 md:mb-0" />
+
+                    <img class="rounded-xs" src="{{ asset('images/patrocinios/tdxcausa.png') }}" alt="Logo" width="100px" height="150px">
+
+                    <x-login class="mt-4 md:mt-0" />
+                </div>
             </div>
         @endauth
     </div>
