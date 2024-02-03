@@ -50,8 +50,9 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(function () {
 
     Route::get('/dashboard', function () {
+
         if(Auth::user()->hasRole('Admin')){
-            return redirect()->route('dashboard');
+            return view('dashboard');
         }
         $configuration_record = Configuration::first();
 
