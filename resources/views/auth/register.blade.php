@@ -91,11 +91,11 @@
                                 <x-checkbox name="terms" id="terms" />
 
                                 <div class="texto-azul ml-2">
-                                    Acepto los <a target="_blank" href="{{ route('terms.show') }} "
-                                        class="underline text-sm dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                                        {{ __('Terms of Service') }}
-                                    </a>
-                                </div>
+                                    Acepto los <a target="_blank" href="{{ asset('documents/Aviso de privacidad reto Caudillos.pdf') }}"
+                                    class="underline text-sm dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                                    {{ __('Terms of Service') }}
+                                </a>
+                                  </div>
                                 @error('terms')
                                     <div class="badge rounded-pill bg-danger">{{ $message }}</div>
                                 @enderror

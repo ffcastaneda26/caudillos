@@ -36,6 +36,9 @@
 
             <header>
                 <div class="welcome-legend texto-azul flex flex-col items-center font-extrabold">
+                    Bienvenida a TDxCausa 2024
+                </div>
+                <div class="welcome-legend texto-azul flex flex-col items-center font-extrabold">
                     <p>Con tu aportación estás apoyando al </p>
                     <p>"Programa Formación en Deportes y Valores</p>
                     <p>Torneo Tochito Estatal 2023-2024"</p>
@@ -44,7 +47,8 @@
 
             <div class="sm:bg-dark images-row">
                 <img class="image" src="{{ asset('images/patrocinios/tdxcausa.png') }} "alt="TDxCausa">
-                <img class="image" src="{{ asset('images/patrocinios/fundacion_caudillos.png') }} "alt="Fundación Caudillos">
+                <img class="image"
+                    src="{{ asset('images/patrocinios/fundacion_caudillos.png') }} "alt="Fundación Caudillos">
                 <img class="image" src="{{ asset('images/patrocinios/jidosha_vertical.png') }}" alt="Jidosha">
 
             </div>
@@ -53,9 +57,14 @@
                 Trabajando en conjunto en busca de un mejor Chihuahua
             </div>
 
-            <div class="text-link-information flex flex-row justify-center items-center mb-4 link_mas_informacion texto-oro underline">
-                <a href=""> Mas información del proyecto </a>
+            <div
+                class="text-link-information flex flex-row justify-center items-center mb-4 link_mas_informacion texto-oro underline">
+                <a target="_blank" href="{{ asset('documents/Proyecto 2024 Fundación Caudillos.pdf') }}">
+                    Mas información del proyecto
+                </a>
             </div>
+
+
         </div>
 
 

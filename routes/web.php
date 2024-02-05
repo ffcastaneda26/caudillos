@@ -56,16 +56,16 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session')])->group(func
         }
         $configuration_record = Configuration::first();
 
-        if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
-            return redirect()->route('data-users');
-        }
+        // if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
+        //     return redirect()->route('data-users');
+        // }
 
-        if(Auth::user()->hasRole('participante')){
-            if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
-                return redirect()->route('data-users');
-            }
-            return redirect()->route('picks');
-        }
+        // if(Auth::user()->hasRole('participante')){
+        //     if(!Auth::user()->has_suplementary_data() &&  $configuration_record->require_data_user_to_continue){
+        //         return redirect()->route('data-users');
+        //     }
+        //     return redirect()->route('picks');
+        // }
 
         return view('dashboard',compact('configuration_record'));
 
