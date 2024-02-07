@@ -16,6 +16,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
     <style>
+        .imagen-fondo-welcome {
+            background: no-repeat center/100% url('{{ asset('images/caudillos_fondo_welcome.png') }}');
+        }
+
         @media (max-width: 640px) {
             .text-custom {
                 font-size: 12px;
@@ -24,11 +28,15 @@
             .images-row {
                 flex-direction: column;
             }
+
+            .imagen-fondo-welcome {
+                background: no-repeat center/100% url('{{ asset('images/caudillos_fondo_welcome_movil.png') }}');
+            }
         }
     </style>
 </head>
 
-<body class="fondo-principal">
+<body class="imagen-fondo-welcome">
     <container-fluid>
         <div class="my-auto mt-5 max-w-7xl mx-auto">
 
@@ -46,11 +54,8 @@
             </header>
 
             <div class="sm:bg-dark images-row">
-                <img class="image" src="{{ asset('images/patrocinios/tdxcausa.png') }} "alt="TDxCausa">
-                <img class="image"
-                    src="{{ asset('images/patrocinios/fundacion_caudillos.png') }} "alt="Fundación Caudillos">
-                <img class="image" src="{{ asset('images/patrocinios/jidosha_vertical.png') }}" alt="Jidosha">
-
+                <img src="{{ asset('images/patrocinios/fundacion_caudillos.png') }} " width="250px">
+                <img src="{{ asset('images/patrocinios/jidosha_vertical.png') }}" width="250px">
             </div>
 
             <div class="welcome-legend-second texto-azul font-semibold">
