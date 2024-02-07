@@ -6,7 +6,9 @@
     </td>
 
     <td align="center" style="vertical-align:top;">
-        <label class="rounded-pill  text-lg p-1.5  {{ $game->visit_points ? '' : 'd-none'}} {{ $game->winner == 2 ? 'bg-success' : 'bg-danger'}}">
+        <label class="rounded-pill  text-lg p-1.5
+                {{ !is_null($game->visit_points) ? '' : 'd-none' }}
+                {{ $game->winner == 2 ? 'bg-success' : 'bg-danger'}}">
             {{ $game->visit_points }}
         </label>
     </td>

@@ -1,7 +1,9 @@
    {{-- Datos del Local --}}
    <td align="center" style="vertical-align:top;">
        <label
-           class="rounded-pill  text-md p-1.5  {{ $game->local_points ? '' : 'd-none' }} {{ $game->winner == 1 ? 'bg-success' : 'bg-danger' }}">
+           class="rounded-pill  text-md p-1.5
+            {{ !is_null($game->local_points) ? '' : 'd-none' }}
+            {{ $game->winner == 1 ? 'bg-success' : 'bg-danger' }}">
            {{ $game->local_points }}
        </label>
    </td>
