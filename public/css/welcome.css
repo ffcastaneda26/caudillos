@@ -29,15 +29,22 @@ header {
     margin: 20px;
 }
 
+
+
 .image {
     margin: 10px;
     width: 150px;
+    height: auto;
+}
+@media (max-width: 640px) {
+    .image {
+        margin:auto;
+        width:200px;
+        height: auto;
+    }
 }
 
-.image-header-picks {
-    margin: auto;
-    width: 75px;
-}
+
 
 .welcome-legend {
     font-size: 24px;
@@ -63,6 +70,8 @@ header {
     font-size: 16px;
 }
 
+
+
 @media (max-width: 640px) {
     .images-row {
         flex-direction: column;
@@ -72,14 +81,8 @@ header {
         text-align: center;
     }
 
-    .image {
-        margin:auto;
-        width: 200px;
-    }
-    .image-header-picks {
-        margin:auto;
-        width: 75px;
-    }
+
+
     .welcome-legend {
         font-size: 14px;
     }
