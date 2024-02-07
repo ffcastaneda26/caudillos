@@ -1,13 +1,8 @@
 <div wire:poll>
     <table class="table table-responsive table-striped table-hover text-xs">
-        <tr class="{{ $is_game_tie_breaker ? 'bg-gray-200 text-black font-extrabold' : '' }}">
+        <tr class="{{ $is_game_tie_breaker ? 'bg-gray-200 text-black' : '' }}">
             <td align="left" class="text-center text-xs">
                 {{ $game_day . '-' . $game_month }} <br> {{ $game->game_time->format('H:i') }}
-                @if ($is_game_tie_breaker)
-                    <span class="badge bg-danger rounded-pill"><i class="fa-regular fa-star"></i></span>
-                @endif
-
-
             </td>
 
             @include('livewire.picksgames.pick_visit')
