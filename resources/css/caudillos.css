@@ -12,6 +12,14 @@ body {
     /* Otros estilos para el cuerpo del documento */
 }
 
+.game_winner{
+    background-color: #9ECAAA;
+    font-weight: bold;
+}
+.game_loser {
+    background-color: #aa8282 ;
+}
+
 
 .fondo-principal {
     background-color: var(--main-bg-color) !important;

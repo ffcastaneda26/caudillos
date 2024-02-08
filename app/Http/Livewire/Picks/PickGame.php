@@ -52,8 +52,6 @@ class PickGame extends Component
     public function render()
     {
         return view('livewire.picksgames.pick-game-cols');
-        // return view('livewire.picksgames.pick-game');
-
     }
 
     /*+-------------------------------------------------+
@@ -127,40 +125,4 @@ class PickGame extends Component
         }
     }
 
-    // Crea pronóstico para el usuario en este partido
-    private function create_pick_user_gamex(){
-        $winner = mt_rand(1, 2);
-        $new_pick = Pick::create([
-            'user_id'   => Auth::user()->id,
-            'game_id'   => $this->game->id,
-            'winner'    => $winner
-        ]);
-
-
-        if($this->configuration->require_points_in_picks){
-            if ($winner == 1) {
-                $new_pick->local_points = random_int(3, 48);
-                $new_pick->visit_points = 0;
-            } else {
-                $new_pick->local_points = 0;
-                $new_pick->visit_points = random_int(3, 48);
-            }
-            $new_pick->winner= $new_pick->local_points > $new_pick->visit_points ? 1 : 2;
-
-        }else{
-            if ($this->id_game_tie_breaker == $this->game->id) {
-                if ($winner == 1) {
-                    $new_pick->local_points = random_int(3, 48);
-                    $new_pick->visit_points = 0;
-                } else {
-                    $new_pick->local_points = 0;
-                    $new_pick->visit_points = random_int(3, 48);
-                }
-                $new_pick->winner= $new_pick->local_points > $new_pick->visit_points ? 1 : 2;
-            }
-        }
-
-        $new_pick->save();
-        return $new_pick;
-    }
 }

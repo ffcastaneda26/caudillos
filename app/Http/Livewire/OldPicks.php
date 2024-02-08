@@ -14,7 +14,7 @@ use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Picks extends Component
+class OldPicks extends Component
 {
     use AuthorizesRequests;
     use WithPagination;

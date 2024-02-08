@@ -5,9 +5,9 @@
             <img src="{{ Storage::url($game->local_team->logo) }}" class="avatar-sm md:w-100 h-100">
         </div>
         <div style="width: 30px">
-            <label  class="rounded-pill  text-md p-1.5
+            <label  class="rounded-pill text-xs p-1
                     {{ !is_null($game->local_points) ? '' : 'd-none' }}
-                    {{ $game->winner == 1 ? 'bg-success' : 'bg-danger' }}">
+                    {{ $game->winner == 1 ? 'game_winner' : 'game_loser' }}">
                     {{ $game->local_points }}
             </label>
         </div>
