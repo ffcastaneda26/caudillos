@@ -81,6 +81,8 @@ class Games extends Component
     public function store(){
         $this->reset('error_message');
         $this->validate();
+        $this->main_record->winner = null;
+
 
         if(strlen($this->main_record->visit_points) && strlen($this->main_record->local_points) < 1 ){
             $this->error_message = 'Falta Marcador Local';
@@ -92,22 +94,21 @@ class Games extends Component
             return false;
         }
 
-        $this->main_record->winner = null;
-        if(!$this->main_record->visit_points){
-            $this->main_record->visit_points = 0;
-        }
-
-        if(!$this->main_record->local_points){
-            $this->main_record->local_points = 0;
-        }
 
         if($this->main_record->visit_points && $this->main_record->visit_points == $this->main_record->local_points){
             $this->error_message = 'Los marcadores deben ser diferentes, no se permiten empates';
             return false;
         }
 
+        if( strlen($this->main_record->visit_points) && strlen($this->main_record->local_points) && $this->main_record->visit_points =! $this->main_record->local_points )
+        {
+            $this->main_record->winner = $this->main_record->win();
+        }else{
+            $this->main_record->winner = null;
+            $this->main_record->visit_points = null;
+            $this->main_record->local_points = null;
+        }
 
-        $this->main_record->winner = $this->main_record->win();
         $this->main_record->save();
 
         $this->id_game_tie_breaker = $this->get_id_game_to_get_points($this->main_record->round);
