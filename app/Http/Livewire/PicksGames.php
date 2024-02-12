@@ -15,8 +15,6 @@ class PicksGames  extends Component
 
     protected $listeners = ['receive_round'];
 
-    public $id_game_tie_breaker = null;
-
     public function mount()
     {
 
@@ -42,7 +40,6 @@ class PicksGames  extends Component
         $this->receive_round($this->current_round);
 
     }
-
     /*+-----------------+
       | Regresa Vista   |
       +-----------------+
@@ -51,12 +48,10 @@ class PicksGames  extends Component
     {
         return view('livewire.picksgames.index');
     }
-
     /*+-----------------+
       | Recibe Jornada  |
       +-----------------+
     */
-
     public function receive_round(Round $round)
     {
         if ($round) {

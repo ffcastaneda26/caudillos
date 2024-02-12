@@ -7,7 +7,6 @@ use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -20,9 +19,6 @@ class Results extends Component
     use FuncionesGenerales;
 
     protected $listeners = ['receive_round'];
-
-    public $users_with_picks_round = null;
-    public $picks_auth_user_round;
     public $sort_secondary = 'last_name';
     public $sort_by = 'name';
     public $order_by = 'name_asc';
@@ -32,13 +28,10 @@ class Results extends Component
         $this->read_configuration();
         $this->validate_require_payment_to_continue();
         $this->validate_has_sumplentary_data_to_continue();
-
         $round = new Round();
         $this->current_round = $round->read_current_round();
         $this->selected_round = $this->current_round;
         $this->receive_round($this->selected_round);
-        $this->picks_auth_user_round =  $this->selected_round->picks_auth_user()->get();
-
         $this->sort = 'name';
         $this->direction = 'asc';
     }
@@ -49,10 +42,7 @@ class Results extends Component
     */
     public function render()
     {
-
-        return view('livewire.results.index', [
-            'records' => $this->read_data(),
-        ]);
+        return view('livewire.results.index', ['users' => $this->read_data()]);
     }
 
     /*+------------------------------------+
@@ -85,7 +75,6 @@ class Results extends Component
                 break;
         }
 
-
         $users = User::role('participante')
             ->join('picks', 'users.id', '=', 'picks.user_id')
             ->join('games', 'picks.game_id', '=', 'games.id')
@@ -112,12 +101,10 @@ class Results extends Component
     */
     public function receive_round(Round $round)
     {
-
         if ($round) {
-
             $this->selected_round = $round;
+            $this->id_game_tie_breaker = $this->get_id_game_to_get_points($round);
             $this->round_games  = $this->selected_round->games()->get();
         }
     }
-
 }

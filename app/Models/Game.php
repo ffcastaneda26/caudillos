@@ -142,25 +142,9 @@ class Game extends Model
         return $this->local_points > $this->visit_points ? 1 : 2;
     }
 
-    // ¿Requerir puntos del partido?
-    public function request_points_game(){
-        $request_points_game = false;
-        $configuration_record = Configuration::first();
-
-        if($configuration_record->use_team_to_tie_breaker){
-            if('descansa_equipo_para_desempate'){
-                // ¿Es último partido?
-                $request_points_game = $this->round->get_last_game_round()->id == $this->id;
-            }else{
-                // ¿El partido tiene al equipo configurado como local o como visita?
-                $request_points_game =  $this->local_team_id == $configuration_record->team_id  ||
-                                        $this->visit_team_id == $configuration_record->team_id;
-            }
-        }else{
-            // ¿Es último partido?
-            $request_points_game = $this->round->get_last_game_round()->id == $this->id;
-        }
+    // ¿Se acertó el partido?
+    public function hit_game($winner){
+        return  $this->winner === $winner;
     }
-
 
 }
