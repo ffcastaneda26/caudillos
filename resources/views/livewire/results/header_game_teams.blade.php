@@ -9,7 +9,7 @@
         @foreach ($round_games as $game)
             <td class="text-left w-auto">
                 <img src="{{ Storage::url($game->visit_team->logo) }}" style="width: 24px">
-                vs
+                <br>
                 <img src="{{ Storage::url($game->local_team->logo) }}" style="width: 24px">
             </td>
         @endforeach
