@@ -20,7 +20,8 @@
         </th>
 
         @if($round_has_games_played)
-            <th rowspan="2" valign="middle" class="text-xs">ACIERTOS</th>
+            <th rowspan="2" valign="middle" align="center" class="text-xs">ACIERTOS</th>
+
         @endif
 
     </tr>

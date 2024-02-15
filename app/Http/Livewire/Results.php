@@ -20,8 +20,8 @@ class Results extends Component
 
     protected $listeners = ['receive_round'];
     public $sort_secondary = 'last_name';
-    public $sort_by = 'name';
-    public $order_by = 'name_asc';
+    public $sort_by = 'hits';
+    public $order_by = 'hits_desc';
     public $tie_breaker_game;
     public $tie_breaker_game_allow_pick = false;
     public $tie_breaker_game_has_result = false;
@@ -36,8 +36,6 @@ class Results extends Component
         $this->current_round = $round->read_current_round();
         $this->selected_round = $this->current_round;
         $this->receive_round($this->selected_round);
-        $this->sort = 'name';
-        $this->direction = 'asc';
     }
 
     /*+---------------------------------+
