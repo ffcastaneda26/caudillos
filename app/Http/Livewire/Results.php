@@ -22,6 +22,10 @@ class Results extends Component
     public $sort_secondary = 'last_name';
     public $sort_by = 'name';
     public $order_by = 'name_asc';
+    public $tie_breaker_game;
+    public $tie_breaker_game_allow_pick = false;
+    public $tie_breaker_game_has_result = false;
+    public $round_has_games_played = false;
 
     public function mount()
     {
@@ -42,7 +46,8 @@ class Results extends Component
     */
     public function render()
     {
-        return view('livewire.results.index', ['users' => $this->read_data()]);
+
+        return view('livewire.results.index', ['records' => $this->read_data()]);
     }
 
     /*+------------------------------------+
@@ -84,7 +89,7 @@ class Results extends Component
             ->orwhere('last_name', 'LIKE', "%$this->search%")
             ->orwhere('email', 'LIKE', "%$this->search%")
             ->groupBy('users.id')
-            ->select('users.*', DB::raw('SUM(picks.hit) as total_hits'));
+             ->select('users.*', DB::raw('SUM(picks.hit) as total_hits'));
         if ($this->sort === 'name') {
             $users->orderBy(DB::raw('CONCAT(users.first_name, " ", users.last_name)'), $this->direction);
         } else {
@@ -92,6 +97,7 @@ class Results extends Component
         }
 
         $users = $users->paginate($this->pagination);
+
         return $users;
     }
 
@@ -103,8 +109,13 @@ class Results extends Component
     {
         if ($round) {
             $this->selected_round = $round;
-            $this->id_game_tie_breaker = $this->get_id_game_to_get_points($round);
+            $this->tie_breaker_game = $this->selected_round->get_tie_breaker_game();
+            $this->round_has_games_played = $this->selected_round->has_games_played();
+            $this->tie_breaker_game_allow_pick=$this->tie_breaker_game->allow_pick();
+            $this->tie_breaker_game_has_result=$this->tie_breaker_game->has_result();
+            $this->id_game_tie_breaker = $this->tie_breaker_game->id;
             $this->round_games  = $this->selected_round->games()->get();
         }
     }
+
 }

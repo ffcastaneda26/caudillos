@@ -15,17 +15,16 @@
                                 <table class="table text-xs">
                                     @include('livewire.results.header_game_teams')
                                     <tbody>
-                                        {{-- Datos del usuario conectado --}}
-                                        @if (env('SHOW_PICK_AUTH_USER_DETAIL_FIRST', false))
-                                            @include('livewire.results.picks_auth_user')
-                                        @endif
-
-                                        @foreach ($records as $user)
+                                        @foreach ($users as $user)
                                             @include('livewire.results.list')
                                         @endforeach
                                     </tbody>
                                 </table>
-                                @include('common.crud_pagination')
+                                @if($users && $users->count())
+                                    <div>
+                                        {{ $users->links()}}
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
