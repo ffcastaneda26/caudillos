@@ -88,9 +88,11 @@ class Game extends Model
 
         date_default_timezone_set("America/Chihuahua");
         $configuration = Configuration::first();
-        $fecha_juego = new Carbon($this->game_day);
-        $fecha_juego->subMinute($configuration->minuts_before_picks);
         $newDateTime = Carbon::now()->subMinute($configuration->minuts_before_picks);
+        $string_to_date = substr($this->game_day,0,10). ' ' .substr($this->game_time,11,8);
+        $fecha_juego = new Carbon($string_to_date);
+        $fecha_juego->subMinute($configuration->minuts_before_picks);
+
         return $fecha_juego > $newDateTime;
     }
 
