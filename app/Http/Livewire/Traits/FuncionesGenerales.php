@@ -23,6 +23,7 @@ trait FuncionesGenerales
     public $months_short_english = array("Jab","Feb","Mar","Apr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dec");
 
     public $id_game_tie_breaker;
+
     // Variables
     public $selected_round  = null;
     public $round_games     = null;
@@ -187,6 +188,14 @@ trait FuncionesGenerales
 
     // Actualiza Puntos asignados a todos los pronósticos del partido
     public function update_pick_total_points_game(Game $game){
+        // Actualiza puntos por haber acertado este partido
+        $sql = "UPDATE picks ";
+        $sql .= "SET points_by_hit_game=" . $this->configuration->points_to_hit_game . " ";
+        $sql .= "WHERE game_id=" . $game->id ;
+        $sql .= "   AND hit=1";
+
+        DB::update($sql);
+
         $game->picks()
             ->update([
                 'points_by_local' => DB::raw('CASE
@@ -202,17 +211,12 @@ trait FuncionesGenerales
                                                 WHEN dif_points_visit = 2 THEN 3
                                                 WHEN dif_points_visit = 3 THEN 2
                                                 ELSE 0
-                                            END')
-                // 'total_points' => DB::raw('points_by_local + points_by_visit'),
+                                            END'),
+                'total_points' => DB::raw('points_by_local + points_by_visit + points_by_hit_game')
             ]);
 
-        // Actualiza puntos por haber acertado este partido
-        $sql = "UPDATE picks ";
-        $sql .= "SET points_by_hit_game=" . $this->configuration->points_to_hit_game . " ";
-        $sql .= "WHERE game_id=" . $game->id ;
-        $sql .= "   AND hit=1";
 
-        DB::update($sql);
+
 
         // Actualiza puntos por haber acertado partido de desempate
         $sql = "UPDATE picks ";

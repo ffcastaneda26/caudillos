@@ -170,6 +170,13 @@ class User extends Authenticatable
         return $this->positions->where('round_id',$round_id)->first()->hits;
     }
 
+    public function points_round($round_id){
+        return $this->positions->where('round_id',$round_id)->first()->total_points;
+    }
+
+    public function read_position_record_round($round_id){
+        return $this->positions->where('round_id',$round_id)->first();
+    }
     // ¿El usuario tiene pronóstico en el juego?
 
 

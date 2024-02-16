@@ -38,8 +38,20 @@
     @include('livewire.results.list_tie_breaker_column')
 
     @if($round_has_games_played)
-        <td class="text-center">
-            {{ $user->has_position_record_round($selected_round->id) ? $user->hits_round($selected_round->id) : '' }}
-        </td>
-    @endif
+            @if($sort == 'name')
+                @php
+                    $user_posicion_record__round = $user->read_position_record_round($selected_round->id);
+                @endphp
+                <td class="text-center">
+                    {{ $user_posicion_record__round->hits }}
+                </td>
+                <td class="text-center">
+                    {{ $user_posicion_record__round->total_points }}
+                </td>
+            @else
+                <td>{{ $user->hits }}</td>
+                <td>{{ $user->total_points }}</td>
+            @endif
+
+     @endif
 </tr>

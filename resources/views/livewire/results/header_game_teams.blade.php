@@ -20,8 +20,10 @@
         </th>
 
         @if($round_has_games_played)
-            <th rowspan="2" valign="middle" align="center" class="text-xs">ACIERTOS</th>
-
+            <th rowspan="2" valign="middle" align="center" class="text-xs">
+                <img src="{{ asset('images/afirmativo.png') }}" height="16px" width="16px">
+            </th>
+            <th rowspan="2" valign="middle" align="center" class="text-xs">PTS</th>
         @endif
 
     </tr>

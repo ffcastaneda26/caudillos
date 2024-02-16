@@ -111,7 +111,9 @@ class Games extends Component
 
         $this->main_record->save();
 
+        // TODO: Cambiar a leer el partido de desempate desde la jornada y no desde funciones generales
         $this->id_game_tie_breaker = $this->get_id_game_to_get_points($this->main_record->round);
+
 
         // Si se pusieron puntos se procede a calificar pronósticos
         if($this->main_record->local_points || $this->main_record->visit_points){

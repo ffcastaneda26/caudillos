@@ -78,21 +78,44 @@ class Results extends Component
                 break;
         }
 
-        $users = User::role('participante')
-            ->join('picks', 'users.id', '=', 'picks.user_id')
-            ->join('games', 'picks.game_id', '=', 'games.id')
-            ->where('games.round_id', '=', $this->selected_round->id)
+        if($this->sort == 'name'){
+            $users = User::role('participante')
+                ->join('picks', 'users.id', '=', 'picks.user_id')
+                ->join('games', 'picks.game_id', '=', 'games.id')
+                ->where('games.round_id', '=', $this->selected_round->id)
+                ->where('users.active', '1')
+                ->where('first_name', 'LIKE', "%$this->search%")
+                ->orwhere('last_name', 'LIKE', "%$this->search%")
+                ->orwhere('email', 'LIKE', "%$this->search%")
+                ->groupBy('users.id')
+                ->select('users.*', DB::raw('SUM(picks.hit) as total_hits'));
+            if ($this->sort === 'name') {
+                $users->orderBy(DB::raw('CONCAT(users.first_name, " ", users.last_name)'), $this->direction);
+            } else {
+                $users->orderBy(DB::raw('SUM(picks.hit)'), $this->direction);
+            }
+        }else{
+            $users = User::role('participante')
+            ->join('positions', 'users.id', '=', 'positions.user_id')
+            ->join('rounds', 'positions.round_id', '=', 'rounds.id')
+            ->where('rounds.id', '=', $this->selected_round->id)
             ->where('users.active', '1')
             ->where('first_name', 'LIKE', "%$this->search%")
             ->orwhere('last_name', 'LIKE', "%$this->search%")
             ->orwhere('email', 'LIKE', "%$this->search%")
-            ->groupBy('users.id')
-             ->select('users.*', DB::raw('SUM(picks.hit) as total_hits'));
-        if ($this->sort === 'name') {
-            $users->orderBy(DB::raw('CONCAT(users.first_name, " ", users.last_name)'), $this->direction);
-        } else {
-            $users->orderBy(DB::raw('SUM(picks.hit)'), $this->direction);
-        }
+            ->groupBy('users.id',
+                      'positions.position',
+                      'positions.total_points',
+                      'positions.hits')
+            ->select('users.*',
+                     DB::raw('CONCAT(users.first_name, " ", users.last_name) as name'),
+                     'positions.total_points',
+                     'positions.position',
+                     'positions.hits')
+            ->orderby('positions.total_points', $this->direction);
+
+         }
+
 
         $users = $users->paginate($this->pagination);
 
