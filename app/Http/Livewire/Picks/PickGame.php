@@ -92,15 +92,20 @@ class PickGame extends Component
 
     public function update_points(){
 
-        $this->local_points = ltrim($this->local_points, "0");
-        $this->visit_points = ltrim($this->visit_points, "0");
+        if( strlen( $this->local_points) > 1){
+            $this->local_points = ltrim($this->local_points, "0");
+        }
+
+        if( strlen( $this->visit_points) > 1){
+            $this->visit_points = ltrim($this->visit_points, "0");
+        }
 
 
         $this->winner = $this->local_points > $this->visit_points ? 1 : 2;
 
         $this->validate([
-            'visit_points' => 'required|different:local_points|not_in:1',
-            'local_points' => 'required|different:visit_points|not_in:1',
+            'visit_points' => 'required|different:local_points|not_in:1|min:0',
+            'local_points' => 'required|different:visit_points|not_in:1|min:0',
         ], [
             'visit_points.required' => 'Indique puntos',
             'visit_points.different' => 'No Empates',
