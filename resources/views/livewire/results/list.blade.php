@@ -13,9 +13,9 @@
                 <x-reloj-image />
             @else
                 @if ($pick->winner == 1)
-                    <img src="{{ Storage::url($pick->game->local_team->logo) }}" class="avatar-xs">
+                    <img src="{{ Storage::url($pick->game->local_team->logo) }}" width="24px">
                 @else
-                    <img src="{{ Storage::url($pick->game->visit_team->logo) }}" class="avatar-xs">
+                    <img src="{{ Storage::url($pick->game->visit_team->logo) }}" width="24px">
                 @endif
 
                 @if ($has_result)
