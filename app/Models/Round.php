@@ -89,16 +89,29 @@ class Round extends Model
     // Jornada actual segun las fechas de inicio y final
     public function  read_current_round()
     {
-        $dt = Carbon::now()->toDateString();
+        $sql = "UPDATE rounds SET active=0";
+        DB::update($sql);
 
-        $current_round = $this::where('start_date', '<=', $dt)
-            ->where('end_date', '>=', $dt)
-            ->first();
-        if (!$current_round) {
-            $current_round = $this::where('id', $this->max('id'))->first();
+        $today = now()->toDateString();
+        $minDate = Round::min('start_date');
+        $current_round = null;
+        if ($minDate >= $today) {
+            $current_round = Round::where('start_date', $minDate)->first();
         }
 
+        if (!$current_round) {
+            $current_round = $this::where('start_date', '<=', $today)
+                ->where('end_date', '>=', $today)
+                ->first();
+            if (!$current_round) {
+                $current_round = $this::where('id', $this->max('id'))->first();
+            }
+        }
+
+
+
         if ($current_round) {
+
             $current_round->active = 1;
             $current_round->save();
             return $current_round;
