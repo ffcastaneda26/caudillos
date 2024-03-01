@@ -108,3 +108,17 @@ SELECT  dif_points_winner,
 		  total_points AS 'Total'
 FROM picks
 WHERE game_id = 1
+
+-- Posiciones de una jornada
+SELECT concat(us.first_name,' ',us.last_name) as Nombre,
+       pos.hits as Aciertos,
+       pos.points_by_local as 'Pts x Local',
+       pos.points_by_visit as 'pts x Visita',
+       pos.points_by_hit_tie_breaker_game as 'Pts x Desempate',
+       pos.points_by_hit_game as 'Pts x Juego',
+	   pos.total_points as 'Pts Totales',
+       pos.position as 'Posición'
+FROM users us,positions pos
+WHERE us.id = pos.user_id
+  AND pos.round_id = 1
+ORDER BY pos.position;

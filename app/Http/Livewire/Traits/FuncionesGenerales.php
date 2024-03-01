@@ -287,6 +287,7 @@ trait FuncionesGenerales
     // Actualiza si acertó el último partido
     public function update_hit_last_game(Game $game)
     {
+        // TODO: Cambiar el atributo hit_last_game por hit_tie_breaker_game
         $sql = "UPDATE picks pic,games ga ";
         $sql .= "SET hit_last_game= CASE WHEN pic.winner=ga.winner THEN 1 ELSE 0 END ";
         $sql .= "WHERE ga.id = pic.game_id ";
@@ -546,6 +547,7 @@ trait FuncionesGenerales
     public function update_picks_and_positions(Game $game){
 
         $this->qualify_picks();                                    // Califica pronósticos
+        // TODO: Revisar ¿Por qué se está haciendo esta validación y por qué no $game-> is_game_tie_breaker()
         if($this->id_game_tie_breaker == $this->main_record->id){
             $this->update_hit_last_game($this->main_record);        // ¿Acertó último partido?
         }
@@ -573,9 +575,8 @@ trait FuncionesGenerales
         $this->update_total_hits_positions( $this->selected_round,$this->main_record); // Actualiza tabla de aciertos por jornada (POSITIONS)
 
         $this->update_positions();                                  // Asigna posiciones en tabla de POSITIONS
-        $this->read_general_positions();                            // Lee posicions generales
         $general_position = new GeneralPosition();
-        $positions = $this->read_general_positions();
+        $positions = $this->read_general_positions();                // Lee posicions generales
         if($positions){
             $general_position->truncate_me();
             $general_position->create_positions($positions);
