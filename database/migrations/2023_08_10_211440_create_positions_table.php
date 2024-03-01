@@ -31,11 +31,15 @@ return new class extends Migration
             $table->boolean('hit_last_game')->nullable()->default(0)->comment('¿Acertó ultimo juego?');
             $table->boolean('hit_visit')->nullable()->default(0)->comment('¿Acertó al marcador visitante?');
             $table->boolean('hit_local')->nullable()->default(0)->comment('¿Acertó al marcador local');
+            $table->integer('points_by_local')->nullable()->default(null)->comment('Puntos por acertar local');
+            $table->integer('points_by_visit')->nullable()->default(null)->comment('Puntos por acertar visita');
+            $table->integer('points_by_hit_tie_breaker_game')->nullable()->default(null)->comment('Puntos por acertar Desempate');
+            $table->integer('points_by_hit_game')->nullable()->default(null)->comment('Puntos por acertar partido');
+            $table->integer('total_points')->nullable()->default(null)->comment('Puntos Totales');
             $table->integer('position')->nullable()->default(null)->comment('Posición en la jornada');
             $table->timestamps();
         });
     }
-
 
 
     /**

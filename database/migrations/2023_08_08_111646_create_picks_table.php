@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->comment('Jugador');
             $table->foreignIdFor(Game::class)->comment('Partido');
             $table->tinyInteger('winner')->nullable()->default(null)->comment('Ganador');
-            $table->integer('total_points')->nullable()->default(null)->comment('Puntos totales');
             $table->tinyInteger('hit')->nullable()->default(null)->comment('Nive acierto: 1=Acertó 0=Falló');
             $table->integer('visit_points')->nullable()->default(null)->comment('Puntos Visita');
             $table->integer('local_points')->nullable()->default(null)->comment('Puntos Local');
@@ -30,6 +29,11 @@ return new class extends Migration
             $table->tinyInteger('hit_local')->nullable()->default(null)->comment('¿Acertó local');
             $table->tinyInteger('hit_visit')->nullable()->default(null)->comment('¿Acertó visita');
             $table->integer('dif_victory')->nullable()->default(null)->comment('Dif absoluta puntos total del partido - puntos totales pronosticados');
+            $table->integer('points_by_local')->nullable()->default(null)->comment('Puntos por acertar local');
+            $table->integer('points_by_visit')->nullable()->default(null)->comment('Puntos por acertar visita');
+            $table->integer('points_by_hit_tie_breaker_game')->nullable()->default(null)->comment('Puntos por acertar Desempate');
+            $table->integer('points_by_hit_game')->nullable()->default(null)->comment('Puntos por acertar partido');
+            $table->integer('total_points')->nullable()->default(null)->comment('Puntos Totales');
             $table->timestamps();
         });
     }

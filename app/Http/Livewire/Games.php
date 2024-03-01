@@ -100,16 +100,18 @@ class Games extends Component
             return false;
         }
 
-        if( strlen($this->main_record->visit_points) && strlen($this->main_record->local_points) && $this->main_record->visit_points =! $this->main_record->local_points )
+
+        if( strlen($this->main_record->visit_points) && strlen($this->main_record->local_points) && $this->main_record->visit_points != $this->main_record->local_points )
         {
             $this->main_record->winner = $this->main_record->win();
         }else{
+
             $this->main_record->winner = null;
             $this->main_record->visit_points = null;
             $this->main_record->local_points = null;
         }
-
         $this->main_record->save();
+
 
         // TODO: Cambiar a leer el partido de desempate desde la jornada y no desde funciones generales
         $this->id_game_tie_breaker = $this->get_id_game_to_get_points($this->main_record->round);
