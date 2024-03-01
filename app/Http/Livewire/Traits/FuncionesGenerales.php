@@ -562,7 +562,6 @@ trait FuncionesGenerales
         }
 
         /*+-------------------------------------------------------------------------+
-          |  TODO:                                                                  |
           |     VALORES PARA LAS POSICIONES TANTO EN JORNADA COMO TABLA GENERAL     |
           +-------------------------------------------------------------------------+
           | 1.- Si usuario no tiene registro en tabla posiciones x jornada crearlo  |

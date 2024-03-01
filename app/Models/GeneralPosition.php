@@ -16,6 +16,7 @@ class GeneralPosition extends Model
         'hits',
         'hits_breaker',
         'total_error',
+        'total_points',
         'position'
     ];
 
@@ -43,12 +44,14 @@ class GeneralPosition extends Model
     public function create_positions($positions){
         $position = 0;
         foreach($positions as $reg_position){
+
            $position_general= $this->create([
                 'user_id'       => $reg_position->user_id,
                 'points'        => $reg_position->total_points,
                 'hits'          => $reg_position->hits,
                 'hits_breaker'  => $reg_position->hits_breaker,
                 'total_error'   => $reg_position->total_error,
+                'total_points'  => $reg_position->total_points,
                 'position'      => ++$position
             ]);
         }
