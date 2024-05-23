@@ -122,3 +122,10 @@ FROM users us,positions pos
 WHERE us.id = pos.user_id
   AND pos.round_id = 1
 ORDER BY pos.position;
+
+
+----- ACTUALIZAR PARTIDOS COMO JUGADOS -----
+USE caudillos;
+UPDATE games SET game_day = DATE_ADD(game_day, INTERVAL 1 YEAR),local_points=NULL,visit_points=NULL,winner=NULL;
+UPDATE games SET local_points = FLOOR(RAND() * 100) + 1, visit_points = FLOOR(RAND() * 100) + 1 WHERE round_id= 1;
+UPDATE games SET winner = CASE WHEN local_points > visit_points THEN 1 ELSE 2 END WHERE round_id= 1;
