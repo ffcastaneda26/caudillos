@@ -7,6 +7,7 @@ use App\Models\Round;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\Builder;
 use App\Http\Livewire\Traits\CrudTrait;
 use App\Http\Livewire\Traits\FuncionesGenerales;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -78,7 +79,30 @@ class Results extends Component
                 break;
         }
 
-        if($this->sort == 'name'){
+
+            // $users = User::role('participante')
+            //     ->wherehas('picks', function ($query) {
+            //         $query->wherehas('game', function ($query) {
+            //             $query->where('round_id', $this->selected_round->id);
+            //         });
+            //     })
+            //     ->with([
+            //         'picks' => function ($query) {
+            //             $query->wherehas('game', function ($query) {
+            //                 $query->where('round_id', $this->selected_round->id);
+            //             });
+            //         },
+            //         'positions' => function($query){
+            //             $query->where('round_id',$this->selected_round->id);
+            //         }
+            //     ])
+            //     ->paginate($this->pagination);
+
+            // return $users;
+
+
+
+        if ($this->sort == 'name') {
             $users = User::role('participante')
                 ->join('picks', 'users.id', '=', 'picks.user_id')
                 ->join('games', 'picks.game_id', '=', 'games.id')
@@ -94,27 +118,31 @@ class Results extends Component
             } else {
                 $users->orderBy(DB::raw('SUM(picks.hit)'), $this->direction);
             }
-        }else{
+        } else {
             $users = User::role('participante')
-            ->join('positions', 'users.id', '=', 'positions.user_id')
-            ->join('rounds', 'positions.round_id', '=', 'rounds.id')
-            ->where('rounds.id', '=', $this->selected_round->id)
-            ->where('users.active', '1')
-            ->where('first_name', 'LIKE', "%$this->search%")
-            ->orwhere('last_name', 'LIKE', "%$this->search%")
-            ->orwhere('email', 'LIKE', "%$this->search%")
-            ->groupBy('users.id',
-                      'positions.position',
-                      'positions.total_points',
-                      'positions.hits')
-            ->select('users.*',
-                     DB::raw('CONCAT(users.first_name, " ", users.last_name) as name'),
-                     'positions.total_points',
-                     'positions.position',
-                     'positions.hits')
-            ->orderby('positions.total_points', $this->direction);
+                ->join('positions', 'users.id', '=', 'positions.user_id')
+                ->join('rounds', 'positions.round_id', '=', 'rounds.id')
+                ->where('rounds.id', '=', $this->selected_round->id)
+                ->where('users.active', '1')
+                ->where('first_name', 'LIKE', "%$this->search%")
+                ->orwhere('last_name', 'LIKE', "%$this->search%")
+                ->orwhere('email', 'LIKE', "%$this->search%")
+                ->groupBy(
+                    'users.id',
+                    'positions.position',
+                    'positions.total_points',
+                    'positions.hits'
+                )
+                ->select(
+                    'users.*',
+                    DB::raw('CONCAT(users.first_name, " ", users.last_name) as name'),
+                    'positions.total_points',
+                    'positions.position',
+                    'positions.hits'
+                )
+                ->orderby('positions.total_points', $this->direction);
 
-         }
+        }
 
 
         $users = $users->paginate($this->pagination);
@@ -132,10 +160,10 @@ class Results extends Component
             $this->selected_round = $round;
             $this->tie_breaker_game = $this->selected_round->get_tie_breaker_game();
             $this->round_has_games_played = $this->selected_round->has_games_played();
-            $this->tie_breaker_game_allow_pick=$this->tie_breaker_game->allow_pick();
-            $this->tie_breaker_game_has_result=$this->tie_breaker_game->has_result();
+            $this->tie_breaker_game_allow_pick = $this->tie_breaker_game->allow_pick();
+            $this->tie_breaker_game_has_result = $this->tie_breaker_game->has_result();
             $this->id_game_tie_breaker = $this->tie_breaker_game->id;
-            $this->round_games  = $this->selected_round->games()->get();
+            $this->round_games = $this->selected_round->games()->get();
         }
     }
 
